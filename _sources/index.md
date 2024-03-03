@@ -1,4 +1,4 @@
-# 머신러닝시스템디자인 2024
+# 머신러닝시스템 2024
 
 [![halla-img]][halla-url]
 [![course-img]][course-url]
