@@ -1,4 +1,4 @@
-# 머신러닝시스템 2024
+# Home
 
 [![halla-img]][halla-url]
 [![course-img]][course-url]
