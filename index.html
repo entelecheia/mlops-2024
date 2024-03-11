@@ -93,7 +93,7 @@
     <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Week 1" href="week01/index.html" />
+    <link rel="next" title="Week 1 - MLOps 소개" href="week01/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -206,11 +206,8 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="week01/index.html">Week 1</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="week01/session1.html">Session 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="week01/session2.html">Session 2</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="week01/index.html">Week 1 - MLOps 소개</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week02/index.html">Week 2</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
 <ul class="nav bd-sidenav">
@@ -439,6 +436,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#options">Options</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributors">Contributors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changelog">Changelog</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
@@ -471,11 +474,8 @@ document.write(`
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="week01/index.html">Week 1</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="week01/session1.html">Session 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="week01/session2.html">Session 2</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="week01/index.html">Week 1 - MLOps 소개</a></li>
+<li class="toctree-l1"><a class="reference internal" href="week02/index.html">Week 2</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -495,6 +495,60 @@ document.write(`
 <li class="toctree-l1"><a class="reference external" href="https://aibasics.halla.ai">AI 세상 속으로</a></li>
 </ul>
 </div>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>To install the MLOps 2024 package, use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">mlops2024</span>
+</pre></div>
+</div>
+<p>Or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="n">mlops2024</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag is optional and can be used to install the package in the user’s home directory instead of the system-wide location.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<p>To use the MLOps 2024 CLI, run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlops2024</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>If no option is provided, the website of the book will open in the default web browser.</p>
+<section id="options">
+<h3>Options<a class="headerlink" href="#options" title="Link to this heading">#</a></h3>
+<p>The following options are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--version</span></code>: Show the version of the package and exit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-b</span></code>, <code class="docutils literal notranslate"><span class="pre">--build</span></code>: Build the book.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-l</span></code>, <code class="docutils literal notranslate"><span class="pre">--local</span></code>: Open the locally built HTML version of the book in the browser.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--help</span></code>: Show the help message and exit.</p></li>
+</ul>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>To build the book, use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlops2024</span> <span class="o">--</span><span class="n">build</span>
+</pre></div>
+</div>
+<p>This will trigger the build process for the book.</p>
+</li>
+<li><p>To open the locally built HTML version of the book in the browser, use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlops2024</span> <span class="o">--</span><span class="n">local</span>
+</pre></div>
+</div>
+<p>This will open the book’s HTML file in your default web browser.</p>
+</li>
+<li><p>To view the version of the package, use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mlops2024</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>This will display the version number of the MLOps 2024 package.</p>
+</li>
+</ol>
+<p>For more information and additional options, run <code class="docutils literal notranslate"><span class="pre">mlops2024</span> <span class="pre">--help</span></code> to see the help message.</p>
+</section>
 </section>
 <section id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Link to this heading">#</a></h2>
@@ -554,7 +608,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Week 1</p>
+        <p class="prev-next-title">Week 1 - MLOps 소개</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -575,6 +629,12 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#options">Options</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributors">Contributors</a></li>
