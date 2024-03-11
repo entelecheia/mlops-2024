@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Week 1 - MLOps 소개 &#8212; 머신러닝시스템 2024</title>
+    <title>MLOps 소개 &#8212; 머신러닝시스템 2024</title>
   
   
   
@@ -208,11 +208,11 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Week 1</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Week 1 - MLOps 소개</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">MLOps 소개</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week02/index.html">Week 2</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../week02/devops.html">Week 2 - DevOps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week02/devops.html">DevOps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../week02/gitops.html">GitOps</a></li>
 </ul>
 </li>
@@ -435,7 +435,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Week 1 - MLOps 소개</h1>
+    <h1>MLOps 소개</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -449,9 +449,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">머신러닝 시스템의 과제</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#devops-mlops">DevOps와 MLOps 비교</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">지속적인 제공 및 자동화 파이프라인</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops">MLOps가 중요한 이유</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">MLOps 구현 방법</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">종단간 MLOps 솔루션</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">MLOps가 중요한 이유</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">MLOps 구현 방법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">종단간 MLOps 솔루션</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -464,8 +464,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="week-1-mlops">
-<h1>Week 1 - <a class="reference external" href="https://lecture.entelecheia.ai/lectures/mlops/intro.html">MLOps 소개</a><a class="headerlink" href="#week-1-mlops" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="mlops">
+<h1><a class="reference external" href="https://lecture.entelecheia.ai/lectures/mlops/intro.html">MLOps 소개</a><a class="headerlink" href="#mlops" title="Link to this heading">#</a></h1>
 <p>머신러닝 시스템 설계는 실제 문제를 해결하기 위해 머신러닝 모델과 알고리즘을 만들고 구현하는 과정입니다. 이는 소프트웨어 아키텍처 정의, 적절한 알고리즘 선택, 특정 요구사항을 충족하기 위한 인프라 설계 등을 포함합니다.</p>
 <p>MLOps(Machine Learning Operations)는 머신러닝 시스템에 DevOps 원칙을 적용하는 관련 분야입니다. MLOps는 머신러닝 모델의 복잡성과 확장성을 처리할 수 있는 소프트웨어 아키텍처 개발, 모델 학습 및 배포에 필요한 데이터 및 인프라 관리, 효율성과 신뢰성 향상을 위한 프로세스 자동화에 초점을 맞춥니다.</p>
 <div align="center" class="mermaid align-center">
@@ -492,7 +492,7 @@ style G fill:#c9a690
 <figure class="align-default" id="fig-mlcode">
 <a class="reference internal image-reference" href="../_images/mlcode.png"><img alt="../_images/mlcode.png" src="../_images/mlcode.png" style="width: 700px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Only a small fraction of real-world ML systems is composed of the ML code <span id="id2">[<a class="reference internal" href="#id8" title="David Sculley, Gary Holt, Daniel Golovin, Eugene Davydov, Todd Phillips, Dietmar Ebner, Vinay Chaudhary, Michael Young, Jean-francois Crespo, and Dan Dennison. Hidden technical debt in machine learning systems. Advances in neural information processing systems, 2015.">Sculley <em>et al.</em>, 2015</a>]</span></span><a class="headerlink" href="#fig-mlcode" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Only a small fraction of real-world ML systems is composed of the ML code <span id="id2">[<a class="reference internal" href="#id9" title="David Sculley, Gary Holt, Daniel Golovin, Eugene Davydov, Todd Phillips, Dietmar Ebner, Vinay Chaudhary, Michael Young, Jean-francois Crespo, and Dan Dennison. Hidden technical debt in machine learning systems. Advances in neural information processing systems, 2015.">Sculley <em>et al.</em>, 2015</a>]</span></span><a class="headerlink" href="#fig-mlcode" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -519,12 +519,12 @@ style G fill:#c9a690
 <h2>지속적인 제공 및 자동화 파이프라인<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <p>MLOps의 핵심 구성 요소 중 하나는 머신러닝 모델 구축 및 배포 프로세스를 간소화하기 위해 지속적인 제공 및 자동화 파이프라인을 사용하는 것입니다. Apache Airflow, TensorFlow, Kubernetes, Prometheus 등의 자동화 도구를 사용하여 데이터 수집, 준비, 기능 엔지니어링, 모델 교육 및 검증, 배포, 모니터링 및 유지 관리를 자동화할 수 있습니다.</p>
 </section>
-<section id="mlops">
-<h2>MLOps가 중요한 이유<a class="headerlink" href="#mlops" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h2>MLOps가 중요한 이유<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
 <p>MLOps는 머신러닝 프로젝트 구현 및 유지 관리가 어려울 수 있기 때문에 중요합니다. MLOps는 데이터 수집 및 전처리부터 모델 배포 및 유지 관리에 이르기까지 머신러닝 모델의 전체 수명 주기를 관리하기 위한 프레임워크를 제공함으로써 이러한 과제를 극복하는 데 도움이 됩니다.</p>
 </section>
-<section id="id5">
-<h2>MLOps 구현 방법<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h2>MLOps 구현 방법<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <p>MLOps 구현에는 조직의 요구 사항과 머신러닝 프로세스의 성숙도에 따라 다양한 방법이 있습니다. MLOps 구현은 현재 상태 평가, 요구사항 정의, 올바른 도구 선택, 프로세스 자동화, 모니터링 및 유지 관리, 머신러닝 모델의 지속적인 교육 및 테스트 수행 등의 단계가 포함됩니다.</p>
 <p>구글에서 제안한 MLOps 성숙도 수준은 다음과 같습니다:</p>
 <ul class="simple">
@@ -533,8 +533,8 @@ style G fill:#c9a690
 <li><p>MLOps 레벨 2: 강력한 자동화된 CI/CD 시스템을 포함하며 기술 기반 회사에 적합</p></li>
 </ul>
 </section>
-<section id="id6">
-<h2>종단간 MLOps 솔루션<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h2>종단간 MLOps 솔루션<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
 <p>다양한 MLOps 플랫폼과 도구가 있으며, 각각 장단점이 있습니다. 대표적인 MLOps 솔루션으로는 Algorithmia, <a class="reference external" href="http://Allegro.io">Allegro.io</a>, <a class="reference external" href="http://Cnvrg.io">Cnvrg.io</a>, Dataiku, Datarobot, H2O, Iguazio, Kubeflow, Pachyderm, Polyaxon, Valohai 등이 있습니다.</p>
 <p>최근에는 MLOps 분야가 빠르게 발전하고 있으며, 클라우드 기반 MLOps 서비스가 각광받고 있습니다. 대표적으로 AWS의 SageMaker, GCP의 Vertex AI, Azure의 Azure Machine Learning 등이 있습니다. 이러한 서비스는 데이터 준비, 모델 학습, 배포, 모니터링 등 머신러닝 워크플로우의 전 과정을 통합하여 제공합니다.</p>
 <p>또한 최근에는 MLOps와 데이터 품질 관리, 모델 해석 가능성, 공정성 등 책임감 있는 AI(Responsible AI)에 대한 관심도 높아지고 있습니다. 머신러닝 모델의 편향성을 최소화하고 설명 가능성을 높이기 위한 다양한 기술과 방법론이 연구되고 있습니다.</p>
@@ -542,9 +542,9 @@ style G fill:#c9a690
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<div class="docutils container" id="id7">
+<div class="docutils container" id="id8">
 <div role="list" class="citation-list">
-<div class="citation" id="id8" role="doc-biblioentry">
+<div class="citation" id="id9" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">SHG+15</a><span class="fn-bracket">]</span></span>
 <p>David Sculley, Gary Holt, Daniel Golovin, Eugene Davydov, Todd Phillips, Dietmar Ebner, Vinay Chaudhary, Michael Young, Jean-francois Crespo, and Dan Dennison. Hidden technical debt in machine learning systems. <em>Advances in neural information processing systems</em>, 2015.</p>
 </div>
@@ -621,9 +621,9 @@ style G fill:#c9a690
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">머신러닝 시스템의 과제</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#devops-mlops">DevOps와 MLOps 비교</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">지속적인 제공 및 자동화 파이프라인</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops">MLOps가 중요한 이유</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">MLOps 구현 방법</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">종단간 MLOps 솔루션</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">MLOps가 중요한 이유</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">MLOps 구현 방법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">종단간 MLOps 솔루션</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>

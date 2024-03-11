@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Week 2 - DevOps &#8212; 머신러닝시스템 2024</title>
+    <title>DevOps &#8212; 머신러닝시스템 2024</title>
   
   
   
@@ -206,11 +206,11 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week01/index.html">Week 1</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../week01/intro.html">Week 1 - MLOps 소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week01/intro.html">MLOps 소개</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Week 2</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Week 2 - DevOps</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">DevOps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gitops.html">GitOps</a></li>
 </ul>
 </li>
@@ -433,7 +433,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Week 2 - DevOps</h1>
+    <h1>DevOps</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -443,13 +443,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#devops">DevOps의 작동 방식</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DevOps 도구</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">버전 제어:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DevOps의 작동 방식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">DevOps 도구</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">버전 제어:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd">지속적 통합 및 지속적 제공(CI/CD):</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iac">구성 관리 및 코드로서의 인프라(IaC):</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">컨테이너화 및 오케스트레이션:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">모니터링 및 로깅:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">컨테이너화 및 오케스트레이션:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">모니터링 및 로깅:</a></li>
 </ul>
 </li>
 </ul>
@@ -463,8 +463,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="week-2-devops">
-<h1>Week 2 - DevOps<a class="headerlink" href="#week-2-devops" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="devops">
+<h1>DevOps<a class="headerlink" href="#devops" title="Link to this heading">#</a></h1>
 <p><img alt="DevOps" src="../_images/devops.jpeg" /></p>
 <p>DevOps는 소프트웨어 개발(Dev)과 IT 운영(Ops) 간의 격차를 해소하기 위한 실천 방법, 도구 및 문화적 철학의 조합입니다. DevOps의 주요 목표는 개발 및 운영 팀 간의 협업을 개선하고, 소프트웨어 개발 생명 주기를 간소화하며, 더 빠르고 안정적이며 높은 품질의 소프트웨어를 제공하는 것입니다.</p>
 <p>DevOps는 여러 가지 핵심 원칙과 실천 방법을 포함합니다:</p>
@@ -486,8 +486,8 @@ document.write(`
 <li><p><strong>보안 및 규정 준수</strong>: DevOps 팀은 DevSecOps 관행을 통해 개발 프로세스 전반에 걸쳐 보안과 규정 준수를 통합하는 데 점점 더 집중하고 있습니다. 여기에는 코드로서의 정책, 보안 테스트 자동화, 지속적인 모니터링 및 감사 등이 포함됩니다.</p></li>
 </ul>
 <p>이러한 발전은 조직이 더 민첩하고 효율적이며 안전한 방식으로 소프트웨어를 제공할 수 있도록 지원하는 동시에 DevOps의 핵심 원칙과 실천 방법을 기반으로 합니다.</p>
-<section id="devops">
-<h2>DevOps의 작동 방식<a class="headerlink" href="#devops" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h2>DevOps의 작동 방식<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>DevOps는 이러한 목표를 달성하기 위해 도구, 방법론 및 문화적 변화와 같은 다양한 구성 요소를 통합하여 작동합니다.</p>
 <p>DevOps가 작동하는 방식에 대한 개요는 다음과 같습니다:</p>
 <ul class="simple">
@@ -509,11 +509,11 @@ document.write(`
 </ul>
 <p>이러한 발전은 DevOps의 핵심 원칙과 실천 방법을 기반으로 하여 조직이 더 민첩하고, 안정적이며, 고객 중심적인 방식으로 소프트웨어를 제공할 수 있도록 지원합니다.</p>
 </section>
-<section id="id1">
-<h2>DevOps 도구<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>소프트웨어 개발 및 운영 프로세스의 다양한 측면을 자동화하고 간소화하는 데 도움이 되는 다양한 DevOps 도구가 있습니다. 이러한 도구는 협업, 지속적 통합 및 제공, 인프라 관리, 모니터링 등을 지원합니다. 다음은 카테고리별로 그룹화된 인기 있는 DevOps 도구 목록입니다:</p>
 <section id="id2">
-<h3>버전 제어:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h2>DevOps 도구<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>소프트웨어 개발 및 운영 프로세스의 다양한 측면을 자동화하고 간소화하는 데 도움이 되는 다양한 DevOps 도구가 있습니다. 이러한 도구는 협업, 지속적 통합 및 제공, 인프라 관리, 모니터링 등을 지원합니다. 다음은 카테고리별로 그룹화된 인기 있는 DevOps 도구 목록입니다:</p>
+<section id="id3">
+<h3>버전 제어:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Git</strong>: 협업을 가능하게 하고 코드베이스의 변경 사항을 추적하는 널리 사용되는 분산 버전 제어 시스템입니다.</p></li>
 <li><p><strong>GitHub, GitLab, Bitbucket</strong>: Git 저장소 호스팅, 이슈 추적 및 협업 기능을 제공하는 웹 기반 플랫폼입니다.</p></li>
@@ -540,8 +540,8 @@ document.write(`
 <li><p><strong>Terraform</strong>: 다양한 클라우드 플랫폼에서 인프라를 프로비저닝하고 관리하기 위한 HashiCorp의 오픈 소스 IaC 도구입니다.</p></li>
 </ul>
 </section>
-<section id="id3">
-<h3>컨테이너화 및 오케스트레이션:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h3>컨테이너화 및 오케스트레이션:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Docker</strong>: 일관되고 재현 가능한 환경을 활성화하는 컨테이너를 사용하여 애플리케이션 패키징 및 배포를 단순화하는 플랫폼입니다.</p></li>
 <li><p><strong>Kubernetes</strong>: 컨테이너화된 애플리케이션의 배포, 스케일링 및 관리를 자동화하기 위한 컨테이너 오케스트레이션 플랫폼입니다.</p></li>
@@ -549,8 +549,8 @@ document.write(`
 <li><p><strong>OpenShift</strong>: Kubernetes 위에 구축된 Red Hat의 컨테이너 플랫폼으로, 엔터프라이즈 사용 사례를 위한 추가 기능 및 통합을 제공합니다.</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>모니터링 및 로깅:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>모니터링 및 로깅:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Prometheus</strong>: 다양한 소스에서 시계열 메트릭을 수집하고 저장하는 오픈 소스 모니터링 및 경고 도구입니다.</p></li>
 <li><p><strong>Grafana</strong>: Prometheus, Elasticsearch 등을 포함한 여러 데이터 소스를 지원하는 시각화 및 분석 플랫폼입니다.</p></li>
@@ -636,13 +636,13 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#devops">DevOps의 작동 방식</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DevOps 도구</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">버전 제어:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DevOps의 작동 방식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">DevOps 도구</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">버전 제어:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-cd">지속적 통합 및 지속적 제공(CI/CD):</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iac">구성 관리 및 코드로서의 인프라(IaC):</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">컨테이너화 및 오케스트레이션:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">모니터링 및 로깅:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">컨테이너화 및 오케스트레이션:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">모니터링 및 로깅:</a></li>
 </ul>
 </li>
 </ul>

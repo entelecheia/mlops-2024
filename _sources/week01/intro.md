@@ -1,4 +1,4 @@
-# Week 1 - [MLOps 소개](https://lecture.entelecheia.ai/lectures/mlops/intro.html)
+# [MLOps 소개](https://lecture.entelecheia.ai/lectures/mlops/intro.html)
 
 머신러닝 시스템 설계는 실제 문제를 해결하기 위해 머신러닝 모델과 알고리즘을 만들고 구현하는 과정입니다. 이는 소프트웨어 아키텍처 정의, 적절한 알고리즘 선택, 특정 요구사항을 충족하기 위한 인프라 설계 등을 포함합니다.
 
