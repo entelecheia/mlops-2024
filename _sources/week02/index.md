@@ -1,4 +1,4 @@
-# DevOps
+# Week 2 - DevOps
 
 ![DevOps](figs/devops.jpeg)
 
