@@ -1,0 +1,909 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Docker &#8212; 머신러닝시스템 2024</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-examples.css?v=e236af4b" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script src="../_static/js/hoverxref.js"></script>
+    <script src="../_static/js/tooltipster.bundle.min.js"></script>
+    <script src="../_static/js/micromodal.min.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BQJE5V9RK2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-BQJE5V9RK2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-BQJE5V9RK2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'week04/docker';</script>
+    <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="containerd" href="containerd.html" />
+    <link rel="prev" title="컨테이너화" href="containerization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">머신러닝시스템 2024</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Home
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week01/index.html">Week 1</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week01/intro.html">MLOps 소개</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week02/index.html">Week 2</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week02/devops.html">DevOps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week02/gitops.html">GitOps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week03/index.html">Week 3</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week03/dotfiles.html">Dotfiles</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Week 4</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="containerization.html">컨테이너화</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="containerd.html"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../project/index.html">MLOps 프로젝트</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../syllabus/index.html">수업계획서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">만든 사람들</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://halla.ai">인공지능학과</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://os2024.halla.ai">운영체제 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://mlops2024.halla.ai">머신러닝시스템 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://cobots2024.halla.ai">협동로봇활용 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://aibasics.halla.ai">AI 세상 속으로</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week04/docker.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek04/docker.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/week04/docker.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Docker</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Docker의 핵심 구성 요소</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Docker 엔진</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Docker 이미지</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Docker 컨테이너</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dockerfile">Dockerfile</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Docker 레지스트리</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">설치</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">기본 Docker 명령어</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">이미지 가져오기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">이미지 목록 보기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">컨테이너 생성 및 실행</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">컨테이너 목록 보기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">컨테이너 중지</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">컨테이너 제거</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">이미지 제거</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose">Docker Compose</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Docker Compose 설치</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose-yml"><code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> 파일 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">서비스 시작</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">서비스 중지</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Docker 볼륨</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">볼륨 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">컨테이너에서 볼륨 사용</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Docker의 고급 기능</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-stage-builds">다단계 빌드 (Multi-stage Builds)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Docker 네트워크</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-best-practices">Docker 보안 Best Practices</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kubernetes">쿠버네티스 (Kubernetes)와의 통합</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">결론</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">주요 용어 설명</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">최신 동향</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="docker">
+<h1>Docker<a class="headerlink" href="#docker" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>Docker의 핵심 구성 요소<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>Docker 엔진<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Docker 엔진은 Docker 플랫폼을 구동하는 핵심 구성 요소입니다. 컨테이너 생성, 관리 및 조율을 담당하며, 데몬 프로세스(dockerd), REST API, 명령줄 인터페이스(CLI)로 구성됩니다.</p>
+</section>
+<section id="id3">
+<h3>Docker 이미지<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Docker 이미지는 컨테이너를 생성하고 실행하는 데 필요한 애플리케이션 코드, 종속성, 라이브러리 및 구성 파일이 포함된 읽기 전용 템플릿입니다. 이미지는 Docker 레지스트리에 저장되며 컨테이너를 생성하기 위해 가져올 수 있습니다.</p>
+</section>
+<section id="id4">
+<h3>Docker 컨테이너<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Docker 컨테이너는 Docker 이미지로부터 생성된 경량의 독립적이고 실행 가능한 소프트웨어 패키지입니다. 애플리케이션 실행에 필요한 모든 것을 포함하여 서로 다른 환경에서도 일관성을 보장합니다.</p>
+</section>
+<section id="dockerfile">
+<h3>Dockerfile<a class="headerlink" href="#dockerfile" title="Link to this heading">#</a></h3>
+<p>Dockerfile은 Docker 이미지를 빌드하기 위한 명령어가 포함된 스크립트입니다. 베이스 이미지, 종속성, 구성 및 애플리케이션에 맞게 사용자 정의된 이미지를 생성하는 데 필요한 기타 설정을 지정합니다.</p>
+</section>
+<section id="id5">
+<h3>Docker 레지스트리<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Docker 레지스트리는 Docker 이미지를 위한 중앙 집중식 저장소입니다. Docker Hub는 Docker Inc.에서 유지 관리하는 공개 레지스트리지만, 사설 레지스트리를 생성하거나 타사 솔루션을 사용할 수도 있습니다.</p>
+</section>
+</section>
+<section id="id6">
+<h2>설치<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>공식 설치 가이드에 따라 시스템에 Docker를 설치하세요:</p>
+<ul class="simple">
+<li><p>Linux: <a class="reference external" href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a></p></li>
+<li><p>MacOS: <a class="reference external" href="https://docs.docker.com/docker-for-mac/install/">https://docs.docker.com/docker-for-mac/install/</a></p></li>
+<li><p>Windows: <a class="reference external" href="https://docs.docker.com/docker-for-windows/install/">https://docs.docker.com/docker-for-windows/install/</a></p></li>
+</ul>
+</section>
+<section id="id7">
+<h2>기본 Docker 명령어<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="id8">
+<h3>이미지 가져오기<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>레지스트리에서 이미지 다운로드:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>&lt;image-name&gt;
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>이미지 목록 보기<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>로컬에서 사용 가능한 모든 이미지 표시:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>images
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>컨테이너 생성 및 실행<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>이미지에서 컨테이너를 생성하고 시작:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--name<span class="w"> </span>&lt;container-name&gt;<span class="w"> </span>&lt;image-name&gt;
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>컨테이너 목록 보기<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>실행 중인 모든 컨테이너 나열:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>ps
+</pre></div>
+</div>
+<p>중지된 컨테이너를 포함한 모든 컨테이너 나열:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>ps<span class="w"> </span>-a
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3>컨테이너 중지<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>실행 중인 컨테이너 중지:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>stop<span class="w"> </span>&lt;container-name&gt;
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3>컨테이너 제거<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>중지된 컨테이너 제거:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>rm<span class="w"> </span>&lt;container-name&gt;
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h3>이미지 제거<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>사용하지 않는 이미지 제거:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>rmi<span class="w"> </span>&lt;image-name&gt;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="docker-compose">
+<h2>Docker Compose<a class="headerlink" href="#docker-compose" title="Link to this heading">#</a></h2>
+<p>Docker Compose는 다중 컨테이너 Docker 애플리케이션을 정의하고 실행하기 위한 도구입니다. 단일 <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> 파일에서 애플리케이션의 서비스, 네트워크 및 볼륨을 구성할 수 있어 여러 종속성이 있는 복잡한 애플리케이션 관리 프로세스를 간소화합니다.</p>
+<section id="id15">
+<h3>Docker Compose 설치<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>공식 설치 가이드를 따르세요:</p>
+<ul class="simple">
+<li><p>Linux: <a class="reference external" href="https://docs.docker.com/compose/install/">https://docs.docker.com/compose/install/</a></p></li>
+<li><p>MacOS &amp; Windows: Docker Desktop에 Docker Compose가 사전 설치되어 있습니다.</p></li>
+</ul>
+</section>
+<section id="docker-compose-yml">
+<h3><code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> 파일 생성<a class="headerlink" href="#docker-compose-yml" title="Link to this heading">#</a></h3>
+<p>프로젝트 디렉토리에 <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> 파일을 생성하고 애플리케이션의 서비스, 네트워크 및 볼륨을 정의하세요.</p>
+<p><code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> 파일 예시:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.8&quot;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">web</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8080:8080&quot;</span>
+<span class="w">  </span><span class="nt">redis</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;redis:alpine&quot;</span>
+</pre></div>
+</div>
+<p>이 예시에서는 <code class="docutils literal notranslate"><span class="pre">web</span></code>과 <code class="docutils literal notranslate"><span class="pre">redis</span></code>의 두 서비스가 있습니다. <code class="docutils literal notranslate"><span class="pre">web</span></code> 서비스는 현재 디렉토리에서 빌드되며, 8080 포트가 호스트의 8080 포트에 매핑됩니다. <code class="docutils literal notranslate"><span class="pre">redis</span></code> 서비스는 Docker Hub의 공식 Redis 이미지를 사용합니다.</p>
+</section>
+<section id="id16">
+<h3>서비스 시작<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> 파일에 정의된 모든 서비스 시작:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h3>서비스 중지<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>모든 서비스 중지:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>down
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id18">
+<h2>Docker 볼륨<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>Docker 볼륨은 Docker 컨테이너에 의해 생성되고 사용되는 데이터를 유지하는 데 사용됩니다. 애플리케이션의 데이터를 컨테이너의 수명주기와 분리하여 컨테이너가 제거되더라도 데이터가 그대로 유지되도록 합니다.</p>
+<section id="id19">
+<h3>볼륨 생성<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>새 Docker 볼륨 생성:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>&lt;volume-name&gt;
+</pre></div>
+</div>
+</section>
+<section id="id20">
+<h3>컨테이너에서 볼륨 사용<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>컨테이너에서 볼륨을 사용하려면 <code class="docutils literal notranslate"><span class="pre">-v</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">--mount</span></code> 플래그를 사용하여 마운트해야 합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>&lt;volume-name&gt;:/data<span class="w"> </span>&lt;image-name&gt;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id21">
+<h2>Docker의 고급 기능<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<section id="multi-stage-builds">
+<h3>다단계 빌드 (Multi-stage Builds)<a class="headerlink" href="#multi-stage-builds" title="Link to this heading">#</a></h3>
+<p>다단계 빌드는 Dockerfile에서 여러 단계를 정의하여 이미지 크기를 줄이고 빌드 프로세스를 최적화할 수 있는 Docker의 기능입니다. 각 단계는 이전 단계의 결과물을 사용할 수 있으며, 최종 이미지에는 필요한 아티팩트만 포함됩니다. 이는 불필요한 종속성과 도구를 제거하여 이미지 크기를 최소화하는 데 도움이 됩니다.</p>
+<p>다단계 빌드 예시:</p>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="c"># 빌드 단계</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">golang:1.16</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>main<span class="w"> </span>.
+
+<span class="c"># 런타임 단계</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">alpine:3.14</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build<span class="w"> </span>/app/main<span class="w"> </span>.
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./main&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id22">
+<h3>Docker 네트워크<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>Docker 네트워크는 컨테이너 간의 통신을 가능하게 합니다. Docker는 브리지, 호스트, 오버레이 등 다양한 네트워크 드라이버를 제공합니다. 사용자 정의 네트워크를 생성하여 컨테이너를 격리하고 서비스 디스커버리를 활성화할 수 있습니다.</p>
+<p>네트워크 생성 예시:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>my-network
+</pre></div>
+</div>
+</section>
+<section id="docker-best-practices">
+<h3>Docker 보안 Best Practices<a class="headerlink" href="#docker-best-practices" title="Link to this heading">#</a></h3>
+<p>Docker 컨테이너를 안전하게 실행하려면 다음과 같은 보안 모범 사례를 따르는 것이 좋습니다:</p>
+<ul class="simple">
+<li><p>최소 권한 원칙 적용: 컨테이너에 필요한 최소한의 권한만 부여합니다.</p></li>
+<li><p>신뢰할 수 있는 이미지 사용: 공식 이미지 또는 검증된 출처의 이미지를 사용합니다.</p></li>
+<li><p>이미지 취약점 스캔: 정기적으로 이미지를 스캔하여 알려진 취약점을 식별하고 해결합니다.</p></li>
+<li><p>시크릿 관리: Docker Swarm의 시크릿 관리 기능 또는 Hashicorp Vault와 같은 외부 도구를 사용하여 민감한 정보를 안전하게 저장하고 관리합니다.</p></li>
+<li><p>네트워크 격리: 필요에 따라 컨테이너를 격리하고 최소한의 네트워크 액세스 권한을 부여합니다.</p></li>
+</ul>
+</section>
+</section>
+<section id="kubernetes">
+<h2>쿠버네티스 (Kubernetes)와의 통합<a class="headerlink" href="#kubernetes" title="Link to this heading">#</a></h2>
+<p>쿠버네티스는 컨테이너 오케스트레이션을 위한 오픈 소스 플랫폼으로, Docker 컨테이너를 대규모로 배포, 관리 및 확장할 수 있습니다. Docker와 쿠버네티스를 함께 사용하면 강력하고 유연한 컨테이너 기반 인프라를 구축할 수 있습니다.</p>
+<p>쿠버네티스는 다음과 같은 주요 개념을 제공합니다:</p>
+<ul class="simple">
+<li><p><strong>파드 (Pod)</strong>: 하나 이상의 컨테이너를 포함하는 쿠버네티스의 기본 배포 단위입니다.</p></li>
+<li><p><strong>서비스 (Service)</strong>: 파드 집합에 대한 안정적인 네트워크 인터페이스를 제공합니다.</p></li>
+<li><p><strong>레플리카셋 (ReplicaSet)</strong>: 지정된 수의 파드 복제본을 유지 관리합니다.</p></li>
+<li><p><strong>디플로이먼트 (Deployment)</strong>: 파드와 레플리카셋에 대한 선언적 업데이트를 제공합니다.</p></li>
+</ul>
+<p>Docker 컨테이너를 쿠버네티스에 배포하려면 먼저 Docker 이미지를 빌드한 다음, YAML 매니페스트 파일을 사용하여 쿠버네티스 리소스를 정의하고 배포합니다.</p>
+</section>
+<section id="id23">
+<h2>결론<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>Docker는 강력하고 유연한 컨테이너화 플랫폼으로, 애플리케이션 개발, 배포 및 관리 방식을 혁신하고 있습니다. 다단계 빌드, 네트워킹, 오케스트레이션 등의 고급 기능을 활용하고 보안 모범 사례를 따름으로써 효율적이고 안전한 컨테이너 기반 인프라를 구축할 수 있습니다. 또한 Docker와 쿠버네티스를 함께 사용하면 대규모 컨테이너 배포와 관리가 가능해집니다. Docker 기술 스택과 생태계가 계속 진화함에 따라 컨테이너화의 이점은 더욱 확대될 것입니다.</p>
+</section>
+<section id="id24">
+<h2>주요 용어 설명<a class="headerlink" href="#id24" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>오케스트레이션 (Orchestration)</strong>: 컨테이너의 배포, 관리, 스케일링 및 네트워킹을 자동화하는 프로세스입니다.</p></li>
+<li><p><strong>서비스 디스커버리 (Service Discovery)</strong>: 컨테이너화된 서비스를 자동으로 검색하고 통신할 수 있도록 하는 메커니즘입니다.</p></li>
+<li><p><strong>시크릿 (Secret)</strong>: 암호, 토큰, 키 등 민감한 정보를 저장하고 관리하기 위한 메커니즘입니다.</p></li>
+<li><p><strong>매니페스트 (Manifest)</strong>: 쿠버네티스에서 원하는 상태를 선언적으로 정의하는 YAML 또는 JSON 형식의 파일입니다.</p></li>
+</ul>
+</section>
+<section id="id25">
+<h2>최신 동향<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Rootless 모드</strong>: Docker는 이제 루트 권한 없이 컨테이너를 실행할 수 있는 Rootless 모드를 지원합니다. 이는 보안을 강화하고 컨테이너 실행과 관련된 잠재적인 위험을 줄이는 데 도움이 됩니다.</p></li>
+<li><p><strong>Docker 빌드킷 (Buildkit)</strong>: Docker 19.03부터 도입된 빌드킷은 Dockerfile을 사용하여 이미지를 빌드하기 위한 새로운 백엔드입니다. 빌드 성능을 개선하고, 동시 빌드를 지원하며, 향상된 캐싱 메커니즘을 제공합니다.</p></li>
+<li><p><strong>확장된 빌드 컨텍스트</strong>: Docker Buildkit은 이제 Docker 데몬의 컨텍스트 외부에 있는 파일과 디렉토리에 접근할 수 있어, 더 유연한 빌드 프로세스를 가능하게 합니다.</p></li>
+<li><p><strong>Compose 사양</strong>: Docker Compose 파일 형식이 오픈 사양으로 발전하여, Compose가 Docker 이외의 플랫폼과 도구에서도 사용될 수 있게 되었습니다.</p></li>
+<li><p><strong>Kubernetes의 기본 컨테이너 런타임으로 containerd 채택</strong>: 쿠버네티스는 Docker 대신 containerd를 기본 컨테이너 런타임으로 채택하기 시작했습니다. 이는 쿠버네티스의 성능과 안정성을 향상시킬 것으로 기대됩니다.</p></li>
+<li><p><strong>확장된 에코시스템</strong>: Docker 기술 스택을 기반으로 하는 도구와 플랫폼이 계속 등장하고 있습니다. 예를 들어, Knative는 쿠버네티스 위에 서버리스 워크로드를 구축할 수 있게 해주며, Istio는 마이크로서비스 아키텍처를 위한 서비스 메시를 제공합니다.</p></li>
+</ul>
+<p>Docker와 컨테이너 기술은 계속해서 발전하고 있으며, 클라우드 네이티브 애플리케이션 개발에 없어서는 안 될 중요한 역할을 하고 있습니다. DevOps 및 GitOps 워크플로우와 함께 Docker를 활용함으로써 조직은 애플리케이션 제공 속도를 높이고, 인프라 효율성을 개선하며, 운영 오버헤드를 줄일 수 있습니다. Docker의 미래는 더욱 자동화되고, 안전하며, 개발자 친화적인 컨테이너 기반 솔루션을 향해 나아갈 것입니다.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "chu-aie/mlops-2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./week04"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="containerization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">컨테이너화</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="containerd.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Docker의 핵심 구성 요소</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Docker 엔진</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Docker 이미지</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Docker 컨테이너</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dockerfile">Dockerfile</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Docker 레지스트리</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">설치</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">기본 Docker 명령어</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">이미지 가져오기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">이미지 목록 보기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">컨테이너 생성 및 실행</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">컨테이너 목록 보기</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">컨테이너 중지</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">컨테이너 제거</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">이미지 제거</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose">Docker Compose</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Docker Compose 설치</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose-yml"><code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> 파일 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">서비스 시작</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">서비스 중지</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Docker 볼륨</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">볼륨 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">컨테이너에서 볼륨 사용</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Docker의 고급 기능</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-stage-builds">다단계 빌드 (Multi-stage Builds)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">Docker 네트워크</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-best-practices">Docker 보안 Best Practices</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kubernetes">쿠버네티스 (Kubernetes)와의 통합</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">결론</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">주요 용어 설명</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">최신 동향</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By <a href='https://entelecheia.me/'>Young Joon Lee</a>
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script
+  data-embed-id="ed04ae65-928c-4ab5-912d-ce49f76450b7"
+  data-base-api-url="https://chat.entelecheia.app/api/embed"
+  data-brand-image-url="https://assets.entelecheia.ai/favicon.png"
+  data-chat-icon="magic"
+  data-sponsor-text="MLOps 2024"
+  data-sponsor-link="https://chat.entelecheia.app/workspace/mlops2024"
+  src="https://chat.entelecheia.app/embed/anythingllm-chat-widget.min.js">
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
