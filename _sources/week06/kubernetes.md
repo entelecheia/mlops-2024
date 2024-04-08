@@ -370,8 +370,8 @@ metadata:
   name: nginx
 spec:
   containers:
-	- name: nginx
-	  image: nginx:latest
+    - name: nginx
+      image: nginx:latest
 ```
 
 이 매니페스트를 nginx.yaml에 저장하고 `kubectl apply`를 실행하여 파드를 자동으로 생성합니다:
