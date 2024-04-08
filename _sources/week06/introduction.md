@@ -1,4 +1,4 @@
-# Bionic-GPT Enterprise"
+# Bionic-GPT Enterprise
 
 The enterprise version of Bionic-GPT includes the following
 
