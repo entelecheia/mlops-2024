@@ -1,0 +1,1000 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>쿠버네티스 &#8212; 머신러닝시스템 2024</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-examples.css?v=e236af4b" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script src="../_static/js/hoverxref.js"></script>
+    <script src="../_static/js/tooltipster.bundle.min.js"></script>
+    <script src="../_static/js/micromodal.min.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BQJE5V9RK2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-BQJE5V9RK2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-BQJE5V9RK2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'week06/kubernetes';</script>
+    <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Week 7" href="../week07/index.html" />
+    <link rel="prev" title="Week 6" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">머신러닝시스템 2024</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Home
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week01/index.html">Week 1</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week01/intro.html">MLOps 소개</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week02/index.html">Week 2</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week02/devops.html">DevOps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week02/gitops.html">GitOps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week03/index.html">Week 3</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week03/dotfiles.html">Dotfiles</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week04/index.html">Week 4</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week04/containerization.html">컨테이너화</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week04/docker.html">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week04/containerd.html"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week05/index.html">Week 5</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week05/hyperfast-docker.html">하이퍼패스트 도커 템플릿</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Week 6</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">쿠버네티스</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week07/index.html">Week 7</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../week07/bionic/index.html">Bionic-GPT</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/introduction.html">Bionic-GPT Enterprise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/bare-metal.html">Kubernetes on Bare Metal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/installation.html">Installing Bionic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/gpu-preparation.html">GPU Node Preparation (Nvidia)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/sso.html">Single Sign On</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/tgi.html">TGI Inference Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/roles.html">Role Based Access Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/pgadmin.html">Integrate pgAdmin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/upgrade.html">Upgrading Bionic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/jupyter-notebook.html">Adding a Jupyter Notebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/visualise-rag.html">Visualising RAG data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../project/index.html">MLOps 프로젝트</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../syllabus/index.html">수업계획서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">만든 사람들</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://halla.ai">인공지능학과</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://os2024.halla.ai">운영체제 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://mlops2024.halla.ai">머신러닝시스템 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://cobots2024.halla.ai">협동로봇활용 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://aibasics.halla.ai">AI 세상 속으로</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week06/kubernetes.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek06/kubernetes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/week06/kubernetes.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>쿠버네티스</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">쿠버네티스란?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">쿠버네티스 기능</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">쿠버네티스의 작동 방식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">설치 및 설정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">쿠버네티스 기본 용어 및 개념</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">노드</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">네임스페이스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">파드</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">레플리카셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">디플로이먼트</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">서비스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">작업</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">볼륨</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">시크릿 및 컨피그맵</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">데몬셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">네트워킹 정책</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kubectl">Kubectl을 사용하여 쿠버네티스와 상호 작용</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">파드 나열</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">파드 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">디플로이먼트 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">디플로이먼트 스케일링</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">서비스 노출</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">포트 포워딩 사용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yaml">YAML 파일 적용</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">핵심 사항</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>쿠버네티스<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://kubernetes.io" title="쿠버네티스">쿠버네티스</a>는 컨테이너화된 시스템을 배포하고 확장하기 위한 가장 인기 있는 오케스트레이터입니다. 쿠버네티스를 사용하면 클라우드에서 애플리케이션을 안정적으로 구축하고 배포할 수 있습니다.</p>
+<p>이 초보자 가이드에서는 쿠버네티스가 할 수 있는 일과 자신만의 컨테이너화된 솔루션을 실행하기 시작하는 방법을 배울 것입니다.</p>
+<section id="id2">
+<h2>쿠버네티스란?<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>쿠버네티스는 컨테이너 배포 작업을 자동화하는 오픈 소스 시스템입니다. 원래 구글에서 개발되었지만 현재는 <a class="reference external" href="https://www.cncf.io">클라우드 네이티브 컴퓨팅 재단(CNCF)</a>의 일부로 유지 관리되고 있습니다.</p>
+<p>쿠버네티스가 두각을 나타내는 이유는 프로덕션에서 컨테이너를 사용할 때 발생하는 많은 과제를 해결하기 때문입니다. 무제한의 컨테이너 복제본을 쉽게 실행하고, 여러 물리적 호스트에 분산시키며, 사용자가 서비스에 접근할 수 있도록 네트워킹을 설정할 수 있습니다.</p>
+<p>대부분의 개발자는 <a class="reference external" href="https://docker.com">도커</a>로 컨테이너 여정을 시작합니다. 이는 포괄적인 도구이지만 비교적 저수준이며 한 번에 하나의 컨테이너와 상호 작용하는 CLI 명령에 의존합니다. 쿠버네티스는 협업할 수 있는 선언적 스키마를 사용하여 애플리케이션과 인프라를 정의하기 위한 훨씬 더 높은 수준의 추상화를 제공합니다.</p>
+</section>
+<section id="id3">
+<h2>쿠버네티스 기능<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>쿠버네티스는 컨테이너 및 관련 인프라를 실행하기 위한 전체 기능 범위를 포함하는 포괄적인 기능 세트를 가지고 있습니다:</p>
+<ul class="simple">
+<li><p><strong>자동화된 롤아웃, 스케일링 및 롤백</strong> - 쿠버네티스는 지정된 수의 복제본을 자동으로 생성하고, 적합한 하드웨어에 분산시키며, 노드가 다운되면 컨테이너를 재조정하는 조치를 취합니다. CPU 사용량과 같은 변화하는 조건에 대응하여 복제본 수를 즉시 확장할 수 있습니다.</p></li>
+<li><p><strong>서비스 디스커버리, 로드 밸런싱 및 네트워크 인그레스</strong> - 쿠버네티스는 내부 서비스 디스커버리와 공용 컨테이너 노출을 포함하는 완전한 네트워킹 솔루션을 제공합니다.</p></li>
+<li><p><strong>상태 비저장 및 상태 저장 애플리케이션</strong> - 쿠버네티스는 초기에 상태 비저장 컨테이너에 중점을 두었지만 이제 상태 저장 앱을 나타내기 위한 <a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/controllers/statefulset">내장 객체</a>도 가지고 있습니다. 쿠버네티스에서 모든 종류의 애플리케이션을 실행할 수 있습니다.</p></li>
+<li><p><strong>스토리지 관리</strong> - 영구 스토리지는 클라우드, 네트워크 공유 또는 로컬 파일 시스템에 상관없이 제공업체 전반에 걸쳐 작동하는 일관된 인터페이스에 의해 추상화됩니다.</p></li>
+<li><p><strong>선언적 상태</strong> - 쿠버네티스는 YAML 파일의 객체 매니페스트를 사용하여 클러스터에서 생성하려는 상태를 정의합니다. 매니페스트를 적용하면 쿠버네티스에 클러스터를 대상 상태로 자동 전환하도록 지시합니다. 원하는 변경 사항을 수동으로 스크립트로 작성할 필요가 없습니다.</p></li>
+<li><p><strong>환경 전반에 걸쳐 작동</strong> - 쿠버네티스는 클라우드, 엣지 또는 개발자 워크스테이션에서 사용할 수 있습니다. 다양한 사용 사례에 맞는 많은 다른 배포판을 사용할 수 있습니다. AWS 및 Google Cloud와 같은 주요 클라우드 제공업체는 관리형 쿠버네티스 서비스를 제공하는 반면 <a class="reference external" href="https://minikube.sigs.k8s.io/docs">Minikube</a> 및 <a class="reference external" href="https://k3s.io">K3s</a>와 같은 단일 노드 배포판은 로컬 사용에 적합합니다.</p></li>
+<li><p><strong>고도로 확장 가능</strong> - 쿠버네티스는 많은 기능을 제공하지만 확장을 사용하여 더 많은 기능을 추가할 수 있습니다. <a class="reference external" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources">사용자 정의 객체 유형</a>, 컨트롤러 및 운영자를 생성하여 자신만의 워크로드를 지원할 수 있습니다.</p></li>
+</ul>
+<p>이렇게 많은 기능을 사용할 수 있기 때문에 쿠버네티스는 선언적 구성으로 컨테이너를 배포하려는 모든 상황에 이상적입니다.</p>
+</section>
+<section id="id4">
+<h2>쿠버네티스의 작동 방식<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>쿠버네티스는 여러 가지 이동 부품을 가지고 있기 때문에 복잡하다는 평판을 얻고 있습니다. 이들이 어떻게 조화를 이루는지 기본 사항을 이해하면 쿠버네티스 여정을 시작하는 데 도움이 될 것입니다.</p>
+<p>쿠버네티스 환경을 <strong>클러스터</strong>라고 합니다. 여기에는 하나 이상의 <strong>노드</strong>가 포함됩니다. 노드는 단순히 컨테이너를 실행할 머신입니다. 물리적 하드웨어 또는 가상 머신일 수 있습니다.</p>
+<p>노드뿐만 아니라 클러스터에는 <strong>컨트롤 플레인</strong>도 있습니다. 컨트롤 플레인은 전체 클러스터의 작업을 조정합니다. 새 컨테이너를 사용 가능한 노드에 예약하고 상호 작용하는 API 서버를 제공합니다. <a class="reference external" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability">여러 컨트롤 플레인 인스턴스</a>로 클러스터를 실행하여 복원력이 더 뛰어난 고가용성 설정을 만들 수 있습니다.</p>
+<p>가장 중요한 쿠버네티스 구성 요소는 다음과 같습니다:</p>
+<ul class="simple">
+<li><p><strong>kube-apiserver</strong> - 컨트롤 플레인에서 API 서버를 실행하는 부분입니다. 실행 중인 쿠버네티스 클러스터와 상호 작용하는 유일한 방법입니다. <a class="reference external" href="https://kubernetes.io/docs/tasks/tools">Kubectl CLI</a> 또는 HTTP 클라이언트를 사용하여 API 서버에 명령을 실행할 수 있습니다.</p></li>
+<li><p><strong>kube-controller-manager</strong> - 컨트롤러 매니저는 쿠버네티스의 내장 컨트롤러를 시작하고 실행합니다. <a class="reference external" href="https://kubernetes.io/docs/concepts/architecture/controller">컨트롤러</a>는 기본적으로 클러스터의 변경 사항 후에 작업을 적용하는 이벤트 루프입니다. API 요청이나 증가된 로드와 같은 이벤트에 대응하여 객체를 생성, 확장 및 삭제합니다.</p></li>
+<li><p><strong>kube-scheduler</strong> - 스케줄러는 새 파드(컨테이너)를 클러스터의 노드에 할당합니다. 파드의 요구 사항을 충족할 수 있는 노드를 설정한 다음 성능과 안정성을 최대화하기 위해 가장 최적의 배치를 선택합니다.</p></li>
+<li><p><strong>kubelet</strong> - 큐블릿은 각 노드에서 실행되는 작업자 프로세스입니다. 쿠버네티스 컨트롤 플레인과의 통신을 유지하여 지침을 받습니다. 큐블릿은 예약 요청에 대응하여 컨테이너 이미지를 가져오고 컨테이너를 시작할 책임이 있습니다.</p></li>
+<li><p><strong>kube-proxy</strong> - 프록시는 개별 노드에서 찾을 수 있는 또 다른 구성 요소입니다. 트래픽이 클러스터의 서비스에 도달할 수 있도록 호스트의 네트워킹 시스템을 구성합니다.</p></li>
+</ul>
+<p><a class="reference external" href="https://kubernetes.io/docs/tasks/tools">Kubectl</a>은 일반적으로 작동하는 쿠버네티스 환경의 최종 부분입니다. 이 CLI를 사용하여 클러스터 및 객체와 상호 작용해야 합니다. 클러스터가 설정되면 <a class="reference external" href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard">공식 대시보드</a> 또는 타사 솔루션을 설치하여 GUI에서 쿠버네티스를 제어할 수도 있습니다.</p>
+</section>
+<section id="id5">
+<h2>설치 및 설정<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>제공되는 배포판의 범위로 인해 쿠버네티스를 시작하는 방법은 매우 다양합니다. <a class="reference external" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm">공식 배포판을 사용하여 클러스터 생성</a>은 비교적 번거로운 작업이므로 대부분의 사람들은 <a class="reference external" href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm">Minikube</a>, <a class="reference external" href="https://microk8s.io">MicroK8s</a>, <a class="reference external" href="https://k3s.io">K3s</a> 또는 <a class="reference external" href="https://kind.sigs.k8s.io">Kind</a>와 같은 패키지 솔루션을 사용합니다.</p>
+<p>이 튜토리얼에서는 K3s를 사용할 것입니다. 이는 모든 쿠버네티스 구성 요소를 단일 바이너리로 번들로 제공하는 초경량 쿠버네티스 배포판입니다. 다른 옵션과 달리 설치해야 할 종속성이나 실행할 무거운 VM이 없습니다. 또한 쿠버네티스 명령을 실행하는 데 사용할 Kubectl CLI도 포함되어 있습니다.</p>
+<p>다음 명령을 실행하면 K3s가 머신에 설치됩니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sfL<span class="w"> </span>https://get.k3s.io<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w"> </span>-
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">INFO</span><span class="p">]</span>  <span class="n">systemd</span><span class="p">:</span> <span class="n">Starting</span> <span class="n">k3s</span>
+</pre></div>
+</div>
+<p>자동으로 사용 가능한 최신 쿠버네티스 릴리스를 다운로드하고 K3s에 대한 시스템 서비스를 등록합니다.</p>
+<p>설치 후 다음 명령을 실행하여 자동 생성된 Kubectl 구성 파일을 .kube 디렉토리에 복사합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.kube
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/rancher/k3s/k3s.yaml<span class="w"> </span>~/.kube/config
+sudo<span class="w"> </span>chown<span class="w"> </span><span class="nv">$USER</span>:<span class="nv">$USER</span><span class="w"> </span>~/.kube/config
+</pre></div>
+</div>
+<p>이제 다음 명령을 실행하여 K3s에 이 구성 파일을 사용하도록 지시합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/config
+</pre></div>
+</div>
+<p>로그인 후 변경 사항을 자동으로 적용하려면 이 줄을 <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> 파일에 추가할 수 있습니다.</p>
+<p>다음으로 이 명령을 실행합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>       <span class="n">STATUS</span>   <span class="n">ROLES</span>                  <span class="n">AGE</span>    <span class="n">VERSION</span>
+<span class="n">ubuntu22</span>   <span class="n">Ready</span>    <span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span>   <span class="mi">102</span><span class="n">s</span>   <span class="n">v1</span><span class="mf">.24.4</span><span class="o">+</span><span class="n">k3s1</span>
+</pre></div>
+</div>
+<p>머신의 호스트 이름으로 명명된 단일 노드가 나타나는 것을 볼 수 있습니다. 노드가 준비 상태로 표시되므로 이제 쿠버네티스 클러스터를 사용할 수 있습니다!</p>
+</section>
+<section id="id6">
+<h2>쿠버네티스 기본 용어 및 개념<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>클러스터가 실행 중이지만 무엇을 할 수 있을까요? 계속하기 전에 몇 가지 핵심 쿠버네티스 용어에 익숙해지는 것이 좋습니다.</p>
+<section id="id7">
+<h3>노드<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>노드는 쿠버네티스 클러스터를 구성하는 물리적 머신을 나타냅니다. 생성한 컨테이너를 실행합니다. 물리적 하드웨어 또는 가상 머신일 수 있습니다.</p>
+<p>쿠버네티스는 노드의 상태를 추적하고 각 노드를 객체로 노출합니다. 위의 예제에서 Kubectl을 사용하여 노드 목록을 검색했습니다.</p>
+<p>새로운 클러스터에는 노드가 하나뿐이지만 쿠버네티스는 <a class="reference external" href="https://kubernetes.io/docs/setup/best-practices/cluster-large">최대 5,000개의 노드</a>를 지원한다고 광고합니다. 이론적으로 <a class="reference external" href="https://openai.com/blog/scaling-kubernetes-to-7500-nodes">더 확장</a>하는 것도 가능합니다.</p>
+</section>
+<section id="id8">
+<h3>네임스페이스<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces">네임스페이스</a>는 다양한 리소스 그룹을 격리합니다. 리소스의 가시성을 범위로 지정하여 이름 충돌을 방지합니다.</p>
+<p>동일한 네임스페이스 내에서 이름이 같은 두 객체를 생성하는 것은 금지되어 있습니다. 예를 들어 기본 네임스페이스에 있는 경우 데이터베이스라는 두 개의 파드를 만들 수 없습니다. 네임스페이스는 리소스의 논리적 분리를 제공하여 이 문제를 해결합니다. app-1과 app-2라는 두 개의 네임스페이스에는 각각 데이터베이스라는 파드가 포함될 수 있으며 충돌이 발생하지 않습니다.</p>
+<p>네임스페이스는 유연하며 다양한 방식으로 사용할 수 있습니다. 클러스터의 각 워크로드에 대해 네임스페이스를 생성하는 것이 좋습니다. <a class="reference external" href="https://kubernetes.io/docs/reference/access-authn-authz/rbac">역할 기반 액세스 제어</a>를 적용하여 사용자와 팀 간에 리소스를 나누는 데에도 네임스페이스를 사용할 수 있습니다.</p>
+</section>
+<section id="id9">
+<h3>파드<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/pods">파드</a>는 쿠버네티스의 기본 컴퓨팅 단위입니다. 파드는 컨테이너와 유사하지만 몇 가지 주요 차이점이 있습니다. 파드에는 여러 컨테이너가 포함될 수 있으며 각 컨테이너는 컨텍스트를 공유합니다. 전체 파드는 항상 동일한 노드에 예약됩니다. 파드 내의 컨테이너는 긴밀하게 결합되어 있으므로 API 및 데이터베이스와 같은 애플리케이션의 각 고유 부분에 대해 새 파드를 생성해야 합니다.</p>
+<p>단순한 상황에서 파드는 일반적으로 애플리케이션이 실행하는 컨테이너와 일대일로 매핑됩니다. 더 고급 사례에서는 <a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers">초기화 컨테이너</a>와 <a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers">임시 컨테이너</a>를 사용하여 시작 동작을 사용자 정의하고 자세한 디버깅을 제공할 수 있습니다.</p>
+</section>
+<section id="id10">
+<h3>레플리카셋<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/controllers/replicaset">레플리카셋</a>은 파드를 일관되게 복제하는 데 사용됩니다. 설정된 수의 복제본이 항상 실행 중일 것이라는 보장을 제공합니다. 노드가 오프라인 상태가 되거나 파드가 비정상이 되면 쿠버네티스는 자동으로 새 파드 인스턴스를 예약하여 지정된 복제본 수를 유지합니다.</p>
+</section>
+<section id="id11">
+<h3>디플로이먼트<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment">디플로이먼트</a>는 선언적 업데이트 및 롤백 지원과 함께 레플리카셋을 래핑합니다. 이는 제어하기 쉬운 더 높은 수준의 추상화입니다.</p>
+<p>디플로이먼트 객체를 사용하면 파드 집합의 원하는 상태를 지정할 수 있습니다. 여기에는 실행할 복제본 수가 포함됩니다. 디플로이먼트를 수정하면 필요한 변경 사항을 자동으로 감지하고 필요에 따라 레플리카셋의 크기를 조정합니다. <a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#pausing-and-resuming-a-deployment">롤아웃을 일시 중지</a>하거나 이전 버전으로 되돌릴 수 있으며, 이는 일반 레플리카셋에서는 사용할 수 없는 기능입니다.</p>
+</section>
+<section id="id12">
+<h3>서비스<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">쿠버네티스</span> <span class="pre">서비스</span></code>는 파드를 네트워크에 노출하는 데 사용됩니다. 클러스터 내부 또는 외부에서 파드에 대한 정의된 액세스를 허용합니다.</p>
+<p><a class="reference external" href="https://kubernetes.io/docs/concepts/services-networking/ingress">인그레스</a>는 밀접하게 관련된 객체입니다. 이들은 <code class="docutils literal notranslate"><span class="pre">로드</span> <span class="pre">밸런서</span></code>를 통해 서비스에 대한 HTTP 경로를 설정하는 데 사용됩니다. 인그레스는 또한 TLS 인증서로 보호되는 HTTPS 트래픽도 지원합니다.</p>
+</section>
+<section id="id13">
+<h3>작업<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>쿠버네티스 <a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/controllers/job">작업</a>은 파드 집합을 생성하고 종료될 때까지 기다리는 객체입니다. 지정된 수의 파드가 성공적으로 종료될 때까지 실패한 파드를 재시도합니다. 그런 다음 작업이 완료된 것으로 표시됩니다.</p>
+<p>작업은 클러스터 내에서 임시 작업을 실행하기 위한 메커니즘을 제공합니다. 쿠버네티스는 또한 <a class="reference external" href="https://en.wikipedia.org/wiki/Cron">cron과 유사한</a> 예약 지원으로 작업을 래핑하는 <code class="docutils literal notranslate"><span class="pre">CronJobs</span></code>도 제공합니다. 이를 통해 배치 활동, 백업 및 애플리케이션에 필요한 기타 예약된 작업을 수용하기 위해 작업을 정기적으로 자동 실행할 수 있습니다.</p>
+</section>
+<section id="id14">
+<h3>볼륨<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://kubernetes.io/docs/concepts/storage/volumes">볼륨</a>은 외부 파일 시스템 스토리지를 파드 내부에 마운트합니다. 서로 다른 클라우드 제공업체의 스토리지 구현 간의 차이점을 추상화합니다.</p>
+<p>볼륨은 파드 간에 공유될 수 있습니다. 이를 통해 쿠버네티스는 파드가 종료되거나 재예약된 후에도 데이터를 보존해야 하는 상태 저장 애플리케이션을 실행할 수 있습니다. 클러스터에서 데이터베이스 또는 파일 서버를 실행할 때마다 볼륨을 사용해야 합니다.</p>
+</section>
+<section id="id15">
+<h3>시크릿 및 컨피그맵<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">시크릿</span></code>은 API 키, 인증서 및 기타 종류의 자격 증명과 같은 중요한 데이터를 클러스터에 주입하는 데 사용됩니다. 환경 변수로 파드에 제공하거나 볼륨에 마운트된 파일로 제공할 수 있습니다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">컨피그맵</span></code>은 비중요 정보에 대한 유사한 개념입니다. 이러한 객체는 앱에 필요한 모든 일반 설정을 저장해야 합니다.</p>
+</section>
+<section id="id16">
+<h3>데몬셋<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">쿠버네티스</span> <span class="pre">데몬셋</span></code>은 클러스터의 각 노드에서 파드의 복사본을 안정적으로 실행하는 데 사용됩니다. 새 노드가 추가되면 파드의 인스턴스가 자동으로 시작됩니다. 더 고급 상황에서는 <a class="reference external" href="https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/#running-pods-on-select-nodes">데몬셋 파드를 특정 노드에서만 실행되도록 제한</a>할 수 있습니다.</p>
+<p>데몬셋은 클러스터에 전역 기능을 추가할 때 유용합니다. 데몬셋은 종종 모니터링 서비스와 로그 수집 에이전트를 실행하는 데 사용됩니다. 이러한 워크로드를 데몬셋에 배치하면 애플리케이션의 파드 옆에서 항상 실행 중일 것임을 보장합니다. 이는 파드가 예약된 노드에 관계없이 메트릭과 로그가 수집되도록 합니다.</p>
+</section>
+<section id="id17">
+<h3>네트워킹 정책<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>쿠버네티스는 <code class="docutils literal notranslate"><span class="pre">파드</span> <span class="pre">간의</span> <span class="pre">네트워크</span> <span class="pre">트래픽</span> <span class="pre">흐름을</span> <span class="pre">제어하기</span> <span class="pre">위한</span> <span class="pre">정책</span> <span class="pre">기반</span> <span class="pre">시스템</span></code>을 지원합니다. 공격자가 인프라 전체로 이동하는 것을 방지하기 위해 중요한 파드를 다른 리소스로부터 격리할 수 있습니다.</p>
+<p>네트워크 정책은 하나 이상의 일치하는 파드를 대상으로 하는 객체로 표현됩니다. 각 파드는 수신 및 송신 정책의 주체가 될 수 있습니다. 수신 정책은 들어오는 트래픽이 허용되는지 여부를 정의하는 반면 송신 규칙은 나가는 흐름에 영향을 줍니다. 두 파드 간의 통신은 어느 파드의 네트워킹 정책도 다른 파드에서의 수신 또는 송신을 거부하지 않는 경우에만 허용됩니다.</p>
+</section>
+</section>
+<section id="kubectl">
+<h2>Kubectl을 사용하여 쿠버네티스와 상호 작용<a class="headerlink" href="#kubectl" title="Link to this heading">#</a></h2>
+<p>이제 기본 사항에 익숙해졌으므로 Kubectl을 사용하여 클러스터에 워크로드를 추가할 수 있습니다. 다음은 몇 가지 핵심 명령에 대한 빠른 참조입니다.</p>
+<section id="id18">
+<h3>파드 나열<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>이 명령은 클러스터의 파드를 표시합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">No</span> <span class="n">resources</span> <span class="n">found</span> <span class="ow">in</span> <span class="n">default</span> <span class="n">namespace</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-n</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">--namespace</span></code> 플래그를 사용하여 네임스페이스를 지정합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>demo
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">No</span> <span class="n">resources</span> <span class="n">found</span> <span class="ow">in</span> <span class="n">demo</span> <span class="n">namespace</span>
+</pre></div>
+</div>
+<p>또는 <code class="docutils literal notranslate"><span class="pre">--all-namespaces</span></code>를 지정하여 모든 네임스페이스에서 파드를 가져옵니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAMESPACE</span>     <span class="n">NAME</span>                                      <span class="n">READY</span>   <span class="n">STATUS</span>      <span class="n">RESTARTS</span>   <span class="n">AGE</span>
+<span class="n">kube</span><span class="o">-</span><span class="n">system</span>   <span class="n">coredns</span><span class="o">-</span><span class="n">b96499967</span><span class="o">-</span><span class="mi">4</span><span class="n">xdpg</span>                   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>     <span class="mi">0</span>          <span class="mi">114</span><span class="n">m</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>여기에는 쿠버네티스 시스템 구성 요소가 포함됩니다.</p>
+</section>
+<section id="id19">
+<h3>파드 생성<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>다음 명령을 사용하여 파드를 생성합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>run<span class="w"> </span>nginx<span class="w"> </span>--image<span class="w"> </span>nginx:latest
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pod</span><span class="o">/</span><span class="n">nginx</span> <span class="n">created</span>
+</pre></div>
+</div>
+<p>nginx:latest 컨테이너 이미지를 실행할 nginx라는 파드를 시작합니다.</p>
+</section>
+<section id="id20">
+<h3>디플로이먼트 생성<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>디플로이먼트를 생성하면 컨테이너의 여러 복제본을 확장할 수 있습니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>nginx<span class="w"> </span>--image<span class="w"> </span>nginx:latest<span class="w"> </span>--replicas<span class="w"> </span><span class="m">3</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deployment</span><span class="o">.</span><span class="n">apps</span><span class="o">/</span><span class="n">nginx</span> <span class="n">created</span>
+</pre></div>
+</div>
+<p>nginx:latest 이미지를 실행하는 파드 3개가 생성된 것을 볼 수 있습니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>                     <span class="n">READY</span>   <span class="n">STATUS</span>    <span class="n">RESTARTS</span>   <span class="n">AGE</span>
+<span class="n">nginx</span><span class="o">-</span><span class="mi">7597</span><span class="n">c656c9</span><span class="o">-</span><span class="mi">4</span><span class="n">qs55</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">51</span><span class="n">s</span>
+<span class="n">nginx</span><span class="o">-</span><span class="mi">7597</span><span class="n">c656c9</span><span class="o">-</span><span class="n">gdjl9</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">51</span><span class="n">s</span>
+<span class="n">nginx</span><span class="o">-</span><span class="mi">7597</span><span class="n">c656c9</span><span class="o">-</span><span class="mi">7</span><span class="n">sxrc</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">51</span><span class="n">s</span>
+</pre></div>
+</div>
+</section>
+<section id="id21">
+<h3>디플로이먼트 스케일링<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>이제 이 명령을 사용하여 복제본 수를 늘립니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>nginx<span class="w"> </span>--replicas<span class="w"> </span><span class="m">5</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deployment</span><span class="o">.</span><span class="n">apps</span><span class="o">/</span><span class="n">nginx</span> <span class="n">scaled</span>
+</pre></div>
+</div>
+<p>쿠버네티스는 추가 용량을 제공하기 위해 두 개의 추가 파드를 생성했습니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>                     <span class="n">READY</span>   <span class="n">STATUS</span>    <span class="n">RESTARTS</span>   <span class="n">AGE</span>
+<span class="n">nginx</span><span class="o">-</span><span class="mi">7597</span><span class="n">c656c9</span><span class="o">-</span><span class="mi">4</span><span class="n">qs55</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">2</span><span class="n">m26s</span>
+<span class="n">nginx</span><span class="o">-</span><span class="mi">7597</span><span class="n">c656c9</span><span class="o">-</span><span class="n">gdjl9</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">2</span><span class="n">m26s</span>
+<span class="n">nginx</span><span class="o">-</span><span class="mi">7597</span><span class="n">c656c9</span><span class="o">-</span><span class="mi">7</span><span class="n">sxrc</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">2</span><span class="n">m26s</span>
+<span class="n">nginx</span><span class="o">-</span><span class="mi">7597</span><span class="n">c656c9</span><span class="o">-</span><span class="n">kwm6q</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">2</span><span class="n">s</span>
+<span class="n">nginx</span><span class="o">-</span><span class="mi">7597</span><span class="n">c656c9</span><span class="o">-</span><span class="n">nwf2s</span>   <span class="mi">1</span><span class="o">/</span><span class="mi">1</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">2</span><span class="n">s</span>
+</pre></div>
+</div>
+</section>
+<section id="id22">
+<h3>서비스 노출<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>이제 이 NGINX 서버에 접근할 수 있도록 만들어 보겠습니다.</p>
+<p>다음 명령을 실행하여 파드를 실행 중인 노드의 포트에 노출되는 서비스를 생성합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>expose<span class="w"> </span>deployment/nginx<span class="w"> </span>--port<span class="w"> </span><span class="m">80</span><span class="w"> </span>--type<span class="w"> </span>NodePort
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span><span class="o">/</span><span class="n">nginx</span> <span class="n">exposed</span>
+</pre></div>
+</div>
+<p>다음 명령을 실행하여 할당된 포트를 확인합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>services
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>         <span class="n">TYPE</span>        <span class="n">CLUSTER</span><span class="o">-</span><span class="n">IP</span>     <span class="n">EXTERNAL</span><span class="o">-</span><span class="n">IP</span>   <span class="n">PORT</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>        <span class="n">AGE</span>
+<span class="n">kubernetes</span>   <span class="n">ClusterIP</span>   <span class="mf">10.43.0.1</span>      <span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>        <span class="mi">443</span><span class="o">/</span><span class="n">TCP</span>        <span class="mi">121</span><span class="n">m</span>
+<span class="n">nginx</span>        <span class="n">NodePort</span>    <span class="mf">10.43.149.39</span>   <span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>        <span class="mi">80</span><span class="p">:</span><span class="mi">30226</span><span class="o">/</span><span class="n">TCP</span>   <span class="mi">3</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>포트는 30226입니다. 브라우저에서 <node-ip>:30226을 방문하면 기본 NGINX 랜딩 페이지가 표시됩니다.</p>
+<p>이 튜토리얼에서 생성한 단일 노드 K3s 클러스터를 따라 하고 있다면 <node-ip>로 localhost를 사용할 수 있습니다. 그렇지 않으면 <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">nodes</span> <span class="pre">명령을</span> <span class="pre">실행</span></code>하고 표시되는 INTERNAL-IP를 사용하세요.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>       <span class="n">STATUS</span>   <span class="n">ROLES</span>                  <span class="n">AGE</span>    <span class="n">VERSION</span>        <span class="n">INTERNAL</span><span class="o">-</span><span class="n">IP</span>
+<span class="n">ubuntu22</span>   <span class="n">Ready</span>    <span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span>   <span class="mi">124</span><span class="n">m</span>   <span class="n">v1</span><span class="mf">.24.4</span><span class="o">+</span><span class="n">k3s1</span>   <span class="mf">192.168.122.210</span>
+</pre></div>
+</div>
+</section>
+<section id="id23">
+<h3>포트 포워딩 사용<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Kubectl의</span> <span class="pre">통합</span> <span class="pre">포트</span> <span class="pre">포워딩</span> <span class="pre">기능</span></code>을 사용하면 노드 포트에 바인딩하지 않고도 서비스에 액세스할 수 있습니다. 첫 번째 서비스를 삭제하고 <code class="docutils literal notranslate"><span class="pre">--type</span></code> 플래그 없이 새 서비스를 생성합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>delete<span class="w"> </span>service<span class="w"> </span>nginx
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span><span class="o">/</span><span class="n">nginx</span> <span class="n">deleted</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>expose<span class="w"> </span>deployment/nginx<span class="w"> </span>–port<span class="w"> </span><span class="m">80</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span><span class="o">/</span><span class="n">nginx</span> <span class="n">exposed</span>
+</pre></div>
+</div>
+<p>이렇게 하면 클러스터 내부에서 내부 IP로 액세스할 수 있는 ClusterIP 서비스가 생성됩니다.</p>
+<p>다음 명령을 실행하여 서비스의 세부 정보를 검색합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>services
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>     	<span class="n">TYPE</span>    	<span class="n">CLUSTER</span><span class="o">-</span><span class="n">IP</span>   	<span class="n">EXTERNAL</span><span class="o">-</span><span class="n">IP</span>   <span class="n">PORT</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>   <span class="n">AGE</span>
+<span class="n">nginx</span>   	<span class="n">ClusterIP</span>   <span class="mf">10.100.191.238</span>   <span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>    	<span class="mi">80</span><span class="o">/</span><span class="n">TCP</span>	<span class="mi">2</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>서비스는 클러스터 내에서 10.100.191.238:80으로 액세스할 수 있습니다.</p>
+<p>다음 명령을 사용하여 로컬 머신에서 이 주소에 접근할 수 있습니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>port-forward<span class="w"> </span>service/nginx<span class="w"> </span><span class="m">8080</span>:80
+</pre></div>
+</div>
+<p>브라우저에서 localhost:8080을 방문하면 NGINX 랜딩 페이지가 표시됩니다. Kubectl은 클러스터 내의 서비스로 트래픽을 리디렉션하고 있습니다. 완료되면 터미널에서 Ctrl+C를 눌러 포트 포워딩 세션을 중지할 수 있습니다.</p>
+<p>포트 포워딩은 서비스 없이도 작동합니다. 다음 명령을 사용하여 디플로이먼트의 파드에 직접 연결할 수 있습니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>port-forward<span class="w"> </span>deployment/nginx<span class="w"> </span><span class="m">8080</span>:80
+</pre></div>
+</div>
+<p>localhost:8080을 방문하면 다시 NGINX 랜딩 페이지가 표시되지만 이번에는 서비스를 거치지 않습니다.</p>
+</section>
+<section id="yaml">
+<h3>YAML 파일 적용<a class="headerlink" href="#yaml" title="Link to this heading">#</a></h3>
+<p>마지막으로 선언적 YAML 파일을 클러스터에 적용하는 방법을 살펴보겠습니다. 먼저 파드에 대한 <code class="docutils literal notranslate"><span class="pre">간단한</span> <span class="pre">쿠버네티스</span> <span class="pre">매니페스트</span></code>를 작성합니다:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="err">	</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="err">	</span><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx:latest</span>
+</pre></div>
+</div>
+<p>이 매니페스트를 nginx.yaml에 저장하고 <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span></code>를 실행하여 파드를 자동으로 생성합니다:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>nginx.yaml
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pod</span><span class="o">/</span><span class="n">nginx</span> <span class="n">created</span>
+</pre></div>
+</div>
+<p>파일을 수정한 후 명령을 반복하여 클러스터에 변경 사항을 적용할 수 있습니다.</p>
+<p>이제 Kubectl을 사용하여 쿠버네티스와 상호 작용하는 기본 사항에 익숙해졌습니다!</p>
+</section>
+</section>
+<section id="id24">
+<h2>핵심 사항<a class="headerlink" href="#id24" title="Link to this heading">#</a></h2>
+<p>쿠버네티스는 선도적인 컨테이너 오케스트레이터입니다. 이 기사에서는 쿠버네티스의 기능을 살펴보고, 작동 방식을 알아보았으며, 애플리케이션을 구성하는 데 사용할 가장 중요한 객체 유형을 다루었습니다.</p>
+<p>이론을 넘어서 인기 있는 K3s 배포판으로 자신만의 쿠버네티스 클러스터를 시작하는 방법도 보았습니다. 이제 최소한의 수동 구성으로 자신만의 컨테이너화된 시스템을 대규모로 구축하고 실행할 수 있습니다.</p>
+<p><strong>주요 용어 설명:</strong></p>
+<ul class="simple">
+<li><p><strong>컨트롤 플레인</strong>: 클러스터의 상태를 관리하고 API 서버, 컨트롤러 매니저, 스케줄러를 실행하는 쿠버네티스의 핵심 구성 요소입니다.</p></li>
+<li><p><strong>kubectl</strong>: 쿠버네티스 클러스터와 상호 작용하기 위한 명령줄 인터페이스 도구입니다.</p></li>
+<li><p><strong>오케스트레이션</strong>: 컨테이너의 배포, 스케일링 및 관리를 자동화하는 프로세스입니다.</p></li>
+<li><p><strong>클러스터</strong>: 쿠버네티스에 의해 관리되는 노드 그룹으로, 컨테이너화된 워크로드를 실행합니다.</p></li>
+<li><p><strong>매니페스트</strong>: 쿠버네티스 객체의 원하는 상태를 선언적으로 정의하는 YAML 또는 JSON 파일입니다.</p></li>
+</ul>
+<p>쿠버네티스는 지속적으로 발전하고 있으며, 새로운 기능과 개선 사항이 정기적으로 도입되고 있습니다. 쿠버네티스 생태계와 관련 프로젝트가 성장함에 따라 컨테이너 오케스트레이션의 가능성도 확대되고 있습니다.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "chu-aie/mlops-2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./week06"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Week 6</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../week07/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Week 7</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">쿠버네티스란?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">쿠버네티스 기능</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">쿠버네티스의 작동 방식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">설치 및 설정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">쿠버네티스 기본 용어 및 개념</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">노드</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">네임스페이스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">파드</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">레플리카셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">디플로이먼트</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">서비스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">작업</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">볼륨</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">시크릿 및 컨피그맵</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">데몬셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">네트워킹 정책</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kubectl">Kubectl을 사용하여 쿠버네티스와 상호 작용</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">파드 나열</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">파드 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">디플로이먼트 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">디플로이먼트 스케일링</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">서비스 노출</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">포트 포워딩 사용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yaml">YAML 파일 적용</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">핵심 사항</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By <a href='https://entelecheia.me/'>Young Joon Lee</a>
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script
+  data-embed-id="ed04ae65-928c-4ab5-912d-ce49f76450b7"
+  data-base-api-url="https://chat.entelecheia.app/api/embed"
+  data-brand-image-url="https://assets.entelecheia.ai/favicon.png"
+  data-chat-icon="magic"
+  data-sponsor-text="MLOps 2024"
+  data-sponsor-link="https://chat.entelecheia.app/workspace/mlops2024"
+  src="https://chat.entelecheia.app/embed/anythingllm-chat-widget.min.js">
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
