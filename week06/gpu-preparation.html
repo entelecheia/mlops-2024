@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Week 4 &#8212; 머신러닝시스템 2024</title>
+    <title>GPU Node Preparation (Nvidia) &#8212; 머신러닝시스템 2024</title>
   
   
   
@@ -89,12 +89,12 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'week04/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'week06/gpu-preparation';</script>
     <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="컨테이너화" href="containerization.html" />
-    <link rel="prev" title="Dotfiles" href="../week03/dotfiles.html" />
+    <link rel="next" title="Single Sign On" href="sso.html" />
+    <link rel="prev" title="Installing Bionic" href="installation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -218,28 +218,28 @@
 <li class="toctree-l2"><a class="reference internal" href="../week03/dotfiles.html">Dotfiles</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Week 4</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="containerization.html">컨테이너화</a></li>
-<li class="toctree-l2"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="containerd.html"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week04/index.html">Week 4</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week04/containerization.html">컨테이너화</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week04/docker.html">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week04/containerd.html"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week05/index.html">Week 5</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../week05/hyperfast-docker.html">하이퍼패스트 도커 템플릿</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../week06/index.html">Week 6</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../week06/introduction.html">Bionic-GPT Enterprise”</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/bare-metal.html">Kubernetes on Bare Metal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/installation.html">Installing Bionic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/gpu-preparation.html">GPU Node Preparation (Nvidia)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/sso.html">Single Sign On</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/tgi.html">TGI Inference Engine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/roles.html">Role Based Access Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/pgadmin.html">Integrate pgAdmin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/upgrade.html">Upgrading Bionic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/jupyter-notebook.html">Adding a Jupyter Notebook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week06/visualise-rag.html">Visualising RAG data</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Week 6</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Bionic-GPT Enterprise”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bare-metal.html">Kubernetes on Bare Metal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installing Bionic</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">GPU Node Preparation (Nvidia)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sso.html">Single Sign On</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tgi.html">TGI Inference Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="roles.html">Role Based Access Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pgadmin.html">Integrate pgAdmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrade.html">Upgrading Bionic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyter-notebook.html">Adding a Jupyter Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualise-rag.html">Visualising RAG data</a></li>
 </ul>
 </li>
 </ul>
@@ -330,7 +330,7 @@
       
       
       
-      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week04/index.md" target="_blank"
+      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week06/gpu-preparation.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -347,7 +347,7 @@
       
       
       
-      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek04/index.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek06/gpu-preparation.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -377,7 +377,7 @@
       
       
       
-      <li><a href="../_sources/week04/index.md" target="_blank"
+      <li><a href="../_sources/week06/gpu-preparation.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -448,7 +448,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -459,11 +461,24 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Week 4</h1>
+    <h1>GPU Node Preparation (Nvidia)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-container-toolkit">Check Container Toolkit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-nvidia-runtime-class">Install Nvidia Runtime Class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enabling-gpu-support-in-kubernetes">Enabling GPU Support in Kubernetes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-containerd-how">Test containerd - How?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#device-plugin">Device Plugin?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deploy-a-test-workload">Deploy a Test Workload</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -473,15 +488,135 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="week-4">
-<h1>Week 4<a class="headerlink" href="#week-4" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="containerization.html">컨테이너화</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containerd.html"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></a></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="gpu-node-preparation-nvidia">
+<h1>GPU Node Preparation (Nvidia)<a class="headerlink" href="#gpu-node-preparation-nvidia" title="Link to this heading">#</a></h1>
+<p>GPU nodes will need the following installed.</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://wiki.debian.org/NvidiaGraphicsDrivers">Cuda drivers</a></p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html">Nvidia Container Toolkit</a></p></li>
+<li><p>Nvidia Runtime Class</p></li>
+</ol>
+<section id="check-container-toolkit">
+<h2>Check Container Toolkit<a class="headerlink" href="#check-container-toolkit" title="Link to this heading">#</a></h2>
+<p>To see if the container toolkit is correctly installed you can run the following and you should see the connected GPU devices.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>ubuntu<span class="w"> </span>nvidia-smi
+<span class="c1">#+-----------------------------------------------------------------------------------------+</span>
+<span class="c1">#| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |</span>
+<span class="c1">#|-----------------------------------------+------------------------+----------------------+</span>
+<span class="c1">#| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |</span>
+<span class="c1">#| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |</span>
+<span class="c1">#|                                         |                        |               MIG M. |</span>
+<span class="c1">#|=========================================+========================+======================|</span>
+<span class="c1">#|   0  NVIDIA GeForce GTX 1050 Ti     Off |   00000000:1D:00.0  On |                  N/A |</span>
+<span class="c1">#|  0%   40C    P0             N/A /   90W |    1556MiB /   4096MiB |      0%      Default |</span>
+<span class="c1">#|                                         |                        |                  N/A |</span>
+<span class="c1">#+-----------------------------------------+------------------------+----------------------+</span>
+<span class="c1">#</span>
+<span class="c1">#+-----------------------------------------------------------------------------------------+</span>
+<span class="c1">#| Processes:                                                                              |</span>
+<span class="c1">#|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |</span>
+<span class="c1">#|        ID   ID                                                               Usage      |</span>
+<span class="c1">#|=========================================================================================|</span>
+<span class="c1">#+-----------------------------------------------------------------------------------------+</span>
+</pre></div>
 </div>
+</section>
+<section id="install-nvidia-runtime-class">
+<h2>Install Nvidia Runtime Class<a class="headerlink" href="#install-nvidia-runtime-class" title="Link to this heading">#</a></h2>
+<p>Apply the following YAML</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;apiVersion: node.k8s.io/v1</span>
+<span class="s1">kind: RuntimeClass</span>
+<span class="s1">metadata:</span>
+<span class="s1">  name: nvidia</span>
+<span class="s1">handler: nvidia&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+</pre></div>
+</div>
+<p>Then you should see the Nvidia runtime class in your available runtime classes.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>runtimeclass
+<span class="c1">#NAME                  HANDLER               AGE</span>
+<span class="c1">#crun                  crun                  13h</span>
+<span class="c1">#lunatic               lunatic               13h</span>
+<span class="c1">#nvidia                nvidia                13h</span>
+<span class="c1">#nvidia-experimental   nvidia-experimental   13h</span>
+<span class="c1">#slight                slight                13h</span>
+<span class="c1">#spin                  spin                  13h</span>
+<span class="c1">#wasmedge              wasmedge              13h</span>
+<span class="c1">#wasmer                wasmer                13h</span>
+<span class="c1">#wasmtime              wasmtime              13h</span>
+<span class="c1">#wws                   wws                   13h</span>
+</pre></div>
+</div>
+</section>
+<section id="enabling-gpu-support-in-kubernetes">
+<h2>Enabling GPU Support in Kubernetes<a class="headerlink" href="#enabling-gpu-support-in-kubernetes" title="Link to this heading">#</a></h2>
+<p>Install the Nvidia K8s Device Plugin.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;[plugins.cri.containerd.runtimes.runc.options]</span>
+<span class="s1">  BinaryName = &quot;/usr/bin/nvidia-container-runtime&quot;</span>
+
+<span class="s1">[plugins.cri.containerd.runtimes.runc]</span>
+<span class="s1">  runtime_type = &quot;io.containerd.runc.v2&quot;</span>
+<span class="s1">[plugins.linux]</span>
+<span class="s1">  runtime = &quot;nvidia-container-runtime&quot;&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>config.toml.tmpl
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;[plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.&quot;nvidia&quot;]</span>
+<span class="s1">  runtime_type = &quot;io.containerd.runc.v2&quot;</span>
+<span class="s1">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.&quot;nvidia&quot;.options]</span>
+<span class="s1">  BinaryName = &quot;/usr/bin/nvidia-container-runtime&quot;</span>
+<span class="s1">  SystemdCgroup = true&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>config.toml.tmpl
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mv<span class="w"> </span>config.toml.tmpl<span class="w"> </span>/var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>k3s
+</pre></div>
+</div>
+</section>
+<section id="test-containerd-how">
+<h2>Test containerd - How?<a class="headerlink" href="#test-containerd-how" title="Link to this heading">#</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="device-plugin">
+<h2>Device Plugin?<a class="headerlink" href="#device-plugin" title="Link to this heading">#</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.14.5/nvidia-device-plugin.yaml
+</pre></div>
+</div>
+<p>NVIDIA device plugin should have labelled the node as having an NVIDIA GPU:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>describe<span class="w"> </span>node<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nvidia.com/gpu
+</pre></div>
+</div>
+<p>You should see some results.</p>
+</section>
+<section id="deploy-a-test-workload">
+<h2>Deploy a Test Workload<a class="headerlink" href="#deploy-a-test-workload" title="Link to this heading">#</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;apiVersion: v1</span>
+<span class="s1">kind: Pod</span>
+<span class="s1">metadata:</span>
+<span class="s1">  name: nbody-gpu-benchmark</span>
+<span class="s1">  namespace: default</span>
+<span class="s1">spec:</span>
+<span class="s1">  restartPolicy: OnFailure</span>
+<span class="s1">  runtimeClassName: nvidia</span>
+<span class="s1">  containers:</span>
+<span class="s1">  - name: cuda-container</span>
+<span class="s1">    image: nvcr.io/nvidia/k8s/cuda-sample:nbody</span>
+<span class="s1">    args: [&quot;nbody&quot;, &quot;-gpu&quot;, &quot;-benchmark&quot;]</span>
+<span class="s1">    resources:</span>
+<span class="s1">      limits:</span>
+<span class="s1">        nvidia.com/gpu: 1</span>
+<span class="s1">    env:</span>
+<span class="s1">    - name: NVIDIA_VISIBLE_DEVICES</span>
+<span class="s1">      value: all</span>
+<span class="s1">    - name: NVIDIA_DRIVER_CAPABILITIES</span>
+<span class="s1">      value: all&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+</pre></div>
+</div>
+<p>If everything is working the pod will run and go to state completed.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -497,7 +632,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./week04"
+            path: "./week06"
         },
         predefinedOutput: true
     }
@@ -515,20 +650,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../week03/dotfiles.html"
+       href="installation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Dotfiles</p>
+        <p class="prev-next-title">Installing Bionic</p>
       </div>
     </a>
     <a class="right-next"
-       href="containerization.html"
+       href="sso.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">컨테이너화</p>
+        <p class="prev-next-title">Single Sign On</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -539,7 +674,25 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-container-toolkit">Check Container Toolkit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-nvidia-runtime-class">Install Nvidia Runtime Class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enabling-gpu-support-in-kubernetes">Enabling GPU Support in Kubernetes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-containerd-how">Test containerd - How?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#device-plugin">Device Plugin?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deploy-a-test-workload">Deploy a Test Workload</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
