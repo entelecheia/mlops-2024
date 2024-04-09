@@ -1,7 +1,5 @@
 # Visualising RAG data
 
-You will need to setup Jupyter Notebook to run the code below. See [Jupyter Notebook setup](figs/jupyter-notebook)
-
 The example code below assumes you already have your documents loaded into the bionicGPT database.  
 We will create a scatter graph showing the document chunks of data together with the 4 most 'relevant' chunks based on the query you specified.
 At the end we should have a diagram like this
@@ -9,12 +7,12 @@ At the end we should have a diagram like this
 
 ## Setup and Retrieve Query Embeddings
 
-```
-!pip install -q sqlalchemy psycopg2-binary pandas
-!pip install -q matplotlib seaborn scikit-learn
+```bash
+pip install -q sqlalchemy psycopg2-binary pandas
+pip install -q matplotlib seaborn scikit-learn
 ```
 
-```
+```python
 import sqlalchemy
 import pandas as pd
 import requests
@@ -27,7 +25,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 ```
 
-```
+```python
 url = "http://embeddings-api:80/embed"
 
 data = {"inputs": "how much money did the bank of england hold at end of 2022?"}
@@ -36,7 +34,7 @@ headers = {"Content-Type": "application/json"}
 response = requests.post(url, json=data, headers=headers)
 ```
 
-```
+```python
 engine = sqlalchemy.create_engine('postgresql://postgres:testpassword@postgres:5432/bionic-gpt')
 conn = engine.connect()
 ```
@@ -47,7 +45,7 @@ conn = engine.connect()
 
 We will now use the query embeddings from above to retrieve all document chunks from the data ordered by 'similarity'
 
-```
+```python
 query_embedding = response.text # From above embedding call
 
 sql = text(f"""SELECT  document_id, file_name, text, embeddings  FROM  chunks, documents
@@ -63,14 +61,14 @@ df
 
 ## Convert Data Retrieved into 2 Dimensional Data
 
-```
+```python
 df['embeddings_vec'] = df['embeddings'].apply(lambda x: [float(y) for y in json.loads(x)])
 embeddings_list = df['embeddings_vec'].tolist()
 
 df
 ```
 
-```
+```python
 # Convert chunk embeddings
 x = np.array(df['embeddings_vec'].to_list(), dtype=np.float32)
 
@@ -92,7 +90,7 @@ df_tsne
 Different colours refer to the different documents uploaded.
 The 4 circles in blue highlight the 4 most 'relevant' chunks based on the query used above.
 
-```
+```python
 fig, ax = plt.subplots(figsize=(10,8)) # Set figsize
 sns.set_style('darkgrid', {"grid.color": ".6", "grid.linestyle": ":"})
 sns.scatterplot(data=df_tsne, x='x', y='y', hue='doc', palette='hls')

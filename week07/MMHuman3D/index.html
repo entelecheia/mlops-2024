@@ -89,10 +89,12 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'week07/MMHuman3D/MMhuman3D_report';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'week07/MMHuman3D/index';</script>
     <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="MLOps 프로젝트" href="../../project/index.html" />
+    <link rel="prev" title="Visualising RAG data" href="../bionic/visualise-rag.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -154,8 +156,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -204,7 +204,7 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../week01/index.html">Week 1</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../week01/intro.html">MLOps 소개</a></li>
 </ul>
@@ -232,7 +232,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../week06/kubernetes.html">쿠버네티스</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">Week 7</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Week 7</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../bionic/index.html">Bionic-GPT</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../bionic/introduction.html">Bionic-GPT Enterprise</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../bionic/bare-metal.html">Kubernetes on Bare Metal</a></li>
@@ -247,6 +247,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../bionic/visualise-rag.html">Visualising RAG data</a></li>
 </ul>
 </li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">MMhuman3D 연구 노트</a></li>
 </ul>
 </li>
 </ul>
@@ -337,7 +338,7 @@
       
       
       
-      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week07/MMHuman3D/MMhuman3D_report.md" target="_blank"
+      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week07/MMHuman3D/index.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -354,7 +355,7 @@
       
       
       
-      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek07/MMHuman3D/MMhuman3D_report.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek07/MMHuman3D/index.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -384,7 +385,7 @@
       
       
       
-      <li><a href="../../_sources/week07/MMHuman3D/MMhuman3D_report.md" target="_blank"
+      <li><a href="../../_sources/week07/MMHuman3D/index.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -478,34 +479,28 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">MMhuman3D 연구 노트</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목표</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl-skinned-multi-person-linear-model">SMPL(Skinned Multi-Person Linear model)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertices-mesh">Vertices? Mesh?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input">Input</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목표</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl-skinned-multi-person-linear-model">SMPL(Skinned Multi-Person Linear model)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertices-mesh">Vertices? Mesh?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input">Input</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">output</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl">SMPL 작동 원리</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pare-part-attention-regressor-for-3d-human-body-estimation">PARE(<strong>Part Attention Regressor for 3D Human Body Estimation)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>네트워크 구조 및 기능</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attention"><strong>주의(Attention) 메커니즘</strong></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pare-part-attention-regressor-for-3d-human-body-estimation">PARE(<strong>Part Attention Regressor for 3D Human Body Estimation)</strong></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>네트워크 구조 및 기능</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention"><strong>주의(Attention) 메커니즘</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-work-cnn-and-attention-mechanism">How to work CNN and attention mechanism</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn">CNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-mechanism">Attention mechanism</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-work-cnn-and-attention-mechanism">How to work CNN and attention mechanism</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn">CNN</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-mechanism">Attention mechanism</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#function-of-mmhuman3d">Function of MMHuman3d</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-smpl-and-pare-in-mmhuman3d">Role of SMPL and PARE in MMHuman3d</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-of-mmhuman3d">Function of MMHuman3d</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-smpl-and-pare-in-mmhuman3d">Role of SMPL and PARE in MMHuman3d</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list">To do list</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -518,20 +513,19 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="mmhuman3d">
 <h1>MMhuman3D 연구 노트<a class="headerlink" href="#mmhuman3d" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>목표<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>목표<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p><strong>Real-time Multi Human 3D pose tracking을 통해 blender 내에서 실시간 Human modeling을 가능하게 하는 것</strong></p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="smpl-skinned-multi-person-linear-model">
-<h1>SMPL(Skinned Multi-Person Linear model)<a class="headerlink" href="#smpl-skinned-multi-person-linear-model" title="Link to this heading">#</a></h1>
+<section id="smpl-skinned-multi-person-linear-model">
+<h2>SMPL(Skinned Multi-Person Linear model)<a class="headerlink" href="#smpl-skinned-multi-person-linear-model" title="Link to this heading">#</a></h2>
 <p><strong>SMPL은 model이다. 따라서 input이 있으면 funtion과 같이 output을 도출한다.</strong></p>
+</section>
 <section id="vertices-mesh">
 <h2>Vertices? Mesh?<a class="headerlink" href="#vertices-mesh" title="Link to this heading">#</a></h2>
 <p><strong>vertices는 인체에 표면을 표현하는 점이다. 이러한 점을 모아 면을 만들면 polygon이라 칭하고, 이러한 면들을 집합을 Mesh라고 칭한다. 따라서 SMPL에서 3D mesh에 대한 의미는 인체의 피부라고 생각하면 편하다.</strong></p>
-</section>
 <section id="input">
-<h2>Input<a class="headerlink" href="#input" title="Link to this heading">#</a></h2>
+<h3>Input<a class="headerlink" href="#input" title="Link to this heading">#</a></h3>
 <p><strong>smpl input은 2가지이다.</strong></p>
 <ol class="arabic simple">
 <li><p>pose parameters
@@ -539,6 +533,7 @@ document.write(`
 <li><p>shape parameters
 10개의 실수값(PCA coefficients)으로 구성된 shape vector로, 각 실수값은 신장(tall/short) 축과 같은 특정 축 방향에서 인체 오브젝트의 팽창/수축 정도 등으로 해석될 수 있다.</p></li>
 </ol>
+</section>
 <section id="output">
 <h3>output<a class="headerlink" href="#output" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -558,11 +553,10 @@ document.write(`
 <li><p>추정된 관절(joint) 위치를 기반으로 실제 포즈에 맞게 Mesh를 조정한다.</p></li>
 </ol>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="pare-part-attention-regressor-for-3d-human-body-estimation">
-<h1>PARE(<strong>Part Attention Regressor for 3D Human Body Estimation)</strong><a class="headerlink" href="#pare-part-attention-regressor-for-3d-human-body-estimation" title="Link to this heading">#</a></h1>
+<section id="pare-part-attention-regressor-for-3d-human-body-estimation">
+<h2>PARE(<strong>Part Attention Regressor for 3D Human Body Estimation)</strong><a class="headerlink" href="#pare-part-attention-regressor-for-3d-human-body-estimation" title="Link to this heading">#</a></h2>
 <section id="id2">
-<h2><strong>네트워크 구조 및 기능</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<h3><strong>네트워크 구조 및 기능</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>Part Attention Module: 이 모듈은 입력 이미지에서 신체의 각 부위를 식별하고 해당 부위에 대한 주의 맵을 생성한다. 이를 통해 네트워크는 신체의 중요한 부위에 더 많은 연산 자원을 집중할 수 있다.</strong></p></li>
 <li><p><strong>3D Pose and Shape Regression: 주의 맵과 원본 이미지 정보를 조합하여 신체의 3D 포즈와 형태를 추정한다. 이 과정에서 3D 신체 모델이 사용되어 신체의 포즈와 형태를 수치화한다.</strong></p></li>
@@ -571,7 +565,7 @@ document.write(`
 </ol>
 </section>
 <section id="attention">
-<h2><strong>주의(Attention) 메커니즘</strong><a class="headerlink" href="#attention" title="Link to this heading">#</a></h2>
+<h3><strong>주의(Attention) 메커니즘</strong><a class="headerlink" href="#attention" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>특징 추출: CNN을 사용하여 입력 이미지로부터 신체 관련 정보를 추출합니다. 이 과정에서 이미지의 중요한 패턴과 구조를 학습한다.</strong></p></li>
 <li><p><strong>주의 메커니즘 적용: 추출된 정보에 주의 메커니즘을 적용하여 신체의 특정 부위에 집중한다. 이는 신체의 각 부위에 대한 주의 맵을 생성하여 모델이 중요한 부위에 더 많은 자원을 할당하도록 한다.</strong></p></li>
@@ -580,27 +574,28 @@ document.write(`
 </ol>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="how-to-work-cnn-and-attention-mechanism">
-<h1>How to work CNN and attention mechanism<a class="headerlink" href="#how-to-work-cnn-and-attention-mechanism" title="Link to this heading">#</a></h1>
+<section id="how-to-work-cnn-and-attention-mechanism">
+<h2>How to work CNN and attention mechanism<a class="headerlink" href="#how-to-work-cnn-and-attention-mechanism" title="Link to this heading">#</a></h2>
 <section id="cnn">
-<h2>CNN<a class="headerlink" href="#cnn" title="Link to this heading">#</a></h2>
+<h3>CNN<a class="headerlink" href="#cnn" title="Link to this heading">#</a></h3>
 <p><strong>PARE 모델에서는 주로 신체 관련 정보를 추출하기 위해 컨볼루션 신경망(Convolutional Neural Networks, CNN)을 활용한다. CNN은 이미지 처리와 패턴 인식에 매우 효과적인 딥러닝 모델 중 하나로, 여러 계층(layers)을 거치며 이미지의 저수준(low-level) 특징(예: 에지, 색상, 질감 등)부터 고수준(high-level) 특징(예: 신체 부위의 형태)까지 다양한 수준의 특징을 추출할 수 있다.</strong></p>
 <p><strong>이 과정에서 CNN은 이미지의 원시 픽셀 값에서 시작하여, 각 컨볼루션 계층을 거쳐 가면서 점점 더 추상화된 특징을 학습한다. 최종적으로, 모델은 이미지 내에서 중요한 패턴과 구조, 즉 신체의 형태와 같은 정보를 추출해 내는 데 필요한 특징을 학습하게 된다.</strong></p>
 </section>
 <section id="attention-mechanism">
-<h2>Attention mechanism<a class="headerlink" href="#attention-mechanism" title="Link to this heading">#</a></h2>
+<h3>Attention mechanism<a class="headerlink" href="#attention-mechanism" title="Link to this heading">#</a></h3>
 <p><strong>특징 추출 단계에서 얻은 정보를 바탕으로, PARE 모델은 주의 메커니즘(Attention Mechanism)을 적용하여 신체의 특정 부위에 집중한다. 주의 메커니즘은 모델이 전체 이미지 중 중요한 부분에 더욱 집중할 수 있도록 해주는 기술로, 특히 이미지나 시퀀스 데이터 처리에 널리 사용된다.</strong></p>
 <p><strong>PARE 모델에서 주의 메커니즘은 신체의 각 부위에 대한 주의 맵(Attention Maps)을 생성한다. 이 주의 맵은 모델이 신체의 어느 부위를 중점적으로 보고 있는지를 나타내며, 신체의 각 부위별로 다른 가중치를 부여한다. 예를 들어, 어떤 이미지에서 팔의 움직임이 중요한 정보를 담고 있다면, 주의 메커니즘은 팔 부위에 더 높은 가중치를 부여하여 모델이 해당 부위에 더 집중하도록 한다.</strong></p>
 <p><strong>이 과정을 통해, PARE 모델은 신체의 구체적인 부위나 특정 동작에 대한 정보를 더욱 정확하게 포착할 수 있다. 주의 메커니즘이 적용된 후, 모델은 각 신체 부위에 대해 더욱 집중하여, 그 부위의 포즈를 정확하게 추정할 수 있는 정보를 제공받게 된다. 이는 특히 신체 일부가 가려지거나 복잡한 배경 속에서도 신체 부위를 정확하게 인식하고 포즈를 추정하는 데 큰 도움이 된다.</strong></p>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="function-of-mmhuman3d">
-<h1>Function of MMHuman3d<a class="headerlink" href="#function-of-mmhuman3d" title="Link to this heading">#</a></h1>
+<section id="function-of-mmhuman3d">
+<h2>Function of MMHuman3d<a class="headerlink" href="#function-of-mmhuman3d" title="Link to this heading">#</a></h2>
 <p><strong>MMHuman3Dv는 앞서 언급한 PARE, SMPL model을 사용하여 인체의 포즈 및 3D human modeling을 도와주는 벤치마크 툴이다. MMHuman3D의 정확도는 물론 MMHuman3D가 어느정도 영향을 끼친다. 하지만 PARE와 다른 모델을 쓰거나 다른 옵션의 모델을 쓰면 정확도가 달라질 것이다. 따라서 MMHuman3D는 모델을 통해 여러 방식으로 output을 도출하는 도구로 보면 편할 것이다.</strong></p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="role-of-smpl-and-pare-in-mmhuman3d">
-<h1>Role of SMPL and PARE in MMHuman3d<a class="headerlink" href="#role-of-smpl-and-pare-in-mmhuman3d" title="Link to this heading">#</a></h1>
-<p><strong>SMPL은 MMHuman3d에서 하는 역할은 PARE Model을 통해 pose estimate를 수행했을 때 Output은 SMPL Pose parameters 형태로 전달을 한다. 이러한 Parameters를 통해  SMPL human model 시각화를 하게 해준다. MMHuman3D에 Output으로 나온 데이터는 SMPL[body_pose, global_pose, beta]이다. Body_pose, Global_pose는 각각 SMPL pose parameters로 23개의 관절 또는 키포인트 좌표와 골반(Plevis) 좌표이다. Beta는 3D Mesh 형성하기위한 Shape parameter이다. 이 Parameter를 통해 체형 및 신장을 정한다. MMHuman3D에서 Male, Female, Natural SMPL model이 사용된다.</strong></p>
+<section id="role-of-smpl-and-pare-in-mmhuman3d">
+<h2>Role of SMPL and PARE in MMHuman3d<a class="headerlink" href="#role-of-smpl-and-pare-in-mmhuman3d" title="Link to this heading">#</a></h2>
+<p><strong>SMPL은 MMHuman3d에서 하는 역할은 PARE Model을 통해 pose estimate를 수행했을 때 Output은 SMPL Pose parameters 형태로 전달을 한다. 이러한 Parameters를 통해 SMPL human model 시각화를 하게 해준다. MMHuman3D에 Output으로 나온 데이터는 SMPL[body_pose, global_pose, beta]이다. Body_pose, Global_pose는 각각 SMPL pose parameters로 23개의 관절 또는 키포인트 좌표와 골반(Plevis) 좌표이다. Beta는 3D Mesh 형성하기위한 Shape parameter이다. 이 Parameter를 통해 체형 및 신장을 정한다. MMHuman3D에서 Male, Female, Natural SMPL model이 사용된다.</strong></p>
+</section>
 <section id="to-do-list">
 <h2>To do list<a class="headerlink" href="#to-do-list" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
@@ -641,6 +636,24 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../bionic/visualise-rag.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Visualising RAG data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../project/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MLOps 프로젝트</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -657,34 +670,28 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">MMhuman3D 연구 노트</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목표</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl-skinned-multi-person-linear-model">SMPL(Skinned Multi-Person Linear model)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertices-mesh">Vertices? Mesh?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input">Input</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목표</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl-skinned-multi-person-linear-model">SMPL(Skinned Multi-Person Linear model)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertices-mesh">Vertices? Mesh?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input">Input</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">output</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl">SMPL 작동 원리</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pare-part-attention-regressor-for-3d-human-body-estimation">PARE(<strong>Part Attention Regressor for 3D Human Body Estimation)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>네트워크 구조 및 기능</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attention"><strong>주의(Attention) 메커니즘</strong></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pare-part-attention-regressor-for-3d-human-body-estimation">PARE(<strong>Part Attention Regressor for 3D Human Body Estimation)</strong></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>네트워크 구조 및 기능</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention"><strong>주의(Attention) 메커니즘</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-work-cnn-and-attention-mechanism">How to work CNN and attention mechanism</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn">CNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-mechanism">Attention mechanism</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-work-cnn-and-attention-mechanism">How to work CNN and attention mechanism</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn">CNN</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-mechanism">Attention mechanism</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#function-of-mmhuman3d">Function of MMHuman3d</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-smpl-and-pare-in-mmhuman3d">Role of SMPL and PARE in MMHuman3d</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-of-mmhuman3d">Function of MMHuman3d</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-smpl-and-pare-in-mmhuman3d">Role of SMPL and PARE in MMHuman3d</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list">To do list</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

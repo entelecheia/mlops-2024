@@ -93,7 +93,7 @@
     <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="MLOps 프로젝트" href="../../project/index.html" />
+    <link rel="next" title="MMhuman3D 연구 노트" href="../MMHuman3D/index.html" />
     <link rel="prev" title="Adding a Jupyter Notebook" href="jupyter-notebook.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -247,6 +247,7 @@
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Visualising RAG data</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../MMHuman3D/index.html">MMhuman3D 연구 노트</a></li>
 </ul>
 </li>
 </ul>
@@ -495,18 +496,17 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="visualising-rag-data">
 <h1>Visualising RAG data<a class="headerlink" href="#visualising-rag-data" title="Link to this heading">#</a></h1>
-<p>You will need to setup Jupyter Notebook to run the code below. See <a class="reference internal" href="#figs/jupyter-notebook"><span class="xref myst">Jupyter Notebook setup</span></a></p>
 <p>The example code below assumes you already have your documents loaded into the bionicGPT database.<br />
 We will create a scatter graph showing the document chunks of data together with the 4 most ‘relevant’ chunks based on the query you specified.
 At the end we should have a diagram like this
 <img alt="Alt text" src="../../_images/vis-rag-scatter-example.png" /></p>
 <section id="setup-and-retrieve-query-embeddings">
 <h2>Setup and Retrieve Query Embeddings<a class="headerlink" href="#setup-and-retrieve-query-embeddings" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install -q sqlalchemy psycopg2-binary pandas
-!pip install -q matplotlib seaborn scikit-learn
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>sqlalchemy<span class="w"> </span>psycopg2-binary<span class="w"> </span>pandas
+pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>matplotlib<span class="w"> </span>seaborn<span class="w"> </span>scikit-learn
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">text</span>
@@ -518,7 +518,7 @@ At the end we should have a diagram like this
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://embeddings-api:80/embed&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://embeddings-api:80/embed&quot;</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="s2">&quot;how much money did the bank of england hold at end of 2022?&quot;</span><span class="p">}</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
@@ -526,7 +526,7 @@ At the end we should have a diagram like this
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">engine</span> <span class="o">=</span> <span class="n">sqlalchemy</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;postgresql://postgres:testpassword@postgres:5432/bionic-gpt&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">engine</span> <span class="o">=</span> <span class="n">sqlalchemy</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;postgresql://postgres:testpassword@postgres:5432/bionic-gpt&#39;</span><span class="p">)</span>
 <span class="n">conn</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -535,7 +535,7 @@ At the end we should have a diagram like this
 <section id="retrieve-document-data-from-database">
 <h2>Retrieve Document Data from Database<a class="headerlink" href="#retrieve-document-data-from-database" title="Link to this heading">#</a></h2>
 <p>We will now use the query embeddings from above to retrieve all document chunks from the data ordered by ‘similarity’</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">query_embedding</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span> <span class="c1"># From above embedding call</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query_embedding</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span> <span class="c1"># From above embedding call</span>
 
 <span class="n">sql</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT  document_id, file_name, text, embeddings  FROM  chunks, documents</span>
 <span class="s2">where documents.id = document_id</span>
@@ -550,13 +550,13 @@ At the end we should have a diagram like this
 </section>
 <section id="convert-data-retrieved-into-2-dimensional-data">
 <h2>Convert Data Retrieved into 2 Dimensional Data<a class="headerlink" href="#convert-data-retrieved-into-2-dimensional-data" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;embeddings_vec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;embeddings&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;embeddings_vec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;embeddings&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
 <span class="n">embeddings_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;embeddings_vec&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
 <span class="n">df</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert chunk embeddings</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert chunk embeddings</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;embeddings_vec&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="c1"># Reduce emeddings dimensions to 2 for plotting purposes</span>
@@ -576,7 +576,7 @@ At the end we should have a diagram like this
 <h2>Plot Results<a class="headerlink" href="#plot-results" title="Link to this heading">#</a></h2>
 <p>Different colours refer to the different documents uploaded.
 The 4 circles in blue highlight the 4 most ‘relevant’ chunks based on the query used above.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span> <span class="c1"># Set figsize</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span> <span class="c1"># Set figsize</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;darkgrid&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;grid.color&quot;</span><span class="p">:</span> <span class="s2">&quot;.6&quot;</span><span class="p">,</span> <span class="s2">&quot;grid.linestyle&quot;</span><span class="p">:</span> <span class="s2">&quot;:&quot;</span><span class="p">})</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_tsne</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;hls&#39;</span><span class="p">)</span>
 
@@ -634,11 +634,11 @@ The 4 circles in blue highlight the 4 most ‘relevant’ chunks based on the qu
       </div>
     </a>
     <a class="right-next"
-       href="../../project/index.html"
+       href="../MMHuman3D/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">MLOps 프로젝트</p>
+        <p class="prev-next-title">MMhuman3D 연구 노트</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
