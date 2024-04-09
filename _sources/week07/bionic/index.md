@@ -1,5 +1,1 @@
 # Bionic-GPT
-
-```{tableofcontents}
-
-```
