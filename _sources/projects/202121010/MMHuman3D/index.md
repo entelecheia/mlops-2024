@@ -1,4 +1,4 @@
-# MMhuman3D 연구 노트
+# MMhuman3D 프로젝트
 
 ## 목표
 
