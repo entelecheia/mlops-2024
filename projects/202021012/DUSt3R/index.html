@@ -536,30 +536,37 @@ Transfomer의 encordor과 decoder을 사용하여 개발되었습니다.</p>
 3D point의 2D filed의 dense를 포인트맵으로 나타내는 데 다름과 같습니다.</p>
 <div class="math notranslate nohighlight">
 \[ X ∈ R^{W×H×3} \]</div>
-<p>해상도 W × H 이미지(I)에 대해 X는 이미지 픽셀과 3D 점 사이의 일대일 매핑을 형성합니다.
-$<span class="math notranslate nohighlight">\(Ii,j ↔ Xi,j\)</span>$</p>
-<p>모든 픽셀 좌표에 대해
-$<span class="math notranslate nohighlight">\((i, j) ∈ {1 . . . W} × {1 . . . H} \)</span>$
-으로 나타낼 수 있습니다.</p>
+<p>해상도 W × H 이미지(I)에 대해 X는 이미지 픽셀과 3D 점 사이의 일대일 매핑을 형성합니다.</p>
+<div class="math notranslate nohighlight">
+\[ Ii,j ↔ Xi,j \]</div>
+<p>모든 픽셀 좌표에 대해</p>
+<div class="math notranslate nohighlight">
+\[ (i, j) ∈ {1 . . . W} × {1 . . . H} \]</div>
+<p>으로 나타낼 수 있습니다.</p>
 <ul class="simple">
 <li><p>여기서 각 카메라 광선이 모든 3D포인트에 도달하는 것을 가정으로 진행합니다. 불투명한표면의 경우는 무시됩니다.</p></li>
 </ul>
-<p>camera의 경우
-$<span class="math notranslate nohighlight">\(K ∈ R^{3×3}\)</span><span class="math notranslate nohighlight">\(
-으로 주어지고
-Depthmap(D)에 대해
-\)</span><span class="math notranslate nohighlight">\(D ∈ R^{W×H} \)</span>$
-으로 가정하면</p>
-<p>관찰된 장면에 대해 포인트맵 X에 대해 아래처럼 구할 수 있습니다.
-$<span class="math notranslate nohighlight">\( Xi,j = K^{−1} [iD_{i,j} , jD_{i,j} , D_{i,j}]^⊤\)</span>$</p>
+<p>camera의 경우</p>
+<div class="math notranslate nohighlight">
+\[ K ∈ R^{3×3} \]</div>
+<p>으로 주어지고
+Depthmap(D)에 대해</p>
+<div class="math notranslate nohighlight">
+\[ D ∈ R^{W×H} \]</div>
+<p>으로 가정하면</p>
+<p>관찰된 장면에 대해 포인트맵 X에 대해 아래처럼 구할 수 있습니다.</p>
+<div class="math notranslate nohighlight">
+\[ Xi,j = K^{−1} [iD_{i,j} , jD_{i,j} , D_{i,j}]^⊤ \]</div>
 <ul class="simple">
 <li><p>여기서 X는 카메라 좌표계로 표현</p></li>
 </ul>
-<p>카메라 m의 좌표계로 표현된 카메라 n의 pointmap <span class="math notranslate nohighlight">\(X^n\)</span>을 <span class="math notranslate nohighlight">\(X^{n,m}\)</span>으로 나타냅니다.
-$<span class="math notranslate nohighlight">\(X^{n,m}=p_{m}p^{-1}_{n}h(X^n)\)</span>$</p>
-<p>추가로 <span class="math notranslate nohighlight">\(p_m,p_n ∈ R^{3×4}\)</span>를 사용하면 이미지 <span class="math notranslate nohighlight">\(n,m\)</span>에 대한 world-to-camera poses을 취하고
-$<span class="math notranslate nohighlight">\(h : (x,y,z) → (x, y, z, 1)\)</span>$
-로 동종 매핑이 수행됩니다.</p>
+<p>카메라 m의 좌표계로 표현된 카메라 n의 pointmap <span class="math notranslate nohighlight">\(X^n\)</span>을 <span class="math notranslate nohighlight">\(X^{n,m}\)</span>으로 나타냅니다.</p>
+<div class="math notranslate nohighlight">
+\[ X^{n,m}=p*{m}p^{-1}*{n}h(X^n) \]</div>
+<p>추가로 <span class="math notranslate nohighlight">\(p_m,p_n ∈ R^{3×4}\)</span>를 사용하면 이미지 <span class="math notranslate nohighlight">\(n,m\)</span>에 대한 world-to-camera poses을 취하고</p>
+<div class="math notranslate nohighlight">
+\[ h : (x,y,z) → (x, y, z, 1) \]</div>
+<p>로 동종 매핑이 수행됩니다.</p>
 </section>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
@@ -577,7 +584,7 @@ $<span class="math notranslate nohighlight">\(h : (x,y,z) → (x, y, z, 1)\)</sp
 사진을 보면 각각 이미지 encodor, decoder 및 회귀 헤드로 구성된 두개의 동일한 branch(각 이미지 당 하나씩)로 구성됩니다.</p>
 <p>2개의 input이미지는 먼저 동일한 가중치를 공유하는 ViT 인코더로 인코딩되어 2개의 token representation(토큰 표현) <span class="math notranslate nohighlight">\(F_1,F_2\)</span>를 생성하고 다음과 같습니다.</p>
 <div class="math notranslate nohighlight">
-\[F^1 = Encoder(I^1),\ F^2 = Encoder(I^2)\]</div>
+\[ F^1 = Encoder(I^1),\ F^2 = Encoder(I^2) \]</div>
 <p>그 다음 단계에서는 위 결과를 가지고 디코더를 통해 공동으로 추론합니다.
 디코더의 경우 CroCo와 마찬가지로 cross attention기능을 갖춘 generic transformer network입니다.
 따라서 각 디코더 블록은 순차적으로 self-attention(뷰의 각 토큰이 동일한 뷰의 토큰에 참여)을 수행한 다음 교차 어텐션(뷰의 각 토큰이 다른 뷰의 다른 모든 토큰에 참여)을 수행하고 마지막으로 토큰을 MLP(Multi-Layer Perceptron)에 공급합니다.</p>
@@ -587,15 +594,15 @@ $<span class="math notranslate nohighlight">\(h : (x,y,z) → (x, y, z, 1)\)</sp
 </ul>
 <p>B블록이 있고 인코더 토큰 <span class="math notranslate nohighlight">\(G^1_0:= F^1 \ and \ G^2_0:= F^2\)</span>으로 초기화 되었는 디코더의 경우 각 디코더 블록은 다른 branch의 토큰에 참여합니다.</p>
 <div class="math notranslate nohighlight">
-\[G^1_i = DecoderBlock^1_i(G^1_{i−1}, G^2_{i−1}),\ G^2_i = DecoderBlock^2_i(G^2_{i−1}, G^1_{i−1}) \ (*for \ i = 1, . . . ,B)\]</div>
+\[ G^1*i = DecoderBlock^1_i(G^1*{i−1}, G^2*{i−1}),\ G^2_i = DecoderBlock^2_i(G^2*{i−1}, G^1\_{i−1}) \ (\*for \ i = 1, . . . ,B) \]</div>
 <ul class="simple">
 <li><p>여기서 <span class="math notranslate nohighlight">\(DecoderBlock^v_i(G^1,G^2)\)</span>는 <span class="math notranslate nohighlight">\(v ∈ {1, 2}\)</span> 분기의 i 번째 블록을 나타내며, <span class="math notranslate nohighlight">\(G^1\)</span> 및 <span class="math notranslate nohighlight">\(G^2\)</span>는 입력 토큰이고 <span class="math notranslate nohighlight">\(G^2\)</span>는 다른 branch의 토큰입니다.</p></li>
 </ul>
 <p>마지막 과정으로 각 branch에서 별도의 회귀헤드가 디코더 토큰 세트를 가져와 포인트맵과 관련된 신뢰도 맵을 출력합니다.</p>
 <div class="math notranslate nohighlight">
-\[X^{1,1}, C^{1,1} = Head^1(G^1_0, . . . , G^1_B),\]</div>
+\[ X^{1,1}, C^{1,1} = Head^1(G^1_0, . . . , G^1_B), \]</div>
 <div class="math notranslate nohighlight">
-\[ X^{2,1}, C^{2,1} = Head^2(G^2_0, . . . , G^2_B)\]</div>
+\[ X^{2,1}, C^{2,1} = Head^2(G^2_0, . . . , G^2_B) \]</div>
 <section id="discussion">
 <h3>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h3>
 <p>위 과정을 통해서 output pointmap <span class="math notranslate nohighlight">\(X^{1,1}, X^{2,1}\)</span>을 얻었지만 알 수 없는 축척 비율까지 회귀되는 문제가 발생합니다. 또한 현재 아키텍처는 어떠한 기하학적 제약도 명시적으로 적용하지 않는다는 점을 유의해야 합니다. 따라서 포인트 맵은 물리적으로 그럴듯한 카메라 모델과 반드시 일치하는 것은 아닙니다. 오히려 네트워크가 기하학적으로 일관된 포인트맵만 포함하는 학습세트에 존재하는 모든 관련 사전 정보를 학습하도록 합니다. 일반 아키텍쳐를 사용하면 강력한 사전 학습 기술을 활용하여 궁극적으로 기존 작업별 아키텍처가 달성할 수 있는 수준을 능가할 수 있습니다.</p>
