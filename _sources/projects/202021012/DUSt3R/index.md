@@ -12,13 +12,13 @@ Transfomer의 encordor과 decoder을 사용하여 개발되었습니다.
 
 연관된 기술에는 SFM, MVS, Direct RGB-to-3D, Pointmaps 등이 있습니다.
 
-### SFM
+**SFM**
 
 Structure From Motion의 약자로 동일한 객체를 다른 시점에서 중첩되도록 찍은 Multi-view 이미지들로 부터 3D Structure와 Camera pose를 복원하는 프로세스이다.
 
 - 4가지 조건이 잘 충족되지 않으면 3D reconstruction결과가 좋지 않음.
 
-### MVS
+**MVS**
 
 Multi-view stereo의 약자로 서로 다른 시점을 가진 2개 이상의 이미지를 이용해 해당 이미지에 나타나는 물체들의 3D 표면을 복원하는 프로세서입니다.
 
@@ -70,7 +70,7 @@ $$ h : (x,y,z) → (x, y, z, 1) $$
 
 ## Overview
 
-direct regression을 통해  generalized stereo case에 대한 3D reconstruction 작업을 수행하는 네트워크를 구축합니다.
+direct regression을 통해 generalized stereo case에 대한 3D reconstruction 작업을 수행하는 네트워크를 구축합니다.
 
 - direct regression: DCNN 등의 네트워크 모델을 통해 신체 부위의 키포인트 위치를 직접 피팅(regression)하는 방법.
 
@@ -105,9 +105,10 @@ $$G^1_i = DecoderBlock^1_i(G^1_{i−1}, G^2_{i−1}), G^2_i = DecoderBlock^2_i(G
 $$ X^{1,1}, C^{1,1} = Head^1(G^1_0, . . . , G^1_B), $$
 $$ X^{2,1}, C^{2,1} = Head^2(G^2_0, . . . , G^2_B) $$
 
-### Discussion
+## Discussion
 
 위 과정을 통해서 output pointmap $X^{1,1}, X^{2,1}$을 얻었지만 알 수 없는 축척 비율까지 회귀되는 문제가 발생합니다. 또한 현재 아키텍처는 어떠한 기하학적 제약도 명시적으로 적용하지 않는다는 점을 유의해야 합니다. 따라서 포인트 맵은 물리적으로 그럴듯한 카메라 모델과 반드시 일치하는 것은 아닙니다. 오히려 네트워크가 기하학적으로 일관된 포인트맵만 포함하는 학습세트에 존재하는 모든 관련 사전 정보를 학습하도록 합니다. 일반 아키텍쳐를 사용하면 강력한 사전 학습 기술을 활용하여 궁극적으로 기존 작업별 아키텍처가 달성할 수 있는 수준을 능가할 수 있습니다. 세부적인 내용을 다음 내용에서 다룹니다.
 
 ## Training Objective
-DUSt3R 모델의 학습 목표는 3D공간에서의 회귀를 기반으로 합니다. 실측 포인트 맵을 $X̅^{1,1}$과 $X̅^{2,1}$로 표시하겠습니다. 이는 실측이 정의된 2개의 vaild pixel $D^1, D^2 \subseteq {1 . . . W} × {1 . . . H}$와 함께 Eq.(1)에서 얻은 것 입니다.
+
+DUSt3R 모델의 학습 목표는 3D공간에서의 회귀를 기반으로 합니다. 실측 포인트 맵을 ${\bar{X}}^{1,1}$과 $\bar{X}^{2,1}$로 표시하겠습니다. 이는 실측이 정의된 2개의 vaild pixel $D^1, D^2 \subseteq {1 . . . W} × {1 . . . H}$와 함께 Eq.(1)에서 얻은 것 입니다.
