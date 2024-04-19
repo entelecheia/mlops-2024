@@ -492,7 +492,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#method">Method</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-objective">Training Objective</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-objective">Training Objective</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-regression-loss">3D Regression loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-aware-loss">Confidence-aware loss</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -603,7 +607,23 @@ Depthmap(D)에 대해</p>
 </section>
 <section id="training-objective">
 <h2>Training Objective<a class="headerlink" href="#training-objective" title="Link to this heading">#</a></h2>
+<section id="d-regression-loss">
+<h3>3D Regression loss<a class="headerlink" href="#d-regression-loss" title="Link to this heading">#</a></h3>
 <p>DUSt3R 모델의 학습 목표는 3D공간에서의 회귀를 기반으로 합니다. 실측 포인트 맵을 <span class="math notranslate nohighlight">\({\bar{X}}^{1,1}\)</span>과 <span class="math notranslate nohighlight">\(\bar{X}^{2,1}\)</span>로 표시하겠습니다. 이는 실측이 정의된 2개의 vaild pixel <span class="math notranslate nohighlight">\(D^1, D^2 \subseteq {1 . . . W} × {1 . . . H}\)</span>와 함께 Eq.(1)에서 얻은 것 입니다.</p>
+<p>valid pixel <span class="math notranslate nohighlight">\(i ∈ D^v\)</span>에 대한 회귀 손실$v ∈{1, 2}는 유클리드 거리를 통해 구할 수 있습니다.</p>
+<div class="math notranslate nohighlight">
+\[ ℓ_{regr}(v, i)= \left\|\left\|\frac{1}{z}X^{v,1}_i- \frac{1}{z}\bar{X}^{v,1}_i \right\|\right\| \ \ (2) \]</div>
+<p>예측과 원본 데이터사이의 scale ambiguity을 처리하기 위해, 배율인수 <span class="math notranslate nohighlight">\(z = nor(X1,1, X2,1)\)</span> 과 <span class="math notranslate nohighlight">\(bar{X} = norm(X¯ 1,1, X¯ 2,1)\)</span> 을 사용하여 예측 및 실측 포인트 맵을 정규화합니다.
+이는 각각 원점까지의 모든 유효한 지점의 평균 거리를 나타냅니다.</p>
+<div class="math notranslate nohighlight">
+\[ norm(X^1, X^2) = \frac{1}{|D1| +|D2|}\sum_{v∈{1,2}}\sum_{i∈D^v}∥X^v_i∥ \ \ (3) \]</div>
+</section>
+<section id="confidence-aware-loss">
+<h3>Confidence-aware loss<a class="headerlink" href="#confidence-aware-loss" title="Link to this heading">#</a></h3>
+<p>실제로는 논문에서 가정한 상황과 달리 반대로 잘못 정의된 3D 포인트가 있습니다. (예를 들어 하늘이나 반투명한 물체)
+보다 일반적으로 이미지의 일부 부분은 일반적으로 다른 부분을 예측하기가 더 어렵습니다.
+따라서 우리는 네트워크가 이 특정 픽셀에 대해 갖는 신뢰도를 나타내는 각 픽셀의 점수를 예측하는 방법을 공동으로 학습합니다.</p>
+</section>
 </section>
 </section>
 
@@ -674,7 +694,11 @@ Depthmap(D)에 대해</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#method">Method</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-objective">Training Objective</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-objective">Training Objective</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-regression-loss">3D Regression loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-aware-loss">Confidence-aware loss</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
