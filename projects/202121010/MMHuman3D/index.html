@@ -262,6 +262,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">202121010</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">MMhuman3D 프로젝트</a></li>
+
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../202021012/index.html">202121010</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -496,6 +497,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">MMhuman3D 프로젝트</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목표</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl-skinned-multi-person-linear-model">SMPL(Skinned Multi-Person Linear model)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertices-mesh">Vertices? Mesh?</a><ul class="nav section-nav flex-column">
@@ -517,7 +519,31 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-of-mmhuman3d">Function of MMHuman3d</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-smpl-and-pare-in-mmhuman3d">Role of SMPL and PARE in MMHuman3d</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list">To do list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list-no-1-result">To do list No.1 result</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fps-1">fps 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fps-8">fps 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fps-10">fps 10</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">연산 시간 단축을 위한 해상도 줄이기</a></li>
 </ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-model">Tracking model 연구</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-use-by-the-tracking-model-in-mmhuman3d">Code use by the tracking model in MMHuman3D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up-top-down">Bottom up? Top down?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-down">Top-down</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up">Bottom-up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mmhuman3d-top-down">MMHuman3D → Top-down</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mmhuman3d-pose-estimation-code">MMHuman3D pose estimation code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#def-inference-image-based-model">def inference_image_based_model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -569,11 +595,13 @@ document.write(`
 <li><p>구축된 Mesh를 토대로 관절(joint) 위치를 추정한다.</p></li>
 <li><p>추정된 관절(joint) 위치를 기반으로 실제 포즈에 맞게 Mesh를 조정한다.</p></li>
 </ol>
+<p><img alt="each_apply" src="../../../_images/each_apply.png" /></p>
 </section>
 <section id="pare-part-attention-regressor-for-3d-human-body-estimation">
 <h2>PARE(<strong>Part Attention Regressor for 3D Human Body Estimation)</strong><a class="headerlink" href="#pare-part-attention-regressor-for-3d-human-body-estimation" title="Link to this heading">#</a></h2>
 <section id="id2">
 <h3><strong>네트워크 구조 및 기능</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><img alt="pare_network" src="../../../_images/pare_network.png" /></p>
 <ol class="arabic simple">
 <li><p><strong>Part Attention Module: 이 모듈은 입력 이미지에서 신체의 각 부위를 식별하고 해당 부위에 대한 주의 맵을 생성한다. 이를 통해 네트워크는 신체의 중요한 부위에 더 많은 연산 자원을 집중할 수 있다.</strong></p></li>
 <li><p><strong>3D Pose and Shape Regression: 주의 맵과 원본 이미지 정보를 조합하여 신체의 3D 포즈와 형태를 추정한다. 이 과정에서 3D 신체 모델이 사용되어 신체의 포즈와 형태를 수치화한다.</strong></p></li>
@@ -583,6 +611,7 @@ document.write(`
 </section>
 <section id="attention">
 <h3><strong>주의(Attention) 메커니즘</strong><a class="headerlink" href="#attention" title="Link to this heading">#</a></h3>
+<p><img alt="pare_working" src="../../../_images/pare_working.png" /></p>
 <ol class="arabic simple">
 <li><p><strong>특징 추출: CNN을 사용하여 입력 이미지로부터 신체 관련 정보를 추출합니다. 이 과정에서 이미지의 중요한 패턴과 구조를 학습한다.</strong></p></li>
 <li><p><strong>주의 메커니즘 적용: 추출된 정보에 주의 메커니즘을 적용하여 신체의 특정 부위에 집중한다. 이는 신체의 각 부위에 대한 주의 맵을 생성하여 모델이 중요한 부위에 더 많은 자원을 할당하도록 한다.</strong></p></li>
@@ -612,6 +641,7 @@ document.write(`
 <section id="role-of-smpl-and-pare-in-mmhuman3d">
 <h2>Role of SMPL and PARE in MMHuman3d<a class="headerlink" href="#role-of-smpl-and-pare-in-mmhuman3d" title="Link to this heading">#</a></h2>
 <p><strong>SMPL은 MMHuman3d에서 하는 역할은 PARE Model을 통해 pose estimate를 수행했을 때 Output은 SMPL Pose parameters 형태로 전달을 한다. 이러한 Parameters를 통해 SMPL human model 시각화를 하게 해준다. MMHuman3D에 Output으로 나온 데이터는 SMPL[body_pose, global_pose, beta]이다. Body_pose, Global_pose는 각각 SMPL pose parameters로 23개의 관절 또는 키포인트 좌표와 골반(Plevis) 좌표이다. Beta는 3D Mesh 형성하기위한 Shape parameter이다. 이 Parameter를 통해 체형 및 신장을 정한다. MMHuman3D에서 Male, Female, Natural SMPL model이 사용된다.</strong></p>
+<p><img alt="mmhuman_output" src="../../../_images/mmhuman_output.png" /></p>
 </section>
 <section id="to-do-list">
 <h2>To do list<a class="headerlink" href="#to-do-list" title="Link to this heading">#</a></h2>
@@ -620,6 +650,145 @@ document.write(`
 현재는 frame 1개씩 받아서 바로바로 처리하는 방식 → ex) 1초에 8개의 frame 받고 동시에 8개를 처리하기</p></li>
 <li><p>실시간 TCP 통신을 통해 blender에서 실시간 Human modeling</p></li>
 </ol>
+</section>
+<section id="to-do-list-no-1-result">
+<h2>To do list No.1 result<a class="headerlink" href="#to-do-list-no-1-result" title="Link to this heading">#</a></h2>
+<section id="fps-1">
+<h3>fps 1<a class="headerlink" href="#fps-1" title="Link to this heading">#</a></h3>
+<p><img alt="1fps" src="../../../_images/1fps.png" /></p>
+</section>
+<section id="fps-8">
+<h3>fps 8<a class="headerlink" href="#fps-8" title="Link to this heading">#</a></h3>
+<p><img alt="8fps" src="../../../_images/8fps.png" /></p>
+</section>
+<section id="fps-10">
+<h3>fps 10<a class="headerlink" href="#fps-10" title="Link to this heading">#</a></h3>
+<p><img alt="10fps" src="../../../_images/10fps.png" /></p>
+<p>frame을 8장 처리와 10장 처리 과정 시간 계산</p>
+<p><strong>fps 1 → 0.2s for one time</strong></p>
+<p><strong>fps 8 → 0.80~ 0.88s for one time</strong></p>
+<p><strong>fps 10 → 1.01~1.09s for one time</strong></p>
+<p>frame 1개 프로세싱 소요 시간이 0.1초 예상 가능하다.</p>
+</section>
+<section id="id3">
+<h3>연산 시간 단축을 위한 해상도 줄이기<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>앞서 말한 연구는 RTSP를 통해 Frame을 불러오는 것이다. RTSP에 기본 해상도는 1920 * 1080이다.</p>
+<p>연산 시간을 단축하기 위해 해상도를 줄이는 방법이 있다.</p>
+<ol class="arabic">
+<li><p><strong>Opencv</strong></p>
+<ol class="arabic">
+<li><p><strong>Opencv VideoCapture를 통해 RTSP를 불러오는 것이다.</strong>
+따러 Opencv set 함수를 통해 설정함</p>
+<p><img alt="vid_cap_set" src="../../../_images/vid_cap_set.png" /></p>
+<p>Width: 640 Height: 480 으로 설정</p>
+<p><img alt="default" src="projects/202121010/MMHuman3D/figs/default%20.png" /></p>
+<p>set 함수로 해상도를 설정해도 바뀌지 않음</p>
+<p><strong>RTSP 해상도는 스트림 소스 측에서 특정 해상도로 전송하고 있을 경우, 클라이언트 측에서 해상도를 강제로 변경할 수 없다고 함</strong></p>
+</li>
+<li><p><strong>Opencv resize 함수를 통해 해상도를 강제로 변경 시도</strong></p>
+<p><img alt="resize" src="../../../_images/resize.png" /></p>
+<p>Width: 640 Height: 480 으로 설정</p>
+<p><img alt="after_resize_fps10" src="../../../_images/after_resize_fps10.png" /></p>
+<p>해상도가 바뀌긴 했지만 연산 속도가 이전보다 더 늦어진 것을 확인할 수 있음</p>
+</li>
+</ol>
+</li>
+<li><p><strong>RTSP</strong></p>
+<ol class="arabic">
+<li><p>RTSP 스트림 소스측에서 전송할 때 해상도 옵션 변경</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-f<span class="w"> </span>dshow<span class="w"> </span>-video_size<span class="w"> </span>640x480<span class="w"> </span>-i<span class="w"> </span><span class="nv">video</span><span class="o">=</span><span class="s2">&quot;ABKO APC930 QHD WEBCAM&quot;</span><span class="w"> </span>-framerate<span class="w"> </span><span class="m">30</span><span class="w">  </span>-f<span class="w"> </span>rtsp<span class="w"> </span>-rtsp_transport<span class="w"> </span>udp<span class="w"> </span>rtsp://172.22.48.1:8554/webcam.h264
+</pre></div>
+</div>
+<p><img alt="after_rtsp_fps10" src="../../../_images/after_rtsp_fps10.png" /></p>
+<p>해상도를 변경해도 연산 시간이 똑같음</p>
+</li>
+</ol>
+</li>
+<li><p><strong>결론</strong>
+<strong>Opencv resize함수를 통해 frame에 대한 해상도를 줄이면 loop에 연산이 추가가 되는 것이고 연산 시간은 늘어남. RTSP 스트림 측에 옵션을 통해 해상도를 줄여도 연산 시간은 똑같음.</strong></p></li>
+</ol>
+</section>
+</section>
+<section id="tracking-model">
+<h2>Tracking model 연구<a class="headerlink" href="#tracking-model" title="Link to this heading">#</a></h2>
+<p><img alt="deepsort" src="../../../_images/deepsort.png" /></p>
+<ul>
+<li><p><strong>What is Tracking model?</strong>
+<strong>쉽게 말해 Object detection을 진행하는데 필요한 model</strong></p></li>
+<li><p><strong>Tracking model은 어떤 기능을 하는가?</strong>
+<strong>MMHuman3D에서 Pose estimation는 아무것도 없는 베이스 상태에서 이뤄지지 않는다. 먼저 Object detection을 바탕으로 특정 객체에 Pose estimation를 하는 것이다.</strong>
+<strong>Object tracking → Pose estimation → Human modeling</strong></p></li>
+<li><p><strong>MMHuman3D에 사용되는 Tracking Model은 어떤 것인가?</strong>
+<strong>MMHuman3D에 사용되는 Tracking Model은DeepSORT란 모델이 사용된다.</strong></p>
+<blockquote>
+<div><p>DeepSORT란?
+DeepSORT = SORT + Deeplearning = (Kalman Filter + Hungraian Algorithm) + Feature Vector
+SORT = Kalman Filter + Hungraian Algorithm 이며, SORT에 Deeplearning Feature Vector더한 것이다.</p>
+<h3 class="rubric" id="kalman-filter">Kalman Filter?</h3>
+<ul class="simple">
+<li><p>이전 프레임(시점)의 bbox(detect된 객체의 경제box, bounding box)의 정보를 이용해 현재 프레임의 객체의 위치를 예측하는 것</p></li>
+<li><p>Kalman Filter를 거치고 나온 정보(예측값)를 이용해 IOU distance를 구할 수 있고, 이를 Hungraian Algorithm으로 보내 객체 정보를 업데이트 할 수 있다.</p></li>
+<li><p>IOU distance란?
+IOU란 Intersection over Union로 Object Detection 분야에서 예측 Bounding Box와 Ground Truth가 일치하는 정도를 0과 1 사이의 값으로 나타낸 값이다.</p></li>
+</ul>
+<p><img alt="kalam" src="../../../_images/kalam.png" /></p>
+<h3 class="rubric" id="hungraian-algorithm">Hungraian Algorithm?</h3>
+<ul class="simple">
+<li><p>Kalman Filter에서 예측한 위치값과 실제 위치값의 IOU distance를 이용해 객체 정보를 업데이트</p></li>
+</ul>
+<h3 class="rubric" id="deepsort">DeepSORT 과정</h3>
+<ol class="arabic simple">
+<li><p>이전 프레임에서 객체를 가져와서(Detecter), Kalman Filter를 거쳐 예측값을 알아냄</p></li>
+<li><p>현재 프레임에서 객체를 가져와서(Detecter), 1에서 구한 예측값과의 IOU distance를 구함</p></li>
+<li><p>Hungraian Algorithm을 통해 Tracking 실행</p></li>
+</ol>
+<p><img alt="deepsort_net" src="../../../_images/deepsor_net.png" /></p>
+</div></blockquote>
+</li>
+</ul>
+<section id="code-use-by-the-tracking-model-in-mmhuman3d">
+<h3>Code use by the tracking model in MMHuman3D<a class="headerlink" href="#code-use-by-the-tracking-model-in-mmhuman3d" title="Link to this heading">#</a></h3>
+<p><img alt="tracking_model" src="../../../_images/tracking_model.png" /></p>
+<p>in def get_tracking_result</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="bottom-up-top-down">
+<h1>Bottom up? Top down?<a class="headerlink" href="#bottom-up-top-down" title="Link to this heading">#</a></h1>
+<section id="top-down">
+<h2>Top-down<a class="headerlink" href="#top-down" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>이미지에서 사람을 먼저 찾고, 찾은 사람의 Bounding Box에서 자세를 추정</p></li>
+<li><p>사람을 먼저 찾고, 사람안에서 joint들을 찾기 때문에 정확도가 Bottom-up방식보다 높다</p></li>
+<li><p>검출된 사람들을 순회하며 joint들을 찾기 때문에 속도가 Bottom-up방식보다 느리다</p></li>
+</ul>
+</section>
+<section id="bottom-up">
+<h2>Bottom-up<a class="headerlink" href="#bottom-up" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>이미지에서 joint들을 먼저 찾고, joint들의 상관관계를 분석하여 이들을 연결하여 자세를 추정</p></li>
+<li><p>정확도는 Top-down 방식에 비해 떨어지지만, Object Detection 과정이 없기 때문에 속도가 빨라 실시간 처리에 사용 가능</p></li>
+</ul>
+</section>
+<section id="mmhuman3d-top-down">
+<h2>MMHuman3D → Top-down<a class="headerlink" href="#mmhuman3d-top-down" title="Link to this heading">#</a></h2>
+<section id="mmhuman3d-pose-estimation-code">
+<h3>MMHuman3D pose estimation code<a class="headerlink" href="#mmhuman3d-pose-estimation-code" title="Link to this heading">#</a></h3>
+<p><img alt="pose_estimate" src="../../../_images/pose_estimate.png" /></p>
+<p>mesh model → PARE model</p>
+<p><img alt="result_012" src="../../../_images/result_012.png" /></p>
+<p>함수 inference_image_based_model에 parameter인 result는 bbox data</p>
+</section>
+<section id="def-inference-image-based-model">
+<h3>def inference_image_based_model<a class="headerlink" href="#def-inference-image-based-model" title="Link to this heading">#</a></h3>
+<p><img alt="bbox.png" src="../../../_images/bbox.png" /></p>
+<blockquote>
+<div><p><strong>bboxes_xywh?</strong>
+det_results의 bbox data format(left, top, right, bottom) → format(left, top, right, high) 형태로 바꾼 것</p>
+</div></blockquote>
+<p><img alt="pose_estimate_forward.png" src="../../../_images/pose_estimate_forward.png" /></p>
+<p>det_results는 def inference_image_based_model에 parameter result → bbox data</p>
+</section>
 </section>
 </section>
 
@@ -687,6 +856,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">MMhuman3D 프로젝트</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목표</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl-skinned-multi-person-linear-model">SMPL(Skinned Multi-Person Linear model)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertices-mesh">Vertices? Mesh?</a><ul class="nav section-nav flex-column">
@@ -708,7 +878,31 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-of-mmhuman3d">Function of MMHuman3d</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#role-of-smpl-and-pare-in-mmhuman3d">Role of SMPL and PARE in MMHuman3d</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list">To do list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list-no-1-result">To do list No.1 result</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fps-1">fps 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fps-8">fps 8</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fps-10">fps 10</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">연산 시간 단축을 위한 해상도 줄이기</a></li>
 </ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-model">Tracking model 연구</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-use-by-the-tracking-model-in-mmhuman3d">Code use by the tracking model in MMHuman3D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up-top-down">Bottom up? Top down?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-down">Top-down</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up">Bottom-up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mmhuman3d-top-down">MMHuman3D → Top-down</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mmhuman3d-pose-estimation-code">MMHuman3D pose estimation code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#def-inference-image-based-model">def inference_image_based_model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>

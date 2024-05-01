@@ -36,9 +36,13 @@
 2. 구축된 Mesh를 토대로 관절(joint) 위치를 추정한다.
 3. 추정된 관절(joint) 위치를 기반으로 실제 포즈에 맞게 Mesh를 조정한다.
 
+![each_apply](./figs/each_apply.png)
+
 ## PARE(**Part Attention Regressor for 3D Human Body Estimation)**
 
 ### **네트워크 구조 및 기능**
+
+![pare_network](./figs/pare_network.png)
 
 1. **Part Attention Module: 이 모듈은 입력 이미지에서 신체의 각 부위를 식별하고 해당 부위에 대한 주의 맵을 생성한다. 이를 통해 네트워크는 신체의 중요한 부위에 더 많은 연산 자원을 집중할 수 있다.**
 2. **3D Pose and Shape Regression: 주의 맵과 원본 이미지 정보를 조합하여 신체의 3D 포즈와 형태를 추정한다. 이 과정에서 3D 신체 모델이 사용되어 신체의 포즈와 형태를 수치화한다.**
@@ -46,6 +50,8 @@
 4. **Adaptive Loss Function: 다양한 손실 함수를 사용하여 포즈 추정의 정확도와 주의 맵의 효율성을 극대화한다.**
 
 ### **주의(Attention) 메커니즘**
+
+![pare_working](./figs/pare_working.png)
 
 1. **특징 추출: CNN을 사용하여 입력 이미지로부터 신체 관련 정보를 추출합니다. 이 과정에서 이미지의 중요한 패턴과 구조를 학습한다.**
 2. **주의 메커니즘 적용: 추출된 정보에 주의 메커니즘을 적용하여 신체의 특정 부위에 집중한다. 이는 신체의 각 부위에 대한 주의 맵을 생성하여 모델이 중요한 부위에 더 많은 자원을 할당하도록 한다.**
@@ -76,8 +82,165 @@
 
 **SMPL은 MMHuman3d에서 하는 역할은 PARE Model을 통해 pose estimate를 수행했을 때 Output은 SMPL Pose parameters 형태로 전달을 한다. 이러한 Parameters를 통해 SMPL human model 시각화를 하게 해준다. MMHuman3D에 Output으로 나온 데이터는 SMPL[body_pose, global_pose, beta]이다. Body_pose, Global_pose는 각각 SMPL pose parameters로 23개의 관절 또는 키포인트 좌표와 골반(Plevis) 좌표이다. Beta는 3D Mesh 형성하기위한 Shape parameter이다. 이 Parameter를 통해 체형 및 신장을 정한다. MMHuman3D에서 Male, Female, Natural SMPL model이 사용된다.**
 
+![mmhuman_output](./figs/mmhuman_output.png)
+
 ## To do list
 
 1. MMHuman3D RTSP frame 처리 방식
    현재는 frame 1개씩 받아서 바로바로 처리하는 방식 → ex) 1초에 8개의 frame 받고 동시에 8개를 처리하기
 2. 실시간 TCP 통신을 통해 blender에서 실시간 Human modeling
+
+
+## To do list No.1 result
+
+### fps 1
+
+![1fps](./figs/1fps.png)
+
+
+### fps 8
+
+![8fps](./figs/8fps.png)
+
+### fps 10
+
+![10fps](./figs/10fps.png)
+
+frame을 8장 처리와 10장 처리 과정 시간 계산
+
+**fps 1 → 0.2s for one time**
+
+**fps 8 → 0.80~ 0.88s for one time**
+
+**fps 10 → 1.01~1.09s for one time** 
+
+frame 1개 프로세싱 소요 시간이 0.1초 예상 가능하다.
+
+### 연산 시간 단축을 위한 해상도 줄이기
+
+앞서 말한 연구는 RTSP를 통해 Frame을 불러오는 것이다. RTSP에 기본 해상도는 1920 * 1080이다.
+
+연산 시간을 단축하기 위해 해상도를 줄이는 방법이 있다. 
+
+1. **Opencv**
+   1. **Opencv VideoCapture를 통해 RTSP를 불러오는 것이다.** 
+   따러 Opencv set 함수를 통해 설정함
+    
+        
+      ![vid_cap_set](./figs/vid_cap_set.png)
+        
+      Width: 640 Height: 480 으로 설정
+        
+      ![default](./figs/default%20.png)
+        
+      set 함수로 해상도를 설정해도 바뀌지 않음
+        
+      **RTSP 해상도는 스트림 소스 측에서 특정 해상도로 전송하고 있을 경우, 클라이언트 측에서 해상도를 강제로 변경할 수 없다고 함**
+        
+   2. **Opencv resize 함수를 통해 해상도를 강제로 변경 시도**
+    
+        
+      ![resize](./figs/resize.png)
+        
+      Width: 640 Height: 480 으로 설정
+        
+      ![after_resize_fps10](./figs/after_resize_fps10.png)
+        
+      해상도가 바뀌긴 했지만 연산 속도가 이전보다 더 늦어진 것을 확인할 수 있음
+        
+2. **RTSP**
+
+   1. RTSP 스트림 소스측에서 전송할 때 해상도 옵션 변경
+        
+      ```bash
+      ffmpeg -f dshow -video_size 640x480 -i video="ABKO APC930 QHD WEBCAM" -framerate 30  -f rtsp -rtsp_transport udp rtsp://172.22.48.1:8554/webcam.h264
+      ```
+        
+      ![after_rtsp_fps10](./figs/after_rtsp_fps10.png)
+        
+      해상도를 변경해도 연산 시간이 똑같음
+        
+3. **결론**
+**Opencv resize함수를 통해 frame에 대한 해상도를 줄이면 loop에 연산이 추가가 되는 것이고 연산 시간은 늘어남. RTSP 스트림 측에 옵션을 통해 해상도를 줄여도 연산 시간은 똑같음.** 
+
+## Tracking model 연구
+
+![deepsort](./figs/deepsort.png)
+
+- **What is Tracking model?**
+**쉽게 말해 Object detection을 진행하는데 필요한 model**
+- **Tracking model은 어떤 기능을 하는가?**
+**MMHuman3D에서 Pose estimation는 아무것도 없는 베이스 상태에서 이뤄지지 않는다. 먼저 Object detection을 바탕으로 특정 객체에 Pose estimation를 하는 것이다.**
+**Object tracking → Pose estimation → Human modeling**
+- **MMHuman3D에 사용되는 Tracking Model은 어떤 것인가?**
+**MMHuman3D에 사용되는 Tracking Model은DeepSORT란 모델이 사용된다.**
+    
+   > DeepSORT란?
+   > DeepSORT = SORT + Deeplearning = (Kalman Filter + Hungraian Algorithm) + Feature Vector
+   > SORT = Kalman Filter + Hungraian Algorithm 이며, SORT에 Deeplearning Feature Vector더한 것이다.
+   > 
+   > 
+   > ### Kalman Filter?
+   > 
+   > - 이전 프레임(시점)의 bbox(detect된 객체의 경제box, bounding box)의 정보를 이용해 현재 프레임의 객체의 위치를 예측하는 것
+   > - Kalman Filter를 거치고 나온 정보(예측값)를 이용해 IOU distance를 구할 수 있고, 이를 Hungraian Algorithm으로 보내 객체 정보를 업데이트 할 수 있다.
+   > - IOU distance란?
+   > IOU란 Intersection over Union로 Object Detection 분야에서 예측 Bounding Box와 Ground Truth가 일치하는 정도를 0과 1 사이의 값으로 나타낸 값이다.
+   > 
+   > ![kalam](./figs/kalam.png)
+   > 
+   > ### Hungraian Algorithm?
+   > 
+   > - Kalman Filter에서 예측한 위치값과 실제 위치값의 IOU distance를 이용해 객체 정보를 업데이트
+   > 
+   > ### DeepSORT 과정
+   > 
+   > 1. 이전 프레임에서 객체를 가져와서(Detecter), Kalman Filter를 거쳐 예측값을 알아냄
+   > 2. 현재 프레임에서 객체를 가져와서(Detecter), 1에서 구한 예측값과의 IOU distance를 구함
+   > 3. Hungraian Algorithm을 통해 Tracking 실행
+   > 
+   > ![deepsort_net](./figs/deepsor_net.png)
+   > 
+
+### Code use by the tracking model in MMHuman3D
+
+![tracking_model](./figs/tracking_model.png)
+
+in def get_tracking_result
+
+# Bottom up? Top down?
+
+## Top-down
+
+- 이미지에서 사람을 먼저 찾고, 찾은 사람의 Bounding Box에서 자세를 추정
+- 사람을 먼저 찾고, 사람안에서 joint들을 찾기 때문에 정확도가 Bottom-up방식보다 높다
+- 검출된 사람들을 순회하며 joint들을 찾기 때문에 속도가 Bottom-up방식보다 느리다
+
+## Bottom-up
+
+- 이미지에서 joint들을 먼저 찾고, joint들의 상관관계를 분석하여 이들을 연결하여 자세를 추정
+- 정확도는 Top-down 방식에 비해 떨어지지만, Object Detection 과정이 없기 때문에 속도가 빨라 실시간 처리에 사용 가능
+
+## MMHuman3D → Top-down
+
+### MMHuman3D pose estimation code
+
+![pose_estimate](./figs/pose_estimate.png)
+
+mesh model → PARE model
+
+![result_012](./figs/result_012.png)
+
+함수 inference_image_based_model에 parameter인 result는 bbox data
+
+### def inference_image_based_model
+
+![bbox.png](./figs/bbox.png)
+
+> **bboxes_xywh?**
+det_results의 bbox data format(left, top, right, bottom) → format(left, top, right, high) 형태로 바꾼 것
+> 
+
+![pose_estimate_forward.png](./figs/pose_estimate_forward.png)
+
+det_results는 def inference_image_based_model에 parameter result → bbox data
