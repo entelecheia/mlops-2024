@@ -256,16 +256,23 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../week09/pass.html">Unix 패스워드 관리자</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week10/index.html">Week 10</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week10/autotrain.html">AutoTrain Advanced</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week10/installation.html">설치</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week10/starting.html">시작하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week10/llm_finetuning.html">LLM 파인튜닝</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Projects</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">202121010</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">202121010</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">MMhuman3D 프로젝트</a></li>
 
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../202021012/index.html">202121010</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../202021012/index.html">202121010</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../202021012/DUSt3R/index.html">DUSt3R</a></li>
 </ul>
 </li>
@@ -678,13 +685,12 @@ document.write(`
 <li><p><strong>Opencv</strong></p>
 <ol class="arabic">
 <li><p><strong>Opencv VideoCapture를 통해 RTSP를 불러오는 것이다.</strong>
-따러 Opencv set 함수를 통해 설정함</p>
-<p><img alt="vid_cap_set" src="../../../_images/vid_cap_set.png" /></p>
-<p>Width: 640 Height: 480 으로 설정</p>
-<p><img alt="default" src="projects/202121010/MMHuman3D/figs/default%20.png" /></p>
-<p>set 함수로 해상도를 설정해도 바뀌지 않음</p>
-<p><strong>RTSP 해상도는 스트림 소스 측에서 특정 해상도로 전송하고 있을 경우, 클라이언트 측에서 해상도를 강제로 변경할 수 없다고 함</strong></p>
-</li>
+따러 Opencv set 함수를 통해 설정함
+<img alt="vid_cap_set" src="../../../_images/vid_cap_set.png" />
+Width: 640 Height: 480 으로 설정
+<img alt="default" src="../../../_images/default.png" />
+set 함수로 해상도를 설정해도 바뀌지 않음
+<strong>RTSP 해상도는 스트림 소스 측에서 특정 해상도로 전송하고 있을 경우, 클라이언트 측에서 해상도를 강제로 변경할 수 없다고 함</strong></p></li>
 <li><p><strong>Opencv resize 함수를 통해 해상도를 강제로 변경 시도</strong></p>
 <p><img alt="resize" src="../../../_images/resize.png" /></p>
 <p>Width: 640 Height: 480 으로 설정</p>
@@ -699,8 +705,8 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffmpeg<span class="w"> </span>-f<span class="w"> </span>dshow<span class="w"> </span>-video_size<span class="w"> </span>640x480<span class="w"> </span>-i<span class="w"> </span><span class="nv">video</span><span class="o">=</span><span class="s2">&quot;ABKO APC930 QHD WEBCAM&quot;</span><span class="w"> </span>-framerate<span class="w"> </span><span class="m">30</span><span class="w">  </span>-f<span class="w"> </span>rtsp<span class="w"> </span>-rtsp_transport<span class="w"> </span>udp<span class="w"> </span>rtsp://172.22.48.1:8554/webcam.h264
 </pre></div>
 </div>
-<p><img alt="after_rtsp_fps10" src="../../../_images/after_rtsp_fps10.png" /></p>
-<p>해상도를 변경해도 연산 시간이 똑같음</p>
+<p><img alt="after_rtsp_fps10" src="../../../_images/after_rtsp_fps10.png" />
+해상도를 변경해도 연산 시간이 똑같음</p>
 </li>
 </ol>
 </li>

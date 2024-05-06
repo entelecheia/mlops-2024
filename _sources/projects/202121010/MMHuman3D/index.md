@@ -90,13 +90,11 @@
    현재는 frame 1개씩 받아서 바로바로 처리하는 방식 → ex) 1초에 8개의 frame 받고 동시에 8개를 처리하기
 2. 실시간 TCP 통신을 통해 blender에서 실시간 Human modeling
 
-
 ## To do list No.1 result
 
 ### fps 1
 
 ![1fps](./figs/1fps.png)
-
 
 ### fps 8
 
@@ -112,95 +110,82 @@ frame을 8장 처리와 10장 처리 과정 시간 계산
 
 **fps 8 → 0.80~ 0.88s for one time**
 
-**fps 10 → 1.01~1.09s for one time** 
+**fps 10 → 1.01~1.09s for one time**
 
 frame 1개 프로세싱 소요 시간이 0.1초 예상 가능하다.
 
 ### 연산 시간 단축을 위한 해상도 줄이기
 
-앞서 말한 연구는 RTSP를 통해 Frame을 불러오는 것이다. RTSP에 기본 해상도는 1920 * 1080이다.
+앞서 말한 연구는 RTSP를 통해 Frame을 불러오는 것이다. RTSP에 기본 해상도는 1920 \* 1080이다.
 
-연산 시간을 단축하기 위해 해상도를 줄이는 방법이 있다. 
+연산 시간을 단축하기 위해 해상도를 줄이는 방법이 있다.
 
 1. **Opencv**
-   1. **Opencv VideoCapture를 통해 RTSP를 불러오는 것이다.** 
-   따러 Opencv set 함수를 통해 설정함
-    
-        
+
+   1. **Opencv VideoCapture를 통해 RTSP를 불러오는 것이다.**
+      따러 Opencv set 함수를 통해 설정함
       ![vid_cap_set](./figs/vid_cap_set.png)
-        
       Width: 640 Height: 480 으로 설정
-        
-      ![default](./figs/default%20.png)
-        
+      ![default](./figs/default.png)
       set 함수로 해상도를 설정해도 바뀌지 않음
-        
       **RTSP 해상도는 스트림 소스 측에서 특정 해상도로 전송하고 있을 경우, 클라이언트 측에서 해상도를 강제로 변경할 수 없다고 함**
-        
    2. **Opencv resize 함수를 통해 해상도를 강제로 변경 시도**
-    
-        
+
       ![resize](./figs/resize.png)
-        
+
       Width: 640 Height: 480 으로 설정
-        
+
       ![after_resize_fps10](./figs/after_resize_fps10.png)
-        
+
       해상도가 바뀌긴 했지만 연산 속도가 이전보다 더 늦어진 것을 확인할 수 있음
-        
+
 2. **RTSP**
 
    1. RTSP 스트림 소스측에서 전송할 때 해상도 옵션 변경
-        
       ```bash
       ffmpeg -f dshow -video_size 640x480 -i video="ABKO APC930 QHD WEBCAM" -framerate 30  -f rtsp -rtsp_transport udp rtsp://172.22.48.1:8554/webcam.h264
       ```
-        
       ![after_rtsp_fps10](./figs/after_rtsp_fps10.png)
-        
       해상도를 변경해도 연산 시간이 똑같음
-        
+
 3. **결론**
-**Opencv resize함수를 통해 frame에 대한 해상도를 줄이면 loop에 연산이 추가가 되는 것이고 연산 시간은 늘어남. RTSP 스트림 측에 옵션을 통해 해상도를 줄여도 연산 시간은 똑같음.** 
+   **Opencv resize함수를 통해 frame에 대한 해상도를 줄이면 loop에 연산이 추가가 되는 것이고 연산 시간은 늘어남. RTSP 스트림 측에 옵션을 통해 해상도를 줄여도 연산 시간은 똑같음.**
 
 ## Tracking model 연구
 
 ![deepsort](./figs/deepsort.png)
 
 - **What is Tracking model?**
-**쉽게 말해 Object detection을 진행하는데 필요한 model**
+  **쉽게 말해 Object detection을 진행하는데 필요한 model**
 - **Tracking model은 어떤 기능을 하는가?**
-**MMHuman3D에서 Pose estimation는 아무것도 없는 베이스 상태에서 이뤄지지 않는다. 먼저 Object detection을 바탕으로 특정 객체에 Pose estimation를 하는 것이다.**
-**Object tracking → Pose estimation → Human modeling**
+  **MMHuman3D에서 Pose estimation는 아무것도 없는 베이스 상태에서 이뤄지지 않는다. 먼저 Object detection을 바탕으로 특정 객체에 Pose estimation를 하는 것이다.**
+  **Object tracking → Pose estimation → Human modeling**
 - **MMHuman3D에 사용되는 Tracking Model은 어떤 것인가?**
-**MMHuman3D에 사용되는 Tracking Model은DeepSORT란 모델이 사용된다.**
-    
-   > DeepSORT란?
-   > DeepSORT = SORT + Deeplearning = (Kalman Filter + Hungraian Algorithm) + Feature Vector
-   > SORT = Kalman Filter + Hungraian Algorithm 이며, SORT에 Deeplearning Feature Vector더한 것이다.
-   > 
-   > 
-   > ### Kalman Filter?
-   > 
-   > - 이전 프레임(시점)의 bbox(detect된 객체의 경제box, bounding box)의 정보를 이용해 현재 프레임의 객체의 위치를 예측하는 것
-   > - Kalman Filter를 거치고 나온 정보(예측값)를 이용해 IOU distance를 구할 수 있고, 이를 Hungraian Algorithm으로 보내 객체 정보를 업데이트 할 수 있다.
-   > - IOU distance란?
-   > IOU란 Intersection over Union로 Object Detection 분야에서 예측 Bounding Box와 Ground Truth가 일치하는 정도를 0과 1 사이의 값으로 나타낸 값이다.
-   > 
-   > ![kalam](./figs/kalam.png)
-   > 
-   > ### Hungraian Algorithm?
-   > 
-   > - Kalman Filter에서 예측한 위치값과 실제 위치값의 IOU distance를 이용해 객체 정보를 업데이트
-   > 
-   > ### DeepSORT 과정
-   > 
-   > 1. 이전 프레임에서 객체를 가져와서(Detecter), Kalman Filter를 거쳐 예측값을 알아냄
-   > 2. 현재 프레임에서 객체를 가져와서(Detecter), 1에서 구한 예측값과의 IOU distance를 구함
-   > 3. Hungraian Algorithm을 통해 Tracking 실행
-   > 
-   > ![deepsort_net](./figs/deepsor_net.png)
-   > 
+  **MMHuman3D에 사용되는 Tracking Model은DeepSORT란 모델이 사용된다.**
+  > DeepSORT란?
+  > DeepSORT = SORT + Deeplearning = (Kalman Filter + Hungraian Algorithm) + Feature Vector
+  > SORT = Kalman Filter + Hungraian Algorithm 이며, SORT에 Deeplearning Feature Vector더한 것이다.
+  >
+  > ### Kalman Filter?
+  >
+  > - 이전 프레임(시점)의 bbox(detect된 객체의 경제box, bounding box)의 정보를 이용해 현재 프레임의 객체의 위치를 예측하는 것
+  > - Kalman Filter를 거치고 나온 정보(예측값)를 이용해 IOU distance를 구할 수 있고, 이를 Hungraian Algorithm으로 보내 객체 정보를 업데이트 할 수 있다.
+  > - IOU distance란?
+  >   IOU란 Intersection over Union로 Object Detection 분야에서 예측 Bounding Box와 Ground Truth가 일치하는 정도를 0과 1 사이의 값으로 나타낸 값이다.
+  >
+  > ![kalam](./figs/kalam.png)
+  >
+  > ### Hungraian Algorithm?
+  >
+  > - Kalman Filter에서 예측한 위치값과 실제 위치값의 IOU distance를 이용해 객체 정보를 업데이트
+  >
+  > ### DeepSORT 과정
+  >
+  > 1.  이전 프레임에서 객체를 가져와서(Detecter), Kalman Filter를 거쳐 예측값을 알아냄
+  > 2.  현재 프레임에서 객체를 가져와서(Detecter), 1에서 구한 예측값과의 IOU distance를 구함
+  > 3.  Hungraian Algorithm을 통해 Tracking 실행
+  >
+  > ![deepsort_net](./figs/deepsor_net.png)
 
 ### Code use by the tracking model in MMHuman3D
 
@@ -238,8 +223,7 @@ mesh model → PARE model
 ![bbox.png](./figs/bbox.png)
 
 > **bboxes_xywh?**
-det_results의 bbox data format(left, top, right, bottom) → format(left, top, right, high) 형태로 바꾼 것
-> 
+> det_results의 bbox data format(left, top, right, bottom) → format(left, top, right, high) 형태로 바꾼 것
 
 ![pose_estimate_forward.png](./figs/pose_estimate_forward.png)
 
