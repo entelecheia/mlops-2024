@@ -193,15 +193,15 @@ frame 1개 프로세싱 소요 시간이 0.1초 예상 가능하다.
 
 in def get_tracking_result
 
-# Bottom up? Top down?
+## Bottom up? Top down?
 
-## Top-down
+### Top-down
 
 - 이미지에서 사람을 먼저 찾고, 찾은 사람의 Bounding Box에서 자세를 추정
 - 사람을 먼저 찾고, 사람안에서 joint들을 찾기 때문에 정확도가 Bottom-up방식보다 높다
 - 검출된 사람들을 순회하며 joint들을 찾기 때문에 속도가 Bottom-up방식보다 느리다
 
-## Bottom-up
+### Bottom-up
 
 - 이미지에서 joint들을 먼저 찾고, joint들의 상관관계를 분석하여 이들을 연결하여 자세를 추정
 - 정확도는 Top-down 방식에 비해 떨어지지만, Object Detection 과정이 없기 때문에 속도가 빨라 실시간 처리에 사용 가능

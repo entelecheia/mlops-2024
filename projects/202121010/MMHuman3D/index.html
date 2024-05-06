@@ -269,7 +269,6 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">202121010</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">MMhuman3D 프로젝트</a></li>
-
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../202021012/index.html">202121010</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -504,7 +503,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">MMhuman3D 프로젝트</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목표</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl-skinned-multi-person-linear-model">SMPL(Skinned Multi-Person Linear model)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertices-mesh">Vertices? Mesh?</a><ul class="nav section-nav flex-column">
@@ -537,20 +535,17 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-use-by-the-tracking-model-in-mmhuman3d">Code use by the tracking model in MMHuman3D</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up-top-down">Bottom up? Top down?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#top-down">Top-down</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up">Bottom-up</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up-top-down">Bottom up? Top down?</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-down">Top-down</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up">Bottom-up</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mmhuman3d-top-down">MMHuman3D → Top-down</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mmhuman3d-pose-estimation-code">MMHuman3D pose estimation code</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#def-inference-image-based-model">def inference_image_based_model</a></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -758,11 +753,10 @@ IOU란 Intersection over Union로 Object Detection 분야에서 예측 Bounding 
 <p>in def get_tracking_result</p>
 </section>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="bottom-up-top-down">
-<h1>Bottom up? Top down?<a class="headerlink" href="#bottom-up-top-down" title="Link to this heading">#</a></h1>
+<section id="bottom-up-top-down">
+<h2>Bottom up? Top down?<a class="headerlink" href="#bottom-up-top-down" title="Link to this heading">#</a></h2>
 <section id="top-down">
-<h2>Top-down<a class="headerlink" href="#top-down" title="Link to this heading">#</a></h2>
+<h3>Top-down<a class="headerlink" href="#top-down" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>이미지에서 사람을 먼저 찾고, 찾은 사람의 Bounding Box에서 자세를 추정</p></li>
 <li><p>사람을 먼저 찾고, 사람안에서 joint들을 찾기 때문에 정확도가 Bottom-up방식보다 높다</p></li>
@@ -770,11 +764,12 @@ IOU란 Intersection over Union로 Object Detection 분야에서 예측 Bounding 
 </ul>
 </section>
 <section id="bottom-up">
-<h2>Bottom-up<a class="headerlink" href="#bottom-up" title="Link to this heading">#</a></h2>
+<h3>Bottom-up<a class="headerlink" href="#bottom-up" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>이미지에서 joint들을 먼저 찾고, joint들의 상관관계를 분석하여 이들을 연결하여 자세를 추정</p></li>
 <li><p>정확도는 Top-down 방식에 비해 떨어지지만, Object Detection 과정이 없기 때문에 속도가 빨라 실시간 처리에 사용 가능</p></li>
 </ul>
+</section>
 </section>
 <section id="mmhuman3d-top-down">
 <h2>MMHuman3D → Top-down<a class="headerlink" href="#mmhuman3d-top-down" title="Link to this heading">#</a></h2>
@@ -862,7 +857,6 @@ det_results의 bbox data format(left, top, right, bottom) → format(left, top, 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">MMhuman3D 프로젝트</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">목표</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smpl-skinned-multi-person-linear-model">SMPL(Skinned Multi-Person Linear model)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vertices-mesh">Vertices? Mesh?</a><ul class="nav section-nav flex-column">
@@ -895,20 +889,17 @@ det_results의 bbox data format(left, top, right, bottom) → format(left, top, 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-use-by-the-tracking-model-in-mmhuman3d">Code use by the tracking model in MMHuman3D</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up-top-down">Bottom up? Top down?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#top-down">Top-down</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up">Bottom-up</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up-top-down">Bottom up? Top down?</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#top-down">Top-down</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bottom-up">Bottom-up</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mmhuman3d-top-down">MMHuman3D → Top-down</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mmhuman3d-pose-estimation-code">MMHuman3D pose estimation code</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#def-inference-image-based-model">def inference_image_based_model</a></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
