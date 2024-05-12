@@ -609,7 +609,7 @@ $<span class="math notranslate nohighlight">\( ℓ_{regr}(v, i)= \left\|\left\|\
 <div class="math notranslate nohighlight">
 \[ norm(X^1, X^2) = \frac{1}{|D^1| +|D^2|}\sum_{v∈{1,2}}\sum_{i∈D^v}∥X^v_i∥ \ \ (3) \]</div>
 <p>실제로는 논문에서 가정한 상황과 다른 경우를 가정하여 Confidence-aware loss를 추가하여 위에 Eq.(2)의 식에 적용하면 다음과 같은 식을 얻을 수 있습니다.</p>
-<p><img alt="Loss_result" src="projects/202021012/DUSt3R/loss_result.png" /></p>
+<p><img alt="Loss_result" src="../../../_images/loss_result.png" /></p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(C^{v,1}_i\)</span>은 픽셀 i에 대한 신뢰도 점수 / <span class="math notranslate nohighlight">\(\alpha\)</span>는 정규화를 제어하는 hyper-parameter(사용자가 직접 세팅해주는 값)</p></li>
 </ul>
@@ -626,7 +626,7 @@ $<span class="math notranslate nohighlight">\( ℓ_{regr}(v, i)= \left\|\left\|\
 <li><p>nearest neighbor (NN) search을 통해 3D포인트맵 공간에서 관계 설정</p></li>
 <li><p>이미지 <span class="math notranslate nohighlight">\(I^1\)</span>과 <span class="math notranslate nohighlight">\(I^2\)</span> 사이에 correspondence <span class="math notranslate nohighlight">\(M_{1,2}\)</span>를 만들어냄.</p></li>
 </ul>
-<p><img alt="Pose_matching" src="projects/202021012/DUSt3R/pose_matching.png" /></p>
+<p><img alt="Pose_matching" src="../../../_images/pose_matching.png" /></p>
 <p>식을 자세히 살펴보면 k번째 view에서 바라본 n번째 view point i와 가장 가까운 m번째 view point를 각각 i 와 j로 찾고 양쪽 view에서 모두 성립할 경우에 2개의 pixel이 correspondence가 있다고 간주하게 됩니다. 결과적으로 3D 공간에 배치된 point가 가까운 것 끼리 correspondence를 갖게 됩니다.</p>
 <ol class="arabic simple" start="2">
 <li><p>Recovering intrinsics</p></li>
@@ -636,7 +636,7 @@ $<span class="math notranslate nohighlight">\( ℓ_{regr}(v, i)= \left\|\left\|\
 : intrinsic parameter의 종류에는 초점거리, 주점, 비대칭 계수 3가지가 있습니다. 각각 <span class="math notranslate nohighlight">\((f_x,f_y),(c_x, c_y), skew_c = tan\alpha\)</span>으로 나타내며 DUSt3R에서는 초점거리(focal length)만 추정하고 있습니다. <a class="reference external" href="https://xoft.tistory.com/12">자세한 설명</a></p></li>
 </ul>
 <p>DUSt3R 기본 모델로 pixel별 3D point를 예측했었습니다. 이 관계를 기반으로 아래 수식으로 focal length를 예측 할 수 있습니다.</p>
-<p><img alt="focal_length" src="projects/202021012/DUSt3R/focal_length.png" /></p>
+<p><img alt="focal_length" src="../../../_images/focal_length.png" /></p>
 <p><span class="math notranslate nohighlight">\(i',j'\)</span>부분은 좌상단이 원점인 pixel 좌표계에서 이미지 중앙이 원점인 camera좌표계로 바꿔서 계산하기 위해, <span class="math notranslate nohighlight">\(i'=i-\frac{W}{2} \ and \ j'=j-\frac{H}{2}\)</span>를 해주게 됩니다. 그리고 가장 오른쪽 식은 해당 pixel에 해당하는 3D point의 x,y 좌표를 z값으로 나누어, 2D Image plane으로 projection되는 수식이 됩니다. 해당 수식이 최소값을 갖도록 만드는 focal length를 찾아주면, 2D 이미지와 3D point가 align 되게 됩니다. 이는 반복 최적화 문제로 풀게 되는데, 거리에 반비례하는 가중치로 추정값(=f)을 업데이트하는 Weiszfeld algorithm을 사용해서 해를 찾습니다.</p>
 <ul class="simple">
 <li><p>Weiszfeld algorithm : 유클리드 공간에서 점 집합의 기하학적 L1 평균을 찾는 고전적인 알고리즘입니다.</p></li>
@@ -649,7 +649,7 @@ $<span class="math notranslate nohighlight">\( ℓ_{regr}(v, i)= \left\|\left\|\
 <li><p>첫번째 방식은 위에서 설명한 대로 2D매칭을 수행하고 Recovering intrinsics 수행 후 <a class="reference external" href="https://xoft.tistory.com/80">epipolar matrix</a>와 relative pose를 추정하는 방법입니다.</p></li>
 <li><p>두 번째 방식은 첫번째 방식보다 직접적인 방법으로 Procrustes alignment을 사용하여 포인트 맵을 비교하여 relative pose를 얻는 것입니다.</p></li>
 </ul>
-<p><img alt="relative2" src="projects/202021012/DUSt3R/relative2.png" />
+<p><img alt="relative2" src="../../../_images/relative2.png" />
 procrustes alignment알고리즘은 noise와 outlier에 민감하기 때문에 3D point cloud 정보와 2D feature point 정보를 알고 있을 때 카메라의 포즈를 구하는 <a class="reference external" href="https://searching-fundamental.tistory.com/73">PnP알고리즘</a>과 데이터셋에서 노이즈를 제거하고 모델을 예측하는 <a class="reference external" href="https://gnaseel.tistory.com/33">RANSAC알고리즘</a>을 사용해 위 수식의 해를 찾습니다.</p>
 <ol class="arabic simple" start="4">
 <li><p>Absolute pose estimation</p></li>
