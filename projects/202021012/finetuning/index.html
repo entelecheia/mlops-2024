@@ -89,10 +89,12 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'projects/202021012/Fine-Tunning/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'projects/202021012/finetuning/index';</script>
     <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="프로젝트 환경설정" href="../../setup.html" />
+    <link rel="prev" title="DUSt3R" href="../DUSt3R/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,8 +155,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -267,16 +267,24 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../week11/llama-factory.html">LLaMA Factory를 활용한 LLM 파인튜닝</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week12/index.html">Week 12</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week12/langchain.html">LangChain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week12/langchain-io.html">LangChain - Model I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week12/langserve.html">LangServe로 배포하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week12/langsmith.html">LangSmith 소개</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Projects</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../202121010/index.html">202121010</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../202121010/index.html">202121010</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../202121010/MMHuman3D/index.html">MMhuman3D 프로젝트</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../index.html">202021012</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">202021012</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../DUSt3R/index.html">DUSt3R</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">파인튜닝(Fine-tuning)</a></li>
 </ul>
 </li>
 </ul>
@@ -366,7 +374,7 @@
       
       
       
-      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/projects/202021012/Fine-Tunning/index.md" target="_blank"
+      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/projects/202021012/finetuning/index.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -383,7 +391,7 @@
       
       
       
-      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fprojects/202021012/Fine-Tunning/index.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fprojects/202021012/finetuning/index.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -413,7 +421,7 @@
       
       
       
-      <li><a href="../../../_sources/projects/202021012/Fine-Tunning/index.md" target="_blank"
+      <li><a href="../../../_sources/projects/202021012/finetuning/index.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -622,7 +630,7 @@ document.write(`
 <p>프롬프트 엔지니어링은 파인튜닝과 함께 자연어처리 모델을 개선하는 데 사용되는 기술입니다. 프롬프트 엔지니어링의 경우 앞서 설명했던 파인튜닝과 비슷하지만 다른 기술로 기존의 모델을 변화시키지 않고, 모델의 입력에 적절한 프롬프트를 설계(특정한 문장을 추가)하여 모델의 출력을 개선하는 것을 의미합니다.</p>
 <section id="id9">
 <h3>파인튜닝과 프롬프트 엔지니어링 비교<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<p><img alt="파인튜닝-프롬프트엔지니어링비교" src="projects/202021012/Fine-Tunning/%ED%8C%8C%EC%9D%B8%ED%8A%9C%EB%8B%9D-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%EC%97%94%EC%A7%80%EB%8B%88%EC%96%B4%EB%A7%81%EB%B9%84%EA%B5%90.png" /></p>
+<p><img alt="파인튜닝-프롬프트엔지니어링비교" src="../../../_images/finetuning-vs-prompt.png" /></p>
 <p><strong>파인튜닝</strong></p>
 <ul class="simple">
 <li><p>모델 자체를 조정</p></li>
@@ -700,7 +708,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./projects/202021012/Fine-Tunning"
+            path: "./projects/202021012/finetuning"
         },
         predefinedOutput: true
     }
@@ -717,6 +725,24 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../DUSt3R/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DUSt3R</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../setup.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">프로젝트 환경설정</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               

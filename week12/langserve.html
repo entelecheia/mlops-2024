@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>하이퍼패스트 도커 템플릿 &#8212; 머신러닝시스템 2024</title>
+    <title>LangServe로 배포하기 &#8212; 머신러닝시스템 2024</title>
   
   
   
@@ -89,12 +89,12 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'week05/hyperfast-docker';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'week12/langserve';</script>
     <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Week 6" href="../week06/index.html" />
-    <link rel="prev" title="Week 5" href="index.html" />
+    <link rel="next" title="LangSmith 소개" href="langsmith.html" />
+    <link rel="prev" title="LangChain - Model I/O" href="langchain-io.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -224,8 +224,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../week04/containerd.html"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Week 5</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">하이퍼패스트 도커 템플릿</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week05/index.html">Week 5</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week05/hyperfast-docker.html">하이퍼패스트 도커 템플릿</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../week06/index.html">Week 6</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -267,11 +267,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../week11/llama-factory.html">LLaMA Factory를 활용한 LLM 파인튜닝</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../week12/index.html">Week 12</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../week12/langchain.html">LangChain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week12/langchain-io.html">LangChain - Model I/O</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week12/langserve.html">LangServe로 배포하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../week12/langsmith.html">LangSmith 소개</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Week 12</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="langchain.html">LangChain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="langchain-io.html">LangChain - Model I/O</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">LangServe로 배포하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="langsmith.html">LangSmith 소개</a></li>
 </ul>
 </li>
 </ul>
@@ -374,7 +374,7 @@
       
       
       
-      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week05/hyperfast-docker.md" target="_blank"
+      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week12/langserve.md" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -391,7 +391,7 @@
       
       
       
-      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek05/hyperfast-docker.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek12/langserve.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -421,7 +421,7 @@
       
       
       
-      <li><a href="../_sources/week05/hyperfast-docker.md" target="_blank"
+      <li><a href="../_sources/week12/langserve.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -505,7 +505,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>하이퍼패스트 도커 템플릿</h1>
+    <h1>LangServe로 배포하기</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -515,16 +515,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">사전 요구사항</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">설정</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">사용 방법</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">볼륨</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">문제 해결</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">환경 변수</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">추가 정보</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">요약</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">특징</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">한계</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">LangServe 프로젝트 부트스트랩</a></li>
 </ul>
             </nav>
         </div>
@@ -536,99 +529,205 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>하이퍼패스트 도커 템플릿<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<p>하이퍼패스트 도커 템플릿은 Copier를 활용하여 새로운 도커 프로젝트 생성을 간소화하는 강력한 도구입니다. 이 템플릿은 도커 설정을 단순화하고 가속화하여 매우 효율적이고 사용자 친화적인 개발 경험을 제공합니다.</p>
-<p>하이퍼패스트 도커 템플릿은 도커의 유연성과 Copier의 단순성을 결합하여 프로젝트 생성 프로세스를 최적화하는 혁신적인 프로젝트 생성 도구입니다. 이 도구를 사용하면 개발자가 빠르고 효율적으로 도커 프로젝트를 설정할 수 있어 전통적으로 이 프로세스와 관련된 시간과 노력을 크게 줄일 수 있습니다.</p>
-<p>Copier의 강점을 활용하여 하이퍼패스트 도커 템플릿은 개발자가 최소한의 번거로움으로 도커 프로젝트를 복제할 수 있는 사용자 친화적인 인터페이스를 제공합니다. 이는 광범위한 코딩 지식의 필요성을 제거하여 더 많은 사용자가 도커를 쉽게 접근할 수 있도록 합니다.</p>
-<p>또한 이 도구는 하이퍼패스트 접근 방식을 사용하여 도커 프로젝트 템플릿을 만들므로 새 프로젝트를 최대한 빠른 시간 내에 실행할 수 있습니다. 이러한 속도는 생성된 도커 프로젝트의 품질이나 기능을 저하시키지 않고 오히려 성능, 신뢰성 및 확장성을 향상시킵니다.</p>
-<p>하이퍼패스트 도커 템플릿은 템플릿 사용으로 모든 프로젝트가 표준화된 레이아웃과 구성을 준수하도록 하여 도커 프로젝트 간의 일관성을 보장합니다. 이는 개발자가 일관된 프로젝트 구조와 구성에 익숙해질 수 있어 생산성과 효율성을 높이는 데 도움이 됩니다.</p>
-<p>숙련된 개발자든 초보자든 상관없이 하이퍼패스트 도커 템플릿은 도커 프로젝트 생성 프로세스를 빠르게 진행할 수 있는 이상적인 도구로, 원활하고 효율적이며 생산성이 높은 개발 경험을 보장합니다.</p>
-<section id="id2">
-<h2>사전 요구사항<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="langserve">
+<h1>LangServe로 배포하기<a class="headerlink" href="#langserve" title="Link to this heading">#</a></h1>
+<p>LangServe는 LangChain 런너블(runnable) 및 체인을 REST API로 배포할 수 있도록 돕는 도구입니다. 이 라이브러리는 FastAPI와 통합되어 있으며, 데이터 검증을 위해 Pydantic을 사용합니다. 또한, 서버에 배포된 런너블을 호출할 수 있는 클라이언트와 LangChainJS에서 사용할 수 있는 JavaScript 클라이언트를 제공합니다.</p>
+<section id="id1">
+<h2>특징<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>도커</p></li>
-<li><p>도커 컴포즈</p></li>
-<li><p>NVIDIA 도커 (GPU 지원을 위해, 선택 사항)</p></li>
+<li><p>입력 및 출력 스키마가 LangChain 객체에서 자동으로 추론되어 각 API 호출 시 엄격하게 적용됩니다. 이와 함께 풍부한 에러 메시지가 제공됩니다.</p></li>
+<li><p>JSONSchema와 Swagger를 포함한 API 문서 페이지가 제공됩니다.</p></li>
+<li><p>/invoke, /batch, /stream 엔드포인트는 단일 서버에서 많은 동시 요청을 처리할 수 있도록 효율적으로 설계되었습니다.</p></li>
+<li><p>/stream_log 엔드포인트를 통해 체인/에이전트의 모든 중간 단계를 스트리밍할 수 있습니다.</p></li>
+<li><p>/playground 페이지에서 스트리밍 출력과 중간 단계를 사용하여 런너블을 구성하고 호출할 수 있습니다.</p></li>
+<li><p>(선택 사항으로) LangSmith로의 내장 추적 기능을 추가할 수 있습니다. API 키만 추가하면 됩니다.</p></li>
+<li><p>FastAPI, Pydantic, uvloop, asyncio와 같은 오픈 소스 Python 라이브러리를 사용하여 안정성이 보장됩니다.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>한계<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>서버에서 발생하는 이벤트에 대해 클라이언트 콜백을 지원하지 않습니다.</p></li>
+<li><p>Pydantic V2를 사용할 때 OpenAPI 문서가 생성되지 않습니다. FastAPI는 pydantic v1과 v2 네임스페이스를 혼용하는 것을 지원하지 않습니다. 자세한 내용은 아래 섹션을 참조하십시오.</p></li>
 </ul>
 </section>
 <section id="id3">
-<h2>설정<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p>Copier를 사용하여 템플릿을 프로젝트 디렉토리에 복사합니다:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>copier<span class="w"> </span>copy<span class="w"> </span>--trust<span class="w"> </span>gh:entelecheia/hyperfast-docker-template<span class="w"> </span>path/to/destination
+<h2>LangServe 프로젝트 부트스트랩<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>LangChain CLI를 사용하여 LangServe 프로젝트를 빠르게 부트스트랩할 수 있습니다. 이를 위해 최신 버전의 langchain-cli가 설치되어 있는지 확인하십시오. 설치는 다음 명령어를 사용합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">langchain</span><span class="o">-</span><span class="n">cli</span>
 </pre></div>
 </div>
-</li>
-<li><p>기본 도커 이미지 빌드</p>
-<p>프로젝트 디렉토리로 이동하여 다음 명령을 실행합니다:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>docker-build-base
+<p>LangChain CLI를 사용하여 LangServe 인스턴스를 빠르게 시작할 수 있습니다. 다음 명령어를 사용하여 새로운 LangServe 프로젝트를 생성합니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">langchain</span> <span class="n">app</span> <span class="n">new</span> <span class="o">./</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">directory</span>
 </pre></div>
 </div>
-<p>기본 도커 이미지는 다른 도커 이미지를 빌드하는 데 사용됩니다. 이 이미지는 프로젝트에 필요한 모든 종속성을 설치합니다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">docker.base.env</span></code> 파일에는 다양한 구성 옵션과 환경 변수가 포함되어 있습니다. <code class="docutils literal notranslate"><span class="pre">docker-compose.base.yaml</span></code> 파일은 이러한 변수를 사용하여 서비스의 동작을 사용자 정의합니다. 이는 개발, 테스트 및 프로덕션 환경에 대해 서로 다른 구성을 설정하려는 경우에 일반적인 관행입니다. <code class="docutils literal notranslate"><span class="pre">Dockerfile.base</span></code> 파일은 이러한 변수를 사용하여 도커 빌드를 사용자 정의합니다. 이러한 파일은 <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">copy</span></code> 명령을 실행할 때 Copier에 의해 자동으로 생성됩니다.</p>
-</li>
-<li><p>애플리케이션 도커 이미지 빌드:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>docker-build-app
+<p>다음 예제는 OpenAI 채팅 모델, Anthropic 채팅 모델, 그리고 주제에 대해 농담을 하는 체인을 배포하는 서버입니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">import</span> <span class="n">ChatAnthropic</span><span class="p">,</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langserve</span> <span class="kn">import</span> <span class="n">add_routes</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span>
+  <span class="n">title</span><span class="o">=</span><span class="s2">&quot;LangChain Server&quot;</span><span class="p">,</span>
+  <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+  <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A simple api server using Langchain&#39;s Runnable interfaces&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">add_routes</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">,</span>
+    <span class="n">ChatOpenAI</span><span class="p">(),</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/openai&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">add_routes</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">,</span>
+    <span class="n">ChatAnthropic</span><span class="p">(),</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/anthropic&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatAnthropic</span><span class="p">()</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;tell me a joke about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">add_routes</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">,</span>
+    <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/chain&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">uvicorn</span>
+
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>애플리케이션 도커 이미지는 애플리케이션을 실행하는 데 사용됩니다. 이 이미지는 애플리케이션과 그 종속성을 설치합니다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">docker.app.env</span></code> 파일에는 다양한 구성 옵션과 환경 변수가 포함되어 있습니다. <code class="docutils literal notranslate"><span class="pre">docker-compose.app.yaml</span></code> 파일은 이러한 변수를 사용하여 서비스의 동작을 사용자 정의합니다. 이는 개발, 테스트 및 프로덕션 환경에 대해 서로 다른 구성을 설정하려는 경우에 일반적인 관행입니다. <code class="docutils literal notranslate"><span class="pre">Dockerfile.app</span></code> 파일은 이러한 변수를 사용하여 도커 빌드를 사용자 정의합니다. 이러한 파일은 <code class="docutils literal notranslate"><span class="pre">copier</span> <span class="pre">copy</span></code> 명령을 실행할 때 Copier에 의해 자동으로 생성됩니다.</p>
-</li>
-<li><p>도커 컨테이너 시작:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>docker-up-app
+<p>서버를 배포한 후, 생성된 OpenAPI 문서를 다음 명령어로 확인할 수 있습니다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span><span class="o">/</span><span class="n">docs</span>
 </pre></div>
 </div>
-<p>이 명령은 이전 단계에서 빌드한 이미지로 도커 컨테이너를 시작합니다. 컨테이너는 애플리케이션을 시작하는 bash 스크립트를 실행합니다.</p>
-</li>
-</ol>
-</section>
-<section id="id4">
-<h2>사용 방법<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>컨테이너를 시작한 후 <code class="docutils literal notranslate"><span class="pre">localhost:&lt;APP_HOST_WEB_SVC_PORT&gt;</span></code>에서 애플리케이션에 액세스할 수 있습니다. 기본적으로 포트는 <code class="docutils literal notranslate"><span class="pre">18888</span></code>로 설정되어 있습니다.</p>
-<p>또한 <code class="docutils literal notranslate"><span class="pre">APP_HOST_SSH_PORT</span></code>에 지정된 SSH 포트를 사용하여 컨테이너에 SSH로 접속할 수 있습니다. 기본적으로 포트는 <code class="docutils literal notranslate"><span class="pre">2222</span></code>로 설정되어 있습니다.</p>
-<section id="id5">
-<h3>볼륨<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">docker-compose.app.yaml</span></code> 파일은 호스트의 디렉토리를 컨테이너의 디렉토리에 바인드 마운트하는 여러 볼륨을 지정합니다. 여기에는 캐시, 작업 공간 디렉토리 및 스크립트 디렉토리가 포함됩니다. 이러한 디렉토리에서 변경된 사항은 컨테이너 재시작 시에도 유지됩니다.</p>
-</section>
-<section id="id6">
-<h3>문제 해결<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>이 설정을 사용하는 동안 문제가 발생하면 다음 사항을 확인하세요:</p>
+<p>/docs 접미사를 추가해야 합니다.</p>
+<p>다음은 다양한 엔드포인트를 사용하는 Python 코드입니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.schema</span> <span class="kn">import</span> <span class="n">SystemMessage</span><span class="p">,</span> <span class="n">HumanMessage</span>
+<span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain.schema.runnable</span> <span class="kn">import</span> <span class="n">RunnableMap</span>
+<span class="kn">from</span> <span class="nn">langserve</span> <span class="kn">import</span> <span class="n">RemoteRunnable</span>
+
+<span class="n">openai</span> <span class="o">=</span> <span class="n">RemoteRunnable</span><span class="p">(</span><span class="s2">&quot;http://localhost:8000/openai/&quot;</span><span class="p">)</span>
+<span class="n">anthropic</span> <span class="o">=</span> <span class="n">RemoteRunnable</span><span class="p">(</span><span class="s2">&quot;http://localhost:8000/anthropic/&quot;</span><span class="p">)</span>
+<span class="n">joke_chain</span> <span class="o">=</span> <span class="n">RemoteRunnable</span><span class="p">(</span><span class="s2">&quot;http://localhost:8000/chain/&quot;</span><span class="p">)</span>
+
+<span class="n">joke_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;parrots&quot;</span><span class="p">})</span>
+
+<span class="c1"># or async</span>
+<span class="k">await</span> <span class="n">joke_chain</span><span class="o">.</span><span class="n">ainvoke</span><span class="p">({</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;parrots&quot;</span><span class="p">})</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">SystemMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;Act like either a cat or a parrot.&#39;</span><span class="p">),</span>
+    <span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;Hello!&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Supports astream</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">anthropic</span><span class="o">.</span><span class="n">astream</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;Tell me a long story about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="c1"># Can define custom chains</span>
+<span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">RunnableMap</span><span class="p">({</span>
+    <span class="s2">&quot;openai&quot;</span><span class="p">:</span> <span class="n">openai</span><span class="p">,</span>
+    <span class="s2">&quot;anthropic&quot;</span><span class="p">:</span> <span class="n">anthropic</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">chain</span><span class="o">.</span><span class="n">batch</span><span class="p">([{</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;parrots&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;cats&quot;</span><span class="p">}])</span>
+</pre></div>
+</div>
+<p>JavaScript에서는 다음과 같이 사용할 수 있습니다(버전 0.0.166 이상의 LangChain.js 필요):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">RemoteRunnable</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;langchain/runnables/remote&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">RemoteRunnable</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="sb">`http://localhost:8000/chain/invoke/`</span><span class="p">,</span>
+<span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">chain</span><span class="p">.</span><span class="nx">invoke</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">topic</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;cats&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Python의 requests를 사용하여 호출할 수도 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s2">&quot;http://localhost:8000/chain/invoke/&quot;</span><span class="p">,</span>
+    <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;topic&#39;</span><span class="p">:</span> <span class="s1">&#39;cats&#39;</span><span class="p">}}</span>
+<span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>curl을 사용한 예제:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>POST<span class="w"> </span><span class="s1">&#39;http://localhost:8000/chain/invoke/&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--header<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--data-raw<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">        &quot;input&quot;: {</span>
+<span class="s1">            &quot;topic&quot;: &quot;cats&quot;</span>
+<span class="s1">        }</span>
+<span class="s1">    }&#39;</span>
+</pre></div>
+</div>
+<p>다음 코드는 서버에 엔드포인트를 추가합니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">add_routes</span><span class="p">(</span>
+  <span class="n">app</span><span class="p">,</span>
+  <span class="n">runnable</span><span class="p">,</span>
+  <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/my_runnable&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>이 코드는 다음 엔드포인트를 서버에 추가합니다:</p>
 <ul class="simple">
-<li><p>도커와 도커 컴포즈가 올바르게 설치되어 있는지 확인하세요.</p></li>
-<li><p>GPU 가속을 사용할 계획이라면 NVIDIA 도커가 설치되어 있는지 확인하세요.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docker.app.env</span></code> 파일의 환경 변수가 올바르게 설정되어 있는지 확인하세요.</p></li>
-<li><p>오류 메시지가 있는지 도커 및 도커 컴포즈 로그를 확인하세요.</p></li>
+<li><p>POST /my_runnable/invoke - 단일 입력에 대해 런너블 호출</p></li>
+<li><p>POST /my_runnable/batch - 입력 배치에 대해 런너블 호출</p></li>
+<li><p>POST /my_runnable/stream - 단일 입력에 대해 호출하고 출력 스트리밍</p></li>
+<li><p>POST /my_runnable/stream_log - 단일 입력에 대해 호출하고 생성된 모든 중간 단계를 포함하여 출력 스트리밍</p></li>
+<li><p>GET /my_runnable/input_schema - 런너블의 입력에 대한 JSON 스키마</p></li>
+<li><p>GET /my_runnable/output_schema - 런너블의 출력에 대한 JSON 스키마</p></li>
+<li><p>GET /my_runnable/config_schema - 런너블의 설정에 대한 JSON 스키마</p></li>
 </ul>
-</section>
-<section id="id7">
-<h3>환경 변수<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>도커에서 환경 변수는 <code class="docutils literal notranslate"><span class="pre">docker-compose.app.yaml</span></code> 파일에서 서비스의 동작을 사용자 정의하는 데 사용할 수 있습니다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> 명령에는 <code class="docutils literal notranslate"><span class="pre">--env-file</span></code> 인수가 있지만 <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> 파일에 정의된 서비스에 대한 환경 변수를 설정하는 데 사용되며 <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> 명령 자체에는 사용되지 않습니다. <code class="docutils literal notranslate"><span class="pre">--env-file</span></code>에 정의된 변수는 <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> 파일에 대체되지 않습니다.</p>
-<p>그러나 <code class="docutils literal notranslate"><span class="pre">.docker/docker.app.env</span></code> 파일에 설정한 환경 변수는 <code class="docutils literal notranslate"><span class="pre">docker-compose.app.yaml</span></code> 파일에서 사용됩니다. 예를 들어 <code class="docutils literal notranslate"><span class="pre">$BUILD_FROM</span></code> 변수는 도커 빌드의 기본 이미지를 설정하는 데 사용됩니다. 따라서 <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> 명령을 실행하기 전에 이러한 변수를 셸 환경으로 내보내야 합니다.</p>
-<p>이 방법은 또한 <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code> 변수에 대한 <code class="docutils literal notranslate"><span class="pre">&quot;$(whoami)&quot;</span></code>와 같이 변수 정의에서 셸 명령을 사용할 수 있게 해줍니다. 이는 <code class="docutils literal notranslate"><span class="pre">--env-file</span></code> 인수를 사용할 경우 불가능합니다. <code class="docutils literal notranslate"><span class="pre">.env</span></code> 파일의 셸 명령은 평가되지 않습니다.</p>
-</section>
-</section>
-<section id="id8">
-<h2>추가 정보<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
-<p>하이퍼패스트 도커 템플릿은 도커와 Copier의 강점을 결합하여 개발자가 도커 프로젝트를 더 쉽고 빠르게 설정할 수 있도록 합니다. 주요 이점은 다음과 같습니다:</p>
+<p>런너블에 대한 playground 페이지는 /my_runnable/playground에서 확인할 수 있습니다. 이 페이지에서는 스트리밍 출력과 중간 단계를 사용하여 런너블을 구성하고 호출할 수 있습니다.</p>
+<p>클라이언트 및 서버 모두 다음 명령어로 설치할 수 있습니다:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;langserve[all]&quot;</span>
+</pre></div>
+</div>
+<p>또는 클라이언트 코드용으로는 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;langserve[client]&quot;</span></code>, 서버 코드용으로는 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;langserve[server]&quot;</span></code>를 사용합니다.</p>
+<p>서버에 인증을 추가해야 하는 경우, FastAPI의 보안 문서와 미들웨어 문서를 참조하십시오.</p>
+<p>GCP Cloud Run에 배포하려면 다음 명령어를 사용하십시오:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>run<span class="w"> </span>deploy<span class="w"> </span><span class="o">[</span>your-service-name<span class="o">]</span><span class="w"> </span>--source<span class="w"> </span>.<span class="w"> </span>--port<span class="w"> </span><span class="m">8001</span><span class="w"> </span>--allow-unauthenticated<span class="w"> </span>--region<span class="w"> </span>us-central1<span class="w"> </span>--set-env-vars<span class="o">=</span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>your_key
+</pre></div>
+</div>
+<p>LangServe는 Pydantic 2를 일부 제한 사항과 함께 지원합니다. Pydantic V2를 사용할 때 invoke/batch/stream/stream_log에 대한 OpenAPI 문서가 생성되지 않습니다. FastAPI는 pydantic v1과 v2 네임스페이스를 혼용하는 것을 지원하지 않습니다. LangChain은 Pydantic v2에서 v1 네임스페이스를 사용합니다. 이 제한 사항 외에는 API 엔드포인트, playground, 기타 기능이 예상대로 작동해야 합니다.</p>
+<p>LLM 애플리케이션은 종종 파일을 처리합니다. 파일 처리를 구현하기 위한 다양한 아키텍처가 있습니다. 높은 수준에서 다음과 같은 방법이 있습니다:</p>
 <ul class="simple">
-<li><p><strong>빠른 프로젝트 설정</strong>: 템플릿을 사용하면 개발자가 최소한의 구성으로 도커 프로젝트를 시작할 수 있습니다. 이는 시간을 절약하고 더 빠른 개발 주기를 가능하게 합니다.</p></li>
-<li><p><strong>일관성 유지</strong>: 템플릿을 사용하면 모든 프로젝트에서 동일한 구조와 구성을 사용할 수 있습니다. 이는 프로젝트 간의 일관성을 유지하고 협업을 용이하게 합니다.</p></li>
-<li><p><strong>사용자 정의 가능</strong>: 템플릿은 개발자가 프로젝트의 특정 요구 사항에 맞게 쉽게 사용자 정의할 수 있도록 설계되었습니다. 이는 유연성을 제공하고 다양한 사용 사례에 적응할 수 있게 합니다.</p></li>
+<li><p>파일을 전용 엔드포인트를 통해 서버에 업로드하고 별도의 엔드포인트를 사용하여 처리합니다.</p></li>
+<li><p>파일을 값(파일의 바이트) 또는 참조(e.g., s3 URL로 파일 내용)로 업로드할 수 있습니다.</p></li>
+<li><p>처리 엔드포인트는 블로킹 또는 논블로킹일 수 있습니다.</p></li>
+<li><p>상당한 처리가 필요한 경우 전용 프로세스 풀로 처리를 오프로드할 수 있습니다.</p></li>
 </ul>
-<p>하이퍼패스트 도커 템플릿은 또한 다음과 같은 고급 기능을 제공합니다:</p>
-<ul class="simple">
-<li><p><strong>NVIDIA GPU 지원</strong>: 템플릿은 NVIDIA 도커를 사용하여 GPU 가속 워크로드를 지원할 수 있습니다. 이는 딥 러닝, 과학 컴퓨팅 등의 분야에서 유용합니다.</p></li>
-<li><p><strong>SSH 액세스</strong>: 템플릿은 SSH를 통해 컨테이너에 액세스할 수 있는 옵션을 제공합니다. 이는 디버깅 및 문제 해결에 유용할 수 있습니다.</p></li>
-<li><p><strong>볼륨 지원</strong>: 템플릿은 호스트와 컨테이너 간에 디렉토리를 공유하기 위해 도커 볼륨을 사용합니다. 이는 데이터 지속성을 가능하게 하고 호스트와 컨테이너 간의 파일 공유를 단순화합니다.</p></li>
-</ul>
-</section>
-<section id="id9">
-<h2>요약<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
-<p>하이퍼패스트 도커 템플릿은 도커 프로젝트 생성 프로세스를 간소화하고 가속화하는 강력하고 유연한 도구입니다. Copier의 단순성과 도커의 기능을 결합하여 개발자가 최소한의 노력으로 신속하게 프로젝트를 시작할 수 있도록 합니다.</p>
-<p>이 템플릿은 사용하기 쉬운 인터페이스, 사용자 정의 가능한 구성, 고급 기능을 제공하여 다양한 사용 사례와 요구 사항에 적합합니다. 숙련된 개발자와 초보자 모두 하이퍼패스트 도커 템플릿을 사용하여 도커 프로젝트 설정과 관련된 복잡성을 줄이고 개발 프로세스를 간소화할 수 있습니다.</p>
-<p>도커 기반 개발의 미래를 향한 발걸음에 있어 하이퍼패스트 도커 템플릿은 개발자가 혁신에 집중하고 더 빠르게 가치를 제공할 수 있도록 지원하는 필수 도구입니다.</p>
+<p>애플리케이션에 적합한 아키텍처를 결정해야 합니다. 현재 값으로 파일을 업로드하려면 base64 인코딩을 사용하여 런너블로 업로드합니다(multipart/form-data는 아직 지원되지 않습니다).</p>
+<p>다음은 base64 인코딩을 사용하여 파일을 원격 런너블에 보내는 방법을 보여주는 예제입니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pydantic.v1</span> <span class="kn">import</span> <span class="n">Field</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
+
+<span class="kn">from</span> <span class="nn">langserve</span> <span class="kn">import</span> <span class="n">CustomUserType</span>
+
+<span class="c1"># CustomUserType을 상속받지 않고 BaseModel을 상속받으면 서버는 이를 dict로 디코딩합니다.</span>
+<span class="k">class</span> <span class="nc">FileProcessingRequest</span><span class="p">(</span><span class="n">CustomUserType</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;base64로 인코딩된 파일을 포함하는 요청입니다.&quot;&quot;&quot;</span>
+
+    <span class="c1"># 추가 필드는 playground UI용 위젯을 지정하는 데 사용됩니다.</span>
+    <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;widget&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;base64file&quot;</span><span class="p">}})</span>
+    <span class="n">num_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -645,7 +744,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./week05"
+            path: "./week12"
         },
         predefinedOutput: true
     }
@@ -663,20 +762,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="langchain-io.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Week 5</p>
+        <p class="prev-next-title">LangChain - Model I/O</p>
       </div>
     </a>
     <a class="right-next"
-       href="../week06/index.html"
+       href="langsmith.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Week 6</p>
+        <p class="prev-next-title">LangSmith 소개</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -696,16 +795,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">사전 요구사항</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">설정</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">사용 방법</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">볼륨</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">문제 해결</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">환경 변수</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">추가 정보</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">요약</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">특징</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">한계</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">LangServe 프로젝트 부트스트랩</a></li>
 </ul>
   </nav></div>
 
