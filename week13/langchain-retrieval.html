@@ -1,0 +1,1191 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LangChain 모듈 - 검색 &#8212; 머신러닝시스템 2024</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-examples.css?v=e236af4b" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-shadow.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-punk.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-noir.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-light.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/tooltipster-sideTip-borderless.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/micromodal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script src="../_static/js/hoverxref.js"></script>
+    <script src="../_static/js/tooltipster.bundle.min.js"></script>
+    <script src="../_static/js/micromodal.min.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BQJE5V9RK2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-BQJE5V9RK2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-BQJE5V9RK2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'week13/langchain-retrieval';</script>
+    <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LangChain 모듈 - 체인 (Chains)" href="langchain-chain.html" />
+    <link rel="prev" title="Week 13" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">머신러닝시스템 2024</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Home
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week01/index.html">Week 1</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week01/intro.html">MLOps 소개</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week02/index.html">Week 2</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week02/devops.html">DevOps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week02/gitops.html">GitOps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week03/index.html">Week 3</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week03/dotfiles.html">Dotfiles</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week04/index.html">Week 4</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week04/containerization.html">컨테이너화</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week04/docker.html">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week04/containerd.html"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week05/index.html">Week 5</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week05/hyperfast-docker.html">하이퍼패스트 도커 템플릿</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week06/index.html">Week 6</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week06/kubernetes.html">쿠버네티스</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week07/index.html">Week 7</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../week07/bionic/index.html">Bionic-GPT</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/introduction.html">Bionic-GPT Enterprise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/bare-metal.html">Kubernetes on Bare Metal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/installation.html">Installing Bionic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/gpu-preparation.html">GPU Node Preparation (Nvidia)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/sso.html">Single Sign On</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/tgi.html">TGI Inference Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/roles.html">Role Based Access Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/pgadmin.html">Integrate pgAdmin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/upgrade.html">Upgrading Bionic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/jupyter-notebook.html">Adding a Jupyter Notebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../week07/bionic/visualise-rag.html">Visualising RAG data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week09/index.html">Week 9</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week09/sec.html">보안 관리</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week09/auth-enc-sign.html">인증, 암호화 및 서명</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week09/age-gpg-ssh.html">SSH, GPG, AGE 소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week09/pass.html">Unix 패스워드 관리자</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week10/index.html">Week 10</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week10/autotrain.html">AutoTrain Advanced</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week10/installation.html">설치</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week10/starting.html">시작하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week10/llm_finetuning.html">LLM 파인튜닝</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week11/index.html">Week 11</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week11/llama-factory.html">LLaMA Factory를 활용한 LLM 파인튜닝</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../week12/index.html">Week 12</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../week12/langchain.html">LangChain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week12/langchain-io.html">LangChain - Model I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week12/langserve.html">LangServe로 배포하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../week12/langsmith.html">LangSmith 소개</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Week 13</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">LangChain 모듈 - 검색</a></li>
+<li class="toctree-l2"><a class="reference internal" href="langchain-chain.html">LangChain 모듈 - 체인 (Chains)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="langchain-memory.html">LangChain 모듈 - 메모리</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Projects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../projects/index.html">MLOps 프로젝트</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../projects/202121010/index.html">202121010</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../projects/202121010/MMHuman3D/index.html">MMhuman3D 프로젝트</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../projects/202021012/index.html">202021012</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../projects/202021012/DUSt3R/index.html">DUSt3R</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../projects/202021012/finetuning/index.html">파인튜닝(Fine-tuning)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../projects/setup.html">프로젝트 환경설정</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../syllabus/index.html">수업계획서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">만든 사람들</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://halla.ai">인공지능학과</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://os2024.halla.ai">운영체제 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://mlops2024.halla.ai">머신러닝시스템 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://cobots2024.halla.ai">협동로봇활용 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://aibasics.halla.ai">AI 세상 속으로</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/week13/langchain-retrieval.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fweek13/langchain-retrieval.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/week13/langchain-retrieval.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LangChain 모듈 - 검색</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#document-loaders">문서 로더 (Document Loaders)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#text-file-loader">텍스트 파일 로더 (Text File Loader)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-csv-loader">CSV 로더 (CSV Loader)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pdf-pdf-loaders">PDF 로더 (PDF Loaders)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pypdfloader">PyPDFLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathpixloader">MathPixLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pymupdfloader">PyMuPDFLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pdfminerloader">PDFMinerLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#amazontextractpdfparser">AmazonTextractPDFParser</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pdfminerpdfashtmlloader">PDFMinerPDFasHTMLLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pdfplumberloader">PDFPlumberLoader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrated-loaders">통합 로더 (Integrated Loaders)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-slack">예시 I - Slack</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#document-transformers">문서 변환기 (Document Transformers)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-embedding-models">텍스트 임베딩 모델 (Text Embedding Models)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-stores">벡터 저장소 (Vector Stores)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrievers">검색기 (Retrievers)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="langchain">
+<h1>LangChain 모듈 - 검색<a class="headerlink" href="#langchain" title="Link to this heading">#</a></h1>
+<p>LangChain에서의 검색(Retrieval)은 모델의 학습 데이터셋에 포함되지 않은 사용자 특정 데이터가 필요한 애플리케이션에서 중요한 역할을 합니다. 이 과정을 Retrieval Augmented Generation (RAG)이라고 하며, 외부 데이터를 가져와 언어 모델의 생성 과정에 통합하는 것을 포함합니다. LangChain은 간단한 애플리케이션부터 복잡한 애플리케이션까지 이 과정을 용이하게 하는 포괄적인 도구 및 기능 세트를 제공합니다.</p>
+<p>LangChain은 여러 컴포넌트를 통해 검색을 수행하며, 이를 하나씩 살펴보겠습니다.</p>
+<section id="document-loaders">
+<h2>문서 로더 (Document Loaders)<a class="headerlink" href="#document-loaders" title="Link to this heading">#</a></h2>
+<p>LangChain의 문서 로더를 사용하면 다양한 소스에서 데이터를 추출할 수 있습니다. 100개 이상의 로더가 사용 가능하며, 다양한 문서 유형, 앱 및 소스(프라이빗 S3 버킷, 공개 웹사이트, 데이터베이스)를 지원합니다.</p>
+<p>요구 사항에 따라 문서 로더를 선택할 수 있습니다. 이러한 모든 로더는 데이터를 <strong>Document</strong> 클래스로 수집합니다. Document 클래스로 수집된 데이터를 사용하는 방법은 나중에 배우게 될 것입니다.</p>
+<section id="text-file-loader">
+<h3>텍스트 파일 로더 (Text File Loader)<a class="headerlink" href="#text-file-loader" title="Link to this heading">#</a></h3>
+<p>간단한 <code class="docutils literal notranslate"><span class="pre">.txt</span></code> 파일을 문서로 로드합니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">TextLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">TextLoader</span><span class="p">(</span><span class="s2">&quot;./sample.txt&quot;</span><span class="p">)</span>
+<span class="n">document</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="csv-csv-loader">
+<h3>CSV 로더 (CSV Loader)<a class="headerlink" href="#csv-csv-loader" title="Link to this heading">#</a></h3>
+<p>CSV 파일을 문서로 로드합니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders.csv_loader</span> <span class="kn">import</span> <span class="n">CSVLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">CSVLoader</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./example_data/sample.csv&#39;</span><span class="p">)</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>필드 이름을 지정하여 파싱을 커스터마이징할 수도 있습니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loader</span> <span class="o">=</span> <span class="n">CSVLoader</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./example_data/mlb_teams_2012.csv&#39;</span><span class="p">,</span> <span class="n">csv_args</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;delimiter&#39;</span><span class="p">:</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;quotechar&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;fieldnames&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;MLB Team&#39;</span><span class="p">,</span> <span class="s1">&#39;Payroll in millions&#39;</span><span class="p">,</span> <span class="s1">&#39;Wins&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="pdf-pdf-loaders">
+<h3>PDF 로더 (PDF Loaders)<a class="headerlink" href="#pdf-pdf-loaders" title="Link to this heading">#</a></h3>
+<p>LangChain의 PDF 로더는 PDF 파일에서 컨텐츠를 파싱하고 추출하기 위한 다양한 방법을 제공합니다. 각 로더는 서로 다른 요구 사항에 맞춰져 있고 다른 기본 라이브러리를 사용합니다. 아래는 각 로더에 대한 자세한 예시입니다.</p>
+<section id="pypdfloader">
+<h4>PyPDFLoader<a class="headerlink" href="#pypdfloader" title="Link to this heading">#</a></h4>
+<p>기본적인 PDF 파싱에 사용됩니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">PyPDFLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">PyPDFLoader</span><span class="p">(</span><span class="s2">&quot;example_data/layout-parser-paper.pdf&quot;</span><span class="p">)</span>
+<span class="n">pages</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load_and_split</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="mathpixloader">
+<h4>MathPixLoader<a class="headerlink" href="#mathpixloader" title="Link to this heading">#</a></h4>
+<p>수학 컨텐츠와 다이어그램 추출에 이상적입니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">MathpixPDFLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">MathpixPDFLoader</span><span class="p">(</span><span class="s2">&quot;example_data/math-content.pdf&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="pymupdfloader">
+<h4>PyMuPDFLoader<a class="headerlink" href="#pymupdfloader" title="Link to this heading">#</a></h4>
+<p>빠르고 상세한 메타데이터 추출을 포함합니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">PyMuPDFLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">PyMuPDFLoader</span><span class="p">(</span><span class="s2">&quot;example_data/layout-parser-paper.pdf&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="c1"># PyMuPDF의 get_text() 호출에 추가 인자 전달 가능</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pdfminerloader">
+<h4>PDFMinerLoader<a class="headerlink" href="#pdfminerloader" title="Link to this heading">#</a></h4>
+<p>텍스트 추출에 대한 보다 세분화된 제어에 사용됩니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">PDFMinerLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">PDFMinerLoader</span><span class="p">(</span><span class="s2">&quot;example_data/layout-parser-paper.pdf&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="amazontextractpdfparser">
+<h4>AmazonTextractPDFParser<a class="headerlink" href="#amazontextractpdfparser" title="Link to this heading">#</a></h4>
+<p>OCR 및 기타 고급 PDF 파싱 기능을 위해 AWS Textract를 활용합니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">AmazonTextractPDFLoader</span>
+
+<span class="c1"># AWS 계정 및 구성 필요</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">AmazonTextractPDFLoader</span><span class="p">(</span><span class="s2">&quot;example_data/complex-layout.pdf&quot;</span><span class="p">)</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="pdfminerpdfashtmlloader">
+<h4>PDFMinerPDFasHTMLLoader<a class="headerlink" href="#pdfminerpdfashtmlloader" title="Link to this heading">#</a></h4>
+<p>의미론적 파싱을 위해 PDF에서 HTML을 생성합니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">PDFMinerPDFasHTMLLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">PDFMinerPDFasHTMLLoader</span><span class="p">(</span><span class="s2">&quot;example_data/layout-parser-paper.pdf&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="pdfplumberloader">
+<h4>PDFPlumberLoader<a class="headerlink" href="#pdfplumberloader" title="Link to this heading">#</a></h4>
+<p>상세한 메타데이터를 제공하고 페이지당 하나의 문서를 지원합니다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">PDFPlumberLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">PDFPlumberLoader</span><span class="p">(</span><span class="s2">&quot;example_data/layout-parser-paper.pdf&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="integrated-loaders">
+<h2>통합 로더 (Integrated Loaders)<a class="headerlink" href="#integrated-loaders" title="Link to this heading">#</a></h2>
+<p>LangChain은 Slack, Sigma, Notion, Confluence, Google Drive 등의 앱 및 데이터베이스에서 데이터를 직접 로드하여 LLM 애플리케이션에 사용할 수 있는 다양한 맞춤형 로더를 제공합니다.</p>
+<p>아래는 이를 설명하기 위한 몇 가지 예시입니다.</p>
+<section id="i-slack">
+<h3>예시 I - Slack<a class="headerlink" href="#i-slack" title="Link to this heading">#</a></h3>
+<p>널리 사용되는 인스턴트 메시징 플랫폼인 Slack은 LLM 워크플로와 애플리케이션에 통합될 수 있습니다.</p>
+<ol class="arabic simple">
+<li><p>Slack 작업 공간 관리 페이지로 이동하세요.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{your_slack_domain}.slack.com/services/export</span></code>로 이동하세요.</p></li>
+<li><p>원하는 날짜 범위를 선택하고 내보내기를 시작하세요.</p></li>
+<li><p>내보내기가 완료되면 Slack에서 이메일과 DM을 통해 알려줍니다.</p></li>
+<li><p>내보내기는 다운로드 폴더 또는 지정된 다운로드 경로에 <code class="docutils literal notranslate"><span class="pre">.zip</span></code> 파일을 생성합니다.</p></li>
+<li><p>다운로드한 <code class="docutils literal notranslate"><span class="pre">.zip</span></code> 파일의 경로를 <code class="docutils literal notranslate"><span class="pre">LOCAL_ZIPFILE</span></code>에 할당하세요.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">langchain.document_loaders</span></code> 패키지에서 <code class="docutils literal notranslate"><span class="pre">SlackDirectoryLoader</span></code>를 사용하세요.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">SlackDirectoryLoader</span>
+
+<span class="n">SLACK_WORKSPACE_URL</span> <span class="o">=</span> <span class="s2">&quot;https://xxx.slack.com&quot;</span> <span class="c1"># Slack URL로 바꾸세요</span>
+<span class="n">LOCAL_ZIPFILE</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># Slack zip 파일의 경로</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">SlackDirectoryLoader</span><span class="p">(</span><span class="n">LOCAL_ZIPFILE</span><span class="p">,</span> <span class="n">SLACK_WORKSPACE_URL</span><span class="p">)</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>이렇게 Slack 데이터를 로드하여 LLM 애플리케이션에서 활용할 수 있습니다. LangChain은 문서 로더를 통해 다양한 소스의 데이터를 쉽게 통합할 수 있도록 지원하며, 이는 RAG 프로세스에서 핵심적인 역할을 합니다.</p>
+</section>
+</section>
+<section id="document-transformers">
+<h2>문서 변환기 (Document Transformers)<a class="headerlink" href="#document-transformers" title="Link to this heading">#</a></h2>
+<p>LangChain의 문서 변환기는 이전 섹션에서 생성한 문서를 조작하는데 필수적인 도구입니다.</p>
+<p>이들은 긴 문서를 더 작은 청크로 분할하고, 결합하고, 필터링하는 등의 작업에 사용되며, 이는 문서를 모델의 컨텍스트 윈도우에 맞추거나 특정 애플리케이션 요구사항을 충족시키는 데 중요합니다.</p>
+<p>이러한 도구 중 하나는 RecursiveCharacterTextSplitter로, 문자 목록을 사용하여 분할하는 다재다능한 텍스트 분할기입니다. 청크 크기, 오버랩, 시작 인덱스와 같은 매개변수를 허용합니다. 다음은 Python에서 사용하는 예시입니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+
+<span class="n">state_of_the_union</span> <span class="o">=</span> <span class="s2">&quot;Your long text here...&quot;</span>
+
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">length_function</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span>
+    <span class="n">add_start_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">texts</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">create_documents</span><span class="p">([</span><span class="n">state_of_the_union</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">texts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">texts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>또 다른 도구는 CharacterTextSplitter로, 지정된 문자를 기준으로 텍스트를 분할하고 청크 크기와 오버랩을 제어할 수 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">CharacterTextSplitter</span>
+
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">CharacterTextSplitter</span><span class="p">(</span>
+    <span class="n">separator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">length_function</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span>
+    <span class="n">is_separator_regex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">texts</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">create_documents</span><span class="p">([</span><span class="n">state_of_the_union</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">texts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>HTMLHeaderTextSplitter는 HTML 컨텐츠를 헤더 태그를 기준으로 분할하여 의미 구조를 유지하도록 설계되었습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">HTMLHeaderTextSplitter</span>
+
+<span class="n">html_string</span> <span class="o">=</span> <span class="s2">&quot;Your HTML content here...&quot;</span>
+<span class="n">headers_to_split_on</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;h1&quot;</span><span class="p">,</span> <span class="s2">&quot;Header 1&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;h2&quot;</span><span class="p">,</span> <span class="s2">&quot;Header 2&quot;</span><span class="p">)]</span>
+
+<span class="n">html_splitter</span> <span class="o">=</span> <span class="n">HTMLHeaderTextSplitter</span><span class="p">(</span><span class="n">headers_to_split_on</span><span class="o">=</span><span class="n">headers_to_split_on</span><span class="p">)</span>
+<span class="n">html_header_splits</span> <span class="o">=</span> <span class="n">html_splitter</span><span class="o">.</span><span class="n">split_text</span><span class="p">(</span><span class="n">html_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">html_header_splits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>HTMLHeaderTextSplitter와 다른 분할기(예: Pipelined Splitter)를 결합하여 더 복잡한 조작을 수행할 수 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">HTMLHeaderTextSplitter</span><span class="p">,</span> <span class="n">RecursiveCharacterTextSplitter</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://example.com&quot;</span>
+<span class="n">headers_to_split_on</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;h1&quot;</span><span class="p">,</span> <span class="s2">&quot;Header 1&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;h2&quot;</span><span class="p">,</span> <span class="s2">&quot;Header 2&quot;</span><span class="p">)]</span>
+<span class="n">html_splitter</span> <span class="o">=</span> <span class="n">HTMLHeaderTextSplitter</span><span class="p">(</span><span class="n">headers_to_split_on</span><span class="o">=</span><span class="n">headers_to_split_on</span><span class="p">)</span>
+<span class="n">html_header_splits</span> <span class="o">=</span> <span class="n">html_splitter</span><span class="o">.</span><span class="n">split_text_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">)</span>
+<span class="n">splits</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">html_header_splits</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">splits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>LangChain은 Python Code Splitter 및 JavaScript Code Splitter와 같이 다양한 프로그래밍 언어에 특화된 분할기도 제공합니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span> <span class="n">Language</span>
+
+<span class="n">python_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">def hello_world():</span>
+<span class="s2">    print(&quot;Hello, World!&quot;)</span>
+<span class="s2">hello_world()</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">python_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="o">.</span><span class="n">from_language</span><span class="p">(</span>
+    <span class="n">language</span><span class="o">=</span><span class="n">Language</span><span class="o">.</span><span class="n">PYTHON</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">50</span>
+<span class="p">)</span>
+<span class="n">python_docs</span> <span class="o">=</span> <span class="n">python_splitter</span><span class="o">.</span><span class="n">create_documents</span><span class="p">([</span><span class="n">python_code</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">python_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">js_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">function helloWorld() {</span>
+<span class="s2">  console.log(&quot;Hello, World!&quot;);</span>
+<span class="s2">}</span>
+<span class="s2">helloWorld();</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">js_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="o">.</span><span class="n">from_language</span><span class="p">(</span>
+    <span class="n">language</span><span class="o">=</span><span class="n">Language</span><span class="o">.</span><span class="n">JS</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">60</span>
+<span class="p">)</span>
+<span class="n">js_docs</span> <span class="o">=</span> <span class="n">js_splitter</span><span class="o">.</span><span class="n">create_documents</span><span class="p">([</span><span class="n">js_code</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">js_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>토큰 제한이 있는 언어 모델에 유용한 토큰 수를 기준으로 텍스트를 분할하려면 TokenTextSplitter를 사용합니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">TokenTextSplitter</span>
+
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">TokenTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">texts</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_text</span><span class="p">(</span><span class="n">state_of_the_union</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">texts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>마지막으로 LongContextReorder는 긴 컨텍스트로 인한 모델의 성능 저하를 방지하기 위해 문서를 재정렬합니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.document_transformers</span> <span class="kn">import</span> <span class="n">LongContextReorder</span>
+
+<span class="n">reordering</span> <span class="o">=</span> <span class="n">LongContextReorder</span><span class="p">()</span>
+<span class="n">reordered_docs</span> <span class="o">=</span> <span class="n">reordering</span><span class="o">.</span><span class="n">transform_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reordered_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>이러한 도구들은 LangChain에서 문서를 변환하는 다양한 방법을 보여줍니다. 단순한 텍스트 분할부터 복잡한 재정렬 및 언어 특화 분할까지 다룹니다. 보다 심층적이고 구체적인 사용 사례를 위해서는 LangChain 문서의 통합 섹션을 참조하는 것이 좋습니다.</p>
+<p>우리의 예제에서는 로더가 이미 청크 문서를 생성했으며, 이 부분은 이미 처리되었습니다.</p>
+</section>
+<section id="text-embedding-models">
+<h2>텍스트 임베딩 모델 (Text Embedding Models)<a class="headerlink" href="#text-embedding-models" title="Link to this heading">#</a></h2>
+<p>LangChain의 텍스트 임베딩 모델은 OpenAI, Cohere, Hugging Face와 같은 다양한 임베딩 모델 제공업체를 위한 표준화된 인터페이스를 제공합니다. 이러한 모델은 텍스트를 벡터 표현으로 변환하여 벡터 공간에서 텍스트 유사성을 통한 의미론적 검색과 같은 작업을 가능하게 합니다.</p>
+<p>텍스트 임베딩 모델을 시작하려면 일반적으로 특정 패키지를 설치하고 API 키를 설정해야 합니다. 우리는 이미 OpenAI에 대해 이를 수행했습니다.</p>
+<p>LangChain에서는 <code class="docutils literal notranslate"><span class="pre">embed_documents</span></code> 메서드를 사용하여 여러 텍스트를 임베딩하고 벡터 표현 목록을 제공합니다. 예를 들면:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.embeddings</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+
+<span class="c1"># 모델 초기화</span>
+<span class="n">embeddings_model</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+
+<span class="c1"># 텍스트 목록 임베딩</span>
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings_model</span><span class="o">.</span><span class="n">embed_documents</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;Hi there!&quot;</span><span class="p">,</span> <span class="s2">&quot;Oh, hello!&quot;</span><span class="p">,</span> <span class="s2">&quot;What&#39;s your name?&quot;</span><span class="p">,</span> <span class="s2">&quot;My friends call me World&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello World!&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of documents embedded:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">embeddings</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dimension of each embedding:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">embeddings</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>단일 텍스트(예: 검색 쿼리)를 임베딩하려면 <code class="docutils literal notranslate"><span class="pre">embed_query</span></code> 메서드를 사용합니다. 이는 쿼리를 문서 임베딩 세트와 비교할 때 유용합니다. 예를 들면:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.embeddings</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+
+<span class="c1"># 모델 초기화</span>
+<span class="n">embeddings_model</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+
+<span class="c1"># 단일 쿼리 임베딩</span>
+<span class="n">embedded_query</span> <span class="o">=</span> <span class="n">embeddings_model</span><span class="o">.</span><span class="n">embed_query</span><span class="p">(</span><span class="s2">&quot;What was the name mentioned in the conversation?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First five dimensions of the embedded query:&quot;</span><span class="p">,</span> <span class="n">embedded_query</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>이러한 임베딩을 이해하는 것이 중요합니다. 각 텍스트는 벡터로 변환되며, 그 차원은 사용된 모델에 따라 달라집니다. 예를 들어, OpenAI 모델은 일반적으로 1536차원 벡터를 생성합니다. 이러한 임베딩은 관련 정보를 검색하는 데 사용됩니다.</p>
+<p>LangChain의 임베딩 기능은 OpenAI에 국한되지 않고 다양한 제공업체와 작동하도록 설계되었습니다. 설정 및 사용 방법은 제공업체에 따라 약간 다를 수 있지만, 텍스트를 벡터 공간에 임베딩하는 핵심 개념은 동일합니다. 고급 구성 및 다양한 임베딩 모델 제공업체와의 통합을 포함한 자세한 사용법은 LangChain 문서의 통합 섹션이 유용한 리소스입니다.</p>
+<section id="vector-stores">
+<h3>벡터 저장소 (Vector Stores)<a class="headerlink" href="#vector-stores" title="Link to this heading">#</a></h3>
+<p>LangChain의 벡터 저장소는 텍스트 임베딩의 효율적인 저장과 검색을 지원합니다. LangChain은 50개 이상의 벡터 저장소와 통합되어 사용 편의성을 위한 표준화된 인터페이스를 제공합니다.</p>
+<p><strong>예시: 임베딩 저장 및 검색</strong></p>
+<p>텍스트를 임베딩한 후에는 <code class="docutils literal notranslate"><span class="pre">Chroma</span></code>와 같은 벡터 저장소에 저장하고 유사성 검색을 수행할 수 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.vectorstores</span> <span class="kn">import</span> <span class="n">Chroma</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">Chroma</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span><span class="n">embedded_texts</span><span class="p">)</span>
+<span class="n">similar_texts</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="s2">&quot;search query&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>대안으로 FAISS 벡터 저장소를 사용하여 문서의 인덱스를 생성할 수 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.embeddings</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span> <span class="nn">langchain.vectorstores</span> <span class="kn">import</span> <span class="n">FAISS</span>
+
+<span class="n">pdfstore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">pdfpages</span><span class="p">,</span>
+            <span class="n">embedding</span><span class="o">=</span><span class="n">OpenAIEmbeddings</span><span class="p">())</span>
+
+<span class="n">airtablestore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">airtabledocs</span><span class="p">,</span>
+            <span class="n">embedding</span><span class="o">=</span><span class="n">OpenAIEmbeddings</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="retrievers">
+<h3>검색기 (Retrievers)<a class="headerlink" href="#retrievers" title="Link to this heading">#</a></h3>
+<p>LangChain의 검색기는 비정형 쿼리에 대응하여 문서를 반환하는 인터페이스입니다. 이들은 벡터 저장소보다 더 일반적이며, 저장보다는 검색에 중점을 둡니다. 벡터 저장소를 검색기의 백본으로 사용할 수 있지만, 다른 유형의 검색기도 있습니다.</p>
+<p>Chroma 검색기를 설정하려면 먼저 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">chromadb</span></code>를 사용하여 설치합니다. 그런 다음 일련의 Python 명령을 사용하여 문서를 로드, 분할, 임베딩 및 검색합니다. 다음은 Chroma 검색기를 설정하는 코드 예시입니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.embeddings</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">CharacterTextSplitter</span>
+<span class="kn">from</span> <span class="nn">langchain.vectorstores</span> <span class="kn">import</span> <span class="n">Chroma</span>
+
+<span class="n">full_text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;state_of_the_union.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">CharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">texts</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_text</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
+
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">Chroma</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">()</span>
+
+<span class="n">retrieved_docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;What did the president say about Ketanji Brown Jackson?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">retrieved_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>MultiQueryRetriever는 사용자 입력 쿼리에 대해 여러 쿼리를 생성하고 결과를 결합하여 프롬프트 튜닝을 자동화합니다. 다음은 간단한 사용 예시입니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">from</span> <span class="nn">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langchain.retrievers.multi_query</span> <span class="kn">from</span> <span class="nn">MultiQueryRetriever</span>
+
+<span class="n">question</span> <span class="o">=</span> <span class="s2">&quot;What are the approaches to Task Decomposition?&quot;</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">retriever_from_llm</span> <span class="o">=</span> <span class="n">MultiQueryRetriever</span><span class="o">.</span><span class="n">from_llm</span><span class="p">(</span>
+    <span class="n">retriever</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">(),</span> <span class="n">llm</span><span class="o">=</span><span class="n">llm</span>
+<span class="p">)</span>
+
+<span class="n">unique_docs</span> <span class="o">=</span> <span class="n">retriever_from_llm</span><span class="o">.</span><span class="n">get_relevant_documents</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">question</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of unique documents:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_docs</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>LangChain의 맥락 압축(Contextual Compression)은 쿼리의 맥락을 사용하여 검색된 문서를 압축하여 관련 정보만 반환되도록 합니다. 이는 컨텐츠 감소와 덜 관련된 문서 필터링을 포함합니다. 다음 코드 예제는 Contextual Compression Retriever 사용 방법을 보여줍니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.llms</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">from</span> <span class="nn">langchain.retrievers</span> <span class="kn">import</span> <span class="n">ContextualCompressionRetriever</span>
+<span class="kn">from</span> <span class="nn">langchain.retrievers.document_compressors</span> <span class="kn">import</span> <span class="n">LLMChainExtractor</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">compressor</span> <span class="o">=</span> <span class="n">LLMChainExtractor</span><span class="o">.</span><span class="n">from_llm</span><span class="p">(</span><span class="n">llm</span><span class="p">)</span>
+<span class="n">compression_retriever</span> <span class="o">=</span> <span class="n">ContextualCompressionRetriever</span><span class="p">(</span><span class="n">base_compressor</span><span class="o">=</span><span class="n">compressor</span><span class="p">,</span> <span class="n">base_retriever</span><span class="o">=</span><span class="n">retriever</span><span class="p">)</span>
+
+<span class="n">compressed_docs</span> <span class="o">=</span> <span class="n">compression_retriever</span><span class="o">.</span><span class="n">get_relevant_documents</span><span class="p">(</span><span class="s2">&quot;What did the president say about Ketanji Jackson Brown&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">compressed_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>EnsembleRetriever는 더 나은 성능을 위해 다양한 검색 알고리즘을 결합합니다. BM25와 FAISS Retriever를 결합하는 예시는 다음 코드에 나와 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.retrievers</span> <span class="kn">import</span> <span class="n">BM25Retriever</span><span class="p">,</span> <span class="n">EnsembleRetriever</span>
+<span class="kn">from</span> <span class="nn">langchain.vectorstores</span> <span class="kn">import</span> <span class="n">FAISS</span>
+
+<span class="n">bm25_retriever</span> <span class="o">=</span> <span class="n">BM25Retriever</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span><span class="n">doc_list</span><span class="p">)</span><span class="o">.</span><span class="n">set_k</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">faiss_vectorstore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span><span class="n">doc_list</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span><span class="p">())</span>
+<span class="n">faiss_retriever</span> <span class="o">=</span> <span class="n">faiss_vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">(</span><span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+
+<span class="n">ensemble_retriever</span> <span class="o">=</span> <span class="n">EnsembleRetriever</span><span class="p">(</span>
+    <span class="n">retrievers</span><span class="o">=</span><span class="p">[</span><span class="n">bm25_retriever</span><span class="p">,</span> <span class="n">faiss_retriever</span><span class="p">],</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">docs</span> <span class="o">=</span> <span class="n">ensemble_retriever</span><span class="o">.</span><span class="n">get_relevant_documents</span><span class="p">(</span><span class="s2">&quot;apples&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>MultiVector Retriever는 문서당 여러 벡터를 사용하여 문서를 쿼리할 수 있게 해주어, 문서 내의 다양한 의미론적 측면을 포착하는데 유용합니다. 여러 벡터를 생성하는 방법에는 더 작은 청크로 분할하거나, 요약하거나, 가상의 질문을 생성하는 방법 등이 있습니다. 문서를 더 작은 청크로 분할하려면 다음과 같은 Python 코드를 사용할 수 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.retrievers.multi_vector</span> <span class="kn">import</span> <span class="n">MultiVectorRetriever</span>
+<span class="kn">from</span> <span class="nn">langchain.vectorstores</span> <span class="kn">import</span> <span class="n">Chroma</span>
+<span class="kn">from</span> <span class="nn">langchain.embeddings</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+<span class="kn">from</span> <span class="nn">langchain.storage</span> <span class="kn">import</span> <span class="n">InMemoryStore</span>
+<span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">from</span> <span class="nn">TextLoader</span>
+<span class="kn">import</span> <span class="n">uuid</span>
+
+<span class="n">loaders</span> <span class="o">=</span> <span class="p">[</span><span class="n">TextLoader</span><span class="p">(</span><span class="s2">&quot;file1.txt&quot;</span><span class="p">),</span> <span class="n">TextLoader</span><span class="p">(</span><span class="s2">&quot;file2.txt&quot;</span><span class="p">)]</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span> <span class="k">for</span> <span class="n">loader</span> <span class="ow">in</span> <span class="n">loaders</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()]</span>
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="p">(</span><span class="n">collection_name</span><span class="o">=</span><span class="s2">&quot;full_documents&quot;</span><span class="p">,</span> <span class="n">embedding_function</span><span class="o">=</span><span class="n">OpenAIEmbeddings</span><span class="p">())</span>
+<span class="n">store</span> <span class="o">=</span> <span class="n">InMemoryStore</span><span class="p">()</span>
+<span class="n">id_key</span> <span class="o">=</span> <span class="s2">&quot;doc_id&quot;</span>
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">MultiVectorRetriever</span><span class="p">(</span><span class="n">vectorstore</span><span class="o">=</span><span class="n">vectorstore</span><span class="p">,</span> <span class="n">docstore</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="n">id_key</span><span class="o">=</span><span class="n">id_key</span><span class="p">)</span>
+
+<span class="n">doc_ids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
+<span class="n">child_text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+<span class="n">sub_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">sub_doc</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span> <span class="k">for</span> <span class="n">sub_doc</span> <span class="ow">in</span> <span class="n">child_text_splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">([</span><span class="n">doc</span><span class="p">])]</span>
+<span class="k">for</span> <span class="n">sub_doc</span> <span class="ow">in</span> <span class="n">sub_docs</span><span class="p">:</span>
+    <span class="n">sub_doc</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">id_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc_ids</span><span class="p">[</span><span class="n">sub_docs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">sub_doc</span><span class="p">)]</span>
+
+<span class="n">retriever</span><span class="o">.</span><span class="n">vectorstore</span><span class="o">.</span><span class="n">add_documents</span><span class="p">(</span><span class="n">sub_docs</span><span class="p">)</span>
+<span class="n">retriever</span><span class="o">.</span><span class="n">docstore</span><span class="o">.</span><span class="n">mset</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">doc_ids</span><span class="p">,</span> <span class="n">docs</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>더 집중된 컨텐츠 표현으로 인한 더 나은 검색을 위해 요약을 생성하는 것도 또 다른 방법입니다. 다음은 요약 생성의 예시입니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain.schema.output_parser</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="nn">langchain.schema.document</span> <span class="kn">import</span> <span class="n">Document</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span> <span class="o">|</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;Summarize the following document:</span><span class="se">\n\n</span><span class="si">{doc}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">max_retries</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="n">summaries</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;max_concurrency&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+
+<span class="n">summary_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="n">id_key</span><span class="p">:</span> <span class="n">doc_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]})</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">summaries</span><span class="p">)]</span>
+<span class="n">retriever</span><span class="o">.</span><span class="n">vectorstore</span><span class="o">.</span><span class="n">add_documents</span><span class="p">(</span><span class="n">summary_docs</span><span class="p">)</span>
+<span class="n">retriever</span><span class="o">.</span><span class="n">docstore</span><span class="o">.</span><span class="n">mset</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">doc_ids</span><span class="p">,</span> <span class="n">docs</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>LLM을 사용하여 각 문서와 관련된 가상의 질문을 생성하는 것도 또 다른 접근 방식입니다. 다음 코드로 이를 수행할 수 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">functions</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hypothetical_questions&quot;</span><span class="p">,</span> <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;questions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}}}}]</span>
+<span class="kn">from</span> <span class="nn">langchain.output_parsers.openai_functions</span> <span class="kn">import</span> <span class="n">JsonKeyOutputFunctionsParser</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span> <span class="o">|</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;Generate 3 hypothetical questions:</span><span class="se">\n\n</span><span class="si">{doc}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">max_retries</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">functions</span><span class="o">=</span><span class="n">functions</span><span class="p">,</span> <span class="n">function_call</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hypothetical_questions&quot;</span><span class="p">})</span> <span class="o">|</span> <span class="n">JsonKeyOutputFunctionsParser</span><span class="p">(</span><span class="n">key_name</span><span class="o">=</span><span class="s2">&quot;questions&quot;</span><span class="p">)</span>
+<span class="n">hypothetical_questions</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;max_concurrency&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+
+<span class="n">question_docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">q</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="n">id_key</span><span class="p">:</span> <span class="n">doc_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]})</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">questions</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hypothetical_questions</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">questions</span><span class="p">]</span>
+<span class="n">retriever</span><span class="o">.</span><span class="n">vectorstore</span><span class="o">.</span><span class="n">add_documents</span><span class="p">(</span><span class="n">question_docs</span><span class="p">)</span>
+<span class="n">retriever</span><span class="o">.</span><span class="n">docstore</span><span class="o">.</span><span class="n">mset</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">doc_ids</span><span class="p">,</span> <span class="n">docs</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Parent Document Retriever는 작은 청크를 저장하고 더 큰 상위 문서를 검색하여 임베딩 정확성과 컨텍스트 유지 사이의 균형을 맞추는 또 다른 검색기입니다. 구현은 다음과 같습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.retrievers</span> <span class="kn">import</span> <span class="n">ParentDocumentRetriever</span>
+
+<span class="n">loaders</span> <span class="o">=</span> <span class="p">[</span><span class="n">TextLoader</span><span class="p">(</span><span class="s2">&quot;file1.txt&quot;</span><span class="p">),</span> <span class="n">TextLoader</span><span class="p">(</span><span class="s2">&quot;file2.txt&quot;</span><span class="p">)]</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span> <span class="k">for</span> <span class="n">loader</span> <span class="ow">in</span> <span class="n">loaders</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()]</span>
+
+<span class="n">child_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="p">(</span><span class="n">collection_name</span><span class="o">=</span><span class="s2">&quot;full_documents&quot;</span><span class="p">,</span> <span class="n">embedding_function</span><span class="o">=</span><span class="n">OpenAIEmbeddings</span><span class="p">())</span>
+<span class="n">store</span> <span class="o">=</span> <span class="n">InMemoryStore</span><span class="p">()</span>
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">ParentDocumentRetriever</span><span class="p">(</span><span class="n">vectorstore</span><span class="o">=</span><span class="n">vectorstore</span><span class="p">,</span> <span class="n">docstore</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> <span class="n">child_splitter</span><span class="o">=</span><span class="n">child_splitter</span><span class="p">)</span>
+
+<span class="n">retriever</span><span class="o">.</span><span class="n">add_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">retrieved_docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">get_relevant_documents</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>자체 쿼리 검색기(Self-querying Retriever)는 자연어 입력에서 구조화된 쿼리를 구성하고 이를 기본 VectorStore에 적용합니다. 구현은 다음 코드에 나와 있습니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">from</span> <span class="nn">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langchain.chains.query_constructor.base</span> <span class="kn">from</span> <span class="nn">AttributeInfo</span>
+<span class="kn">from</span> <span class="nn">langchain.retrievers.self_query.base</span> <span class="kn">from</span> <span class="nn">SelfQueryRetriever</span>
+
+<span class="n">metadata_field_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">AttributeInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;genre&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>
+<span class="n">document_content_description</span> <span class="o">=</span> <span class="s2">&quot;Brief summary of a movie&quot;</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">SelfQueryRetriever</span><span class="o">.</span><span class="n">from_llm</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">vectorstore</span><span class="p">,</span> <span class="n">document_content_description</span><span class="p">,</span> <span class="n">metadata_field_info</span><span class="p">)</span>
+
+<span class="n">retrieved_docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>WebResearchRetriever는 주어진 쿼리를 기반으로 웹 검색을 수행합니다:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.retrievers.web_research</span> <span class="kn">import</span> <span class="n">WebResearchRetriever</span>
+
+<span class="c1"># Initialize components</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">GoogleSearchAPIWrapper</span><span class="p">()</span>
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="p">(</span><span class="n">embedding_function</span><span class="o">=</span><span class="n">OpenAIEmbeddings</span><span class="p">())</span>
+
+<span class="c1"># Instantiate WebResearchRetriever</span>
+<span class="n">web_research_retriever</span> <span class="o">=</span> <span class="n">WebResearchRetriever</span><span class="o">.</span><span class="n">from_llm</span><span class="p">(</span><span class="n">vectorstore</span><span class="o">=</span><span class="n">vectorstore</span><span class="p">,</span> <span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span> <span class="n">search</span><span class="o">=</span><span class="n">search</span><span class="p">)</span>
+
+<span class="c1"># Retrieve documents</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">web_research_retriever</span><span class="o">.</span><span class="n">get_relevant_documents</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>이제 검색기를 쿼리할 수 있습니다. 쿼리의 출력은 쿼리와 관련된 문서 객체가 될 것입니다.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "chu-aie/mlops-2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./week13"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Week 13</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="langchain-chain.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">LangChain 모듈 - 체인 (Chains)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#document-loaders">문서 로더 (Document Loaders)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#text-file-loader">텍스트 파일 로더 (Text File Loader)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-csv-loader">CSV 로더 (CSV Loader)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pdf-pdf-loaders">PDF 로더 (PDF Loaders)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pypdfloader">PyPDFLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathpixloader">MathPixLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pymupdfloader">PyMuPDFLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pdfminerloader">PDFMinerLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#amazontextractpdfparser">AmazonTextractPDFParser</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pdfminerpdfashtmlloader">PDFMinerPDFasHTMLLoader</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pdfplumberloader">PDFPlumberLoader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrated-loaders">통합 로더 (Integrated Loaders)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-slack">예시 I - Slack</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#document-transformers">문서 변환기 (Document Transformers)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-embedding-models">텍스트 임베딩 모델 (Text Embedding Models)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-stores">벡터 저장소 (Vector Stores)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrievers">검색기 (Retrievers)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By <a href='https://entelecheia.me/'>Young Joon Lee</a>
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script
+  data-embed-id="ed04ae65-928c-4ab5-912d-ce49f76450b7"
+  data-base-api-url="https://chat.entelecheia.app/api/embed"
+  data-brand-image-url="https://assets.entelecheia.ai/favicon.png"
+  data-chat-icon="magic"
+  data-sponsor-text="MLOps 2024"
+  data-sponsor-link="https://chat.entelecheia.app/workspace/mlops2024"
+  src="https://chat.entelecheia.app/embed/anythingllm-chat-widget.min.js">
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
