@@ -1,25 +1,29 @@
-
 # LectureSync 프로젝트 보고서
 
 ## 개요
+
 LectureSync는 비디오나 영상을 업로드하면 STT (Speech-to-Text) 기술을 통해 텍스트를 추출하고, 추가로 PDF 및 텍스트 파일을 업로드하면 영상에 대한 스크립트와 추가 파일들을 RAG (Retrieval-Augmented Generation) 시스템을 통해 통합하여 RAG 챗봇을 구현하는 프로젝트입니다. 이 프로젝트는 LangChain, RAG, Map-Reduce 기술을 활용하여 구현되었습니다.
 
 ## 사용된 기술과 설명
 
 ### LangChain
+
 - LangChain은 텍스트 데이터 처리를 위한 라이브러리로, 자연어 처리 작업을 더 쉽게 할 수 있도록 다양한 유틸리티와 인터페이스를 제공합니다.LectureSync에서는 텍스트 데이터를 처리하고 관리하는 데 사용됩니다.
 
 ### RAG (Retrieval-Augmented Generation)
+
 - RAG는 검색과 생성 기능을 결합하여 질문에 대한 답변을 생성하는 시스템입니다. LectureSync에서는 업로드된 스크립트와 추가 파일들을 활용하여 사용자의 질문에 대해 더 정확하고 풍부한 답변을 제공합니다.
 
 ### Map-Reduce
+
 - Map-Reduce는 대용량 데이터 처리를 위한 프로그래밍 모델입니다. LectureSync에서는 대량의 텍스트 데이터를 병렬로 처리하여 효율적으로 분석하는 데 사용됩니다.
 
 ## 주요 코드 설명
 
 ### 음성 파일 STT(Speech-To-Text) - stt.py
 
-speech-to-text를 위한 코드입니다. stt 기술은 gcs api를 통해 진행했습니다. 
+speech-to-text를 위한 코드입니다. stt 기술은 gcs api를 통해 진행했습니다.
+
 - `convert_audio_to_mono`함수는 input 파일이 wav 형식을 지원하기 때문에 mp4,mp3 형식의 파일을 wav파일로 변환해주는 함수입니다.
 - `transcribe_audio` 함수를 통해 wave로 변환된 파일에 대한 stt를 진행합니다. 여기서 output 형식은 `trnascript: sentences`와 문장의 시작과 끝나는 시간을 리턴합니다.
 
@@ -113,6 +117,7 @@ transcribe_audio(speech_file, output_file, output_file_sentences)
 이 모듈은 PDF 및 텍스트 파일을 읽고 요약하여 RAG 시스템에 입력 데이터로 사용합니다. 주요 클래스와 함수들의 역할을 설명합니다.
 
 #### DocumentSummarizer 클래스
+
 이 클래스는 문서를 요약하는데 필요한 모든 기능을 포함하고 있습니다. 주요 속성과 메서드는 다음과 같습니다.
 
 #### 속성
@@ -124,6 +129,7 @@ transcribe_audio(speech_file, output_file, output_file_sentences)
 - `temperature`: 모델의 온도 설정 (기본값: 0.3)
 - `chunk_size`: 문서를 나눌 때 사용되는 청크 크기 (기본값: 2000)
 - `chunk_overlap`: 청크 간의 중첩 크기 (기본값: 200)
+
 #### 메서드
 
 - `__init__`: 초기화 메서드로, 속성을 설정하고 환경 변수를 설정합니다.
@@ -164,7 +170,7 @@ class DocumentSummarizer:
         self.temperature = temperature
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
-        
+
         # 설정된 환경 변수
         os.environ["TRANSFORMERS_CACHE"] = "./data/llm_model/"
         os.environ["HF_HOME"] = "./data/llm_model/"
@@ -175,7 +181,7 @@ class DocumentSummarizer:
             for file_path in self.pdf_path:
                 pdf_loader = PyPDFLoader(file_path)
                 docs.extend(pdf_loader.load())
-        
+
         if self.txt_path:
             for file_path in self.txt_path:
                 txt_loader = TextLoader(file_path)
@@ -208,7 +214,7 @@ class DocumentSummarizer:
         - 최대한 많은 정보를 포함해
         CONTEXT:
         {map}
-        
+
         답변:"""
         map_prompt = PromptTemplate.from_template(map_prompt_template)
 
@@ -222,19 +228,19 @@ class DocumentSummarizer:
         - 최대한 많은 정보를 포함해
         CONTEXT:
         {pages}
-        
+
         답변:"""
         reduce_prompt = PromptTemplate.from_template(reduce_template)
 
         # Define chains
         map_chain = LLMChain(llm=llm, prompt=map_prompt)
         reduce_chain = LLMChain(llm=llm, prompt=reduce_prompt)
-        
+
         document_prompt = PromptTemplate(
             input_variables=["page_content"],
             template="{page_content}"
         )
-        
+
         combine_documents_chain = StuffDocumentsChain(
             llm_chain=map_chain,
             document_prompt=document_prompt,
@@ -262,13 +268,13 @@ class DocumentSummarizer:
         - 최대한 많은 정보를 포함
         CONTEXT:
         {pages}
-        
+
         답변:"""
         stuff_prompt = PromptTemplate.from_template(stuff_template)
         stuff_chain = stuff_prompt | llm | StrOutputParser()
-        
+
         return stuff_chain
-        
+
     def summarize(self, type=None):
         docs = self.load_documents()
         splits = self.split_documents(docs)
@@ -280,7 +286,7 @@ class DocumentSummarizer:
             result = stuff_chain.invoke({"pages":splits})
             print(result)
             return result
-        
+
         if type == 'map_reduce':
             map_reduce_chain = self.create_map_reduce_chain(llm)
             result = map_reduce_chain.invoke({"input_documents":splits}, return_only_outputs=True)
@@ -289,12 +295,15 @@ class DocumentSummarizer:
 ```
 
 ### RAG 시스템 구현 - rag.py
+
 이 모듈은 RAG (Retrieval-Augmented Generation) 시스템을 구현합니다. 주된 역할은 PDF와 텍스트 파일에서 데이터를 로드하고, 이를 기반으로 챗봇을 통해 사용자의 질문에 답변하는 것입니다. 주요 클래스와 함수들의 역할을 설명합니다.
 
 #### Chatbot 클래스
+
 이 클래스는 문서를 로드하고, 문서의 내용을 기반으로 질문에 답변하는 챗봇을 구현합니다. 주요 속성과 메서드는 다음과 같습니다.
 
 #### 속성
+
 - `pdf_path`: PDF 파일 경로 리스트
 - `txt_path`: 텍스트 파일 경로 리스트
 - `stt_txt_path`: STT (Speech-to-Text) 결과 텍스트 파일 경로 리스트
@@ -313,6 +322,7 @@ class DocumentSummarizer:
 - `corpus_embeddings`: STT 결과 문장 임베딩 리스트
 
 #### 메서드
+
 - `__init__`: 초기화 메서드로, 속성을 설정하고 문서를 로드하여 벡터 스토어를 생성합니다.
 - `parse_transcription_file`: STT 결과 파일을 파싱하여 문장 데이터를 추출합니다.
 - `find_sentence_time`: 질문과 일치하는 문장을 찾아 해당 문장의 시작 및 종료 시간을 반환합니다.
@@ -352,20 +362,20 @@ class Chatbot:
             for file_path in self.pdf_path:
                 pdf_loader = PyPDFLoader(file_path)
                 self.docs_pdf += pdf_loader.load()
-        
+
         if txt_path:
             for file_path in self.txt_path:
                 txt_loader = TextLoader(file_path)
                 self.docs += txt_loader.load()
-        
+
         if stt_txt_path:
             for file_path in self.stt_txt_path:
                 txt_loader = TextLoader(file_path)
                 self.docs_stt += txt_loader.load()
-        
+
         self.vectorstore = None
         self.retriever = None
-        
+
         all_docs = []
         if self.docs_pdf:
             text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
@@ -375,7 +385,7 @@ class Chatbot:
             )
             self.splits_pdf = text_splitter.split_documents(self.docs_pdf)
             all_docs.extend(self.splits_pdf)
-        
+
         if self.docs:
             text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
                 separator="\n\n",
@@ -492,16 +502,18 @@ class Chatbot:
         return response
 
     def search_sentence(self, question):
-        
+
         sentence_time_info = self.find_sentence_time(question)
-        
+
         return sentence_time_info
 ```
 
 ### Streamlit 프론트엔드 - streamlit_frontend.py
+
 이 모듈은 Streamlit을 사용하여 LectureSync 프로젝트의 웹 인터페이스를 구현합니다. 주요 기능은 사용자가 파일을 업로드하고, 이를 처리하여 챗봇을 통해 질문에 답변하거나 문장을 검색할 수 있도록 하는 것입니다. 주요 함수와 그 역할을 설명합니다.
 
 #### 주요 구성 요소
+
 - Chatbot 인스턴스 생성 및 설정
 - 파일 업로드 및 처리
 - LLM 응답 생성
@@ -570,24 +582,24 @@ def handle_audio_video_upload(uploaded_file):
     # Save uploaded file to a specified directory
     file_extension = uploaded_file.name.split('.')[-1]
     temp_file_path = os.path.join(UPLOAD_DIR, uploaded_file.name)
-    
+
     with open(temp_file_path, 'wb') as temp_file:
         temp_file.write(uploaded_file.getbuffer())
-    
+
     # Convert to WAV if necessary
     audio = AudioSegment.from_file(temp_file_path)
     wav_file_path = temp_file_path + ".wav"
     audio.export(wav_file_path, format="wav")
-    
+
     return wav_file_path
 
 def handle_pdf_upload(uploaded_file):
     # Save uploaded PDF file to a specified directory
     temp_file_path = os.path.join(UPLOAD_DIR, uploaded_file.name)
-    
+
     with open(temp_file_path, 'wb') as temp_file:
         temp_file.write(uploaded_file.getbuffer())
-    
+
     return temp_file_path
 
 # Store LLM generated responses
@@ -610,7 +622,7 @@ if uploaded_files:
     # Handle file upload and conversion
     for uploaded_file in uploaded_files:
         file_type = uploaded_file.type.split('/')[-1]
-        
+
         if file_type == 'audio' or file_type == 'video':
             audio_data = handle_audio_video_upload(uploaded_file)
             audio_files.append(audio_data)
@@ -621,14 +633,14 @@ if uploaded_files:
             st.session_state.messages.append({"role": "user", "content": f"Uploaded audio/video file: {uploaded_file.name}"})
             with st.chat_message("user"):
                 st.write(f"Uploaded audio/video file: {uploaded_file.name}")
-        
+
         elif uploaded_file.type == 'application/pdf':
             pdf_data = handle_pdf_upload(uploaded_file)
             pdf_files.append(pdf_data)
             st.session_state.messages.append({"role": "user", "content": f"Uploaded PDF file: {uploaded_file.name}"})
             with st.chat_message("user"):
                 st.write(f"Uploaded PDF file: {uploaded_file.name}")
-            
+
     # Add a button to process the uploaded files
     if st.button("Process Files"):
         if pdf_files:
@@ -645,7 +657,7 @@ if uploaded_files:
                     txt_files.append(txt_file)
                     stt_txt_path = ['data/doc_data/stt_txt_data/sentences.txt']
             st.session_state.rag_bot = Chatbot(pdf_path=pdf_files, txt_path=txt_files, stt_txt_path = stt_txt_path)
-        
+
         # Clear the uploaded files
         st.session_state.uploaded_files = []
 else:
@@ -676,9 +688,11 @@ if st.button("문장 검색"):
 ```
 
 ## 결론
+
 LectureSync 프로젝트는 강의 비디오와 PDF, 텍스트 파일을 통해 강의 자료를 요약하고 이를 기반으로 사용자의 질문에 답변하는 챗봇을 구현하는 강력한 학습 도구입니다. 이 프로젝트는 LangChain, RAG, Map-Reduce 기술을 활용하여 대용량의 텍스트 데이터를 효율적으로 처리하고, 사용자가 필요한 정보를 쉽게 얻을 수 있도록 도와줍니다.
 
 ### 주요 기능 및 성과
+
 - STT 모듈을 통해 강의 비디오의 음성을 텍스트로 변환하여 텍스트 데이터로 활용합니다.
 - RAG 시스템을 통해 다양한 자료를 통합하고, 이를 기반으로 사용자의 질문에 대한 정확하고 상세한 답변을 제공합니다.
 - PDF 및 텍스트 파일 요약 모듈을 통해 대량의 자료를 요약하여 핵심 정보를 추출합니다.

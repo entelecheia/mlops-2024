@@ -93,6 +93,8 @@
     <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="202021012" href="../../202021012/index.html" />
+    <link rel="prev" title="MMhuman3D 프로젝트" href="../MMHuman3D/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -157,8 +159,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -289,10 +289,11 @@
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Projects</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../index.html">202121010</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">202121010</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../MMHuman3D/index.html">MMhuman3D 프로젝트</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">LectureSync 프로젝트 보고서</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../202021012/index.html">202021012</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -751,7 +752,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temperature</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="n">chunk_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chunk_overlap</span> <span class="o">=</span> <span class="n">chunk_overlap</span>
-        
+
         <span class="c1"># 설정된 환경 변수</span>
         <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TRANSFORMERS_CACHE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./data/llm_model/&quot;</span>
         <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;HF_HOME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;./data/llm_model/&quot;</span>
@@ -762,7 +763,7 @@ document.write(`
             <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdf_path</span><span class="p">:</span>
                 <span class="n">pdf_loader</span> <span class="o">=</span> <span class="n">PyPDFLoader</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
                 <span class="n">docs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">pdf_loader</span><span class="o">.</span><span class="n">load</span><span class="p">())</span>
-        
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt_path</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt_path</span><span class="p">:</span>
                 <span class="n">txt_loader</span> <span class="o">=</span> <span class="n">TextLoader</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
@@ -795,7 +796,7 @@ document.write(`
 <span class="s2">        - 최대한 많은 정보를 포함해</span>
 <span class="s2">        CONTEXT:</span>
 <span class="s2">        </span><span class="si">{map}</span>
-<span class="s2">        </span>
+
 <span class="s2">        답변:&quot;&quot;&quot;</span>
         <span class="n">map_prompt</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">map_prompt_template</span><span class="p">)</span>
 
@@ -809,19 +810,19 @@ document.write(`
 <span class="s2">        - 최대한 많은 정보를 포함해</span>
 <span class="s2">        CONTEXT:</span>
 <span class="s2">        </span><span class="si">{pages}</span>
-<span class="s2">        </span>
+
 <span class="s2">        답변:&quot;&quot;&quot;</span>
         <span class="n">reduce_prompt</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">reduce_template</span><span class="p">)</span>
 
         <span class="c1"># Define chains</span>
         <span class="n">map_chain</span> <span class="o">=</span> <span class="n">LLMChain</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="n">map_prompt</span><span class="p">)</span>
         <span class="n">reduce_chain</span> <span class="o">=</span> <span class="n">LLMChain</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="n">reduce_prompt</span><span class="p">)</span>
-        
+
         <span class="n">document_prompt</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="p">(</span>
             <span class="n">input_variables</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;page_content&quot;</span><span class="p">],</span>
             <span class="n">template</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{page_content}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
-        
+
         <span class="n">combine_documents_chain</span> <span class="o">=</span> <span class="n">StuffDocumentsChain</span><span class="p">(</span>
             <span class="n">llm_chain</span><span class="o">=</span><span class="n">map_chain</span><span class="p">,</span>
             <span class="n">document_prompt</span><span class="o">=</span><span class="n">document_prompt</span><span class="p">,</span>
@@ -849,13 +850,13 @@ document.write(`
 <span class="s2">        - 최대한 많은 정보를 포함</span>
 <span class="s2">        CONTEXT:</span>
 <span class="s2">        </span><span class="si">{pages}</span>
-<span class="s2">        </span>
+
 <span class="s2">        답변:&quot;&quot;&quot;</span>
         <span class="n">stuff_prompt</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">stuff_template</span><span class="p">)</span>
         <span class="n">stuff_chain</span> <span class="o">=</span> <span class="n">stuff_prompt</span> <span class="o">|</span> <span class="n">llm</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
-        
+
         <span class="k">return</span> <span class="n">stuff_chain</span>
-        
+
     <span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_documents</span><span class="p">()</span>
         <span class="n">splits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
@@ -867,7 +868,7 @@ document.write(`
             <span class="n">result</span> <span class="o">=</span> <span class="n">stuff_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;pages&quot;</span><span class="p">:</span><span class="n">splits</span><span class="p">})</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">result</span>
-        
+
         <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;map_reduce&#39;</span><span class="p">:</span>
             <span class="n">map_reduce_chain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_map_reduce_chain</span><span class="p">(</span><span class="n">llm</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">map_reduce_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;input_documents&quot;</span><span class="p">:</span><span class="n">splits</span><span class="p">},</span> <span class="n">return_only_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -946,20 +947,20 @@ document.write(`
             <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdf_path</span><span class="p">:</span>
                 <span class="n">pdf_loader</span> <span class="o">=</span> <span class="n">PyPDFLoader</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">docs_pdf</span> <span class="o">+=</span> <span class="n">pdf_loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-        
+
         <span class="k">if</span> <span class="n">txt_path</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">txt_path</span><span class="p">:</span>
                 <span class="n">txt_loader</span> <span class="o">=</span> <span class="n">TextLoader</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">docs</span> <span class="o">+=</span> <span class="n">txt_loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-        
+
         <span class="k">if</span> <span class="n">stt_txt_path</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stt_txt_path</span><span class="p">:</span>
                 <span class="n">txt_loader</span> <span class="o">=</span> <span class="n">TextLoader</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">docs_stt</span> <span class="o">+=</span> <span class="n">txt_loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">vectorstore</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">retriever</span> <span class="o">=</span> <span class="kc">None</span>
-        
+
         <span class="n">all_docs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">docs_pdf</span><span class="p">:</span>
             <span class="n">text_splitter</span> <span class="o">=</span> <span class="n">CharacterTextSplitter</span><span class="o">.</span><span class="n">from_tiktoken_encoder</span><span class="p">(</span>
@@ -969,7 +970,7 @@ document.write(`
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">splits_pdf</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">docs_pdf</span><span class="p">)</span>
             <span class="n">all_docs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splits_pdf</span><span class="p">)</span>
-        
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">docs</span><span class="p">:</span>
             <span class="n">text_splitter</span> <span class="o">=</span> <span class="n">CharacterTextSplitter</span><span class="o">.</span><span class="n">from_tiktoken_encoder</span><span class="p">(</span>
                 <span class="n">separator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -1086,9 +1087,9 @@ document.write(`
         <span class="k">return</span> <span class="n">response</span>
 
     <span class="k">def</span> <span class="nf">search_sentence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
-        
+
         <span class="n">sentence_time_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_sentence_time</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
-        
+
         <span class="k">return</span> <span class="n">sentence_time_info</span>
 </pre></div>
 </div>
@@ -1167,24 +1168,24 @@ document.write(`
     <span class="c1"># Save uploaded file to a specified directory</span>
     <span class="n">file_extension</span> <span class="o">=</span> <span class="n">uploaded_file</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">temp_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">UPLOAD_DIR</span><span class="p">,</span> <span class="n">uploaded_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    
+
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
         <span class="n">temp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">uploaded_file</span><span class="o">.</span><span class="n">getbuffer</span><span class="p">())</span>
-    
+
     <span class="c1"># Convert to WAV if necessary</span>
     <span class="n">audio</span> <span class="o">=</span> <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">temp_file_path</span><span class="p">)</span>
     <span class="n">wav_file_path</span> <span class="o">=</span> <span class="n">temp_file_path</span> <span class="o">+</span> <span class="s2">&quot;.wav&quot;</span>
     <span class="n">audio</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">wav_file_path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;wav&quot;</span><span class="p">)</span>
-    
+
     <span class="k">return</span> <span class="n">wav_file_path</span>
 
 <span class="k">def</span> <span class="nf">handle_pdf_upload</span><span class="p">(</span><span class="n">uploaded_file</span><span class="p">):</span>
     <span class="c1"># Save uploaded PDF file to a specified directory</span>
     <span class="n">temp_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">UPLOAD_DIR</span><span class="p">,</span> <span class="n">uploaded_file</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    
+
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
         <span class="n">temp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">uploaded_file</span><span class="o">.</span><span class="n">getbuffer</span><span class="p">())</span>
-    
+
     <span class="k">return</span> <span class="n">temp_file_path</span>
 
 <span class="c1"># Store LLM generated responses</span>
@@ -1207,7 +1208,7 @@ document.write(`
     <span class="c1"># Handle file upload and conversion</span>
     <span class="k">for</span> <span class="n">uploaded_file</span> <span class="ow">in</span> <span class="n">uploaded_files</span><span class="p">:</span>
         <span class="n">file_type</span> <span class="o">=</span> <span class="n">uploaded_file</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        
+
         <span class="k">if</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s1">&#39;audio&#39;</span> <span class="ow">or</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s1">&#39;video&#39;</span><span class="p">:</span>
             <span class="n">audio_data</span> <span class="o">=</span> <span class="n">handle_audio_video_upload</span><span class="p">(</span><span class="n">uploaded_file</span><span class="p">)</span>
             <span class="n">audio_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">audio_data</span><span class="p">)</span>
@@ -1218,14 +1219,14 @@ document.write(`
             <span class="n">st</span><span class="o">.</span><span class="n">session_state</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Uploaded audio/video file: </span><span class="si">{</span><span class="n">uploaded_file</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
             <span class="k">with</span> <span class="n">st</span><span class="o">.</span><span class="n">chat_message</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">):</span>
                 <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Uploaded audio/video file: </span><span class="si">{</span><span class="n">uploaded_file</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        
+
         <span class="k">elif</span> <span class="n">uploaded_file</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;application/pdf&#39;</span><span class="p">:</span>
             <span class="n">pdf_data</span> <span class="o">=</span> <span class="n">handle_pdf_upload</span><span class="p">(</span><span class="n">uploaded_file</span><span class="p">)</span>
             <span class="n">pdf_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pdf_data</span><span class="p">)</span>
             <span class="n">st</span><span class="o">.</span><span class="n">session_state</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Uploaded PDF file: </span><span class="si">{</span><span class="n">uploaded_file</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
             <span class="k">with</span> <span class="n">st</span><span class="o">.</span><span class="n">chat_message</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">):</span>
                 <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Uploaded PDF file: </span><span class="si">{</span><span class="n">uploaded_file</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            
+
     <span class="c1"># Add a button to process the uploaded files</span>
     <span class="k">if</span> <span class="n">st</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;Process Files&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">pdf_files</span><span class="p">:</span>
@@ -1242,7 +1243,7 @@ document.write(`
                     <span class="n">txt_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">txt_file</span><span class="p">)</span>
                     <span class="n">stt_txt_path</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;data/doc_data/stt_txt_data/sentences.txt&#39;</span><span class="p">]</span>
             <span class="n">st</span><span class="o">.</span><span class="n">session_state</span><span class="o">.</span><span class="n">rag_bot</span> <span class="o">=</span> <span class="n">Chatbot</span><span class="p">(</span><span class="n">pdf_path</span><span class="o">=</span><span class="n">pdf_files</span><span class="p">,</span> <span class="n">txt_path</span><span class="o">=</span><span class="n">txt_files</span><span class="p">,</span> <span class="n">stt_txt_path</span> <span class="o">=</span> <span class="n">stt_txt_path</span><span class="p">)</span>
-        
+
         <span class="c1"># Clear the uploaded files</span>
         <span class="n">st</span><span class="o">.</span><span class="n">session_state</span><span class="o">.</span><span class="n">uploaded_files</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">else</span><span class="p">:</span>
@@ -1320,6 +1321,24 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../MMHuman3D/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">MMhuman3D 프로젝트</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../202021012/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">202021012</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
