@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>RAG 프로그램 구현과정 &#8212; 머신러닝시스템 2024</title>
+    <title>RAG 프로젝트 - 제주 역사 관광지 가이드 llm &#8212; 머신러닝시스템 2024</title>
   
   
   
@@ -93,6 +93,8 @@
     <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="프로젝트 환경설정" href="../../setup.html" />
+    <link rel="prev" title="파인튜닝(Fine-tuning)" href="../finetuning/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -157,8 +159,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -289,15 +289,16 @@
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Projects</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../202121010/index.html">202121010</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../202121010/MMHuman3D/index.html">MMhuman3D 프로젝트</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../index.html">202021012</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">202021012</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../DUSt3R/index.html">DUSt3R</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../finetuning/index.html">파인튜닝(Fine-tuning)</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">RAG 프로젝트 - 제주 역사 관광지 가이드 llm</a></li>
 </ul>
 </details></li>
 </ul>
@@ -518,7 +519,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>RAG 프로그램 구현과정</h1>
+    <h1>RAG 프로젝트 - 제주 역사 관광지 가이드 llm</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -528,23 +529,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RAG 프로그램 구현과정</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-basic">1. RAG Basic</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">2. Indexing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-pdf-html-txt-loader">Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-splitter">Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embed">Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#store">store : 임베딩된 벡터들을 데이터베이스에 저장</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag">RAG 프로그램 구현과정</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-basic">1. RAG Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">2. Indexing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#load-pdf-html-txt-loader">Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#split-splitter">Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#embed">Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#store">store : 임베딩된 벡터들을 데이터베이스에 저장</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-and-generation">3. Retrieval and Generation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-target-information">Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generator-retriever">Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-and-generation">3. Retrieval and Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-target-information">Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#generator-retriever">Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">구현 - 제주 역사 관광지 가이드 llm</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Indexing</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1. DATA</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorstore">2. vectorstore 구축</a></li>
@@ -562,9 +562,6 @@ document.write(`
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -575,17 +572,19 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="rag">
-<h1>RAG 프로그램 구현과정<a class="headerlink" href="#rag" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="rag-llm">
+<h1>RAG 프로젝트 - 제주 역사 관광지 가이드 llm<a class="headerlink" href="#rag-llm" title="Link to this heading">#</a></h1>
+<section id="rag">
+<h2>RAG 프로그램 구현과정<a class="headerlink" href="#rag" title="Link to this heading">#</a></h2>
 <p>순서 : 기초 설명 - 구현 내용&amp;코드 - 결과 - 고찰</p>
 <section id="rag-basic">
-<h2>1. RAG Basic<a class="headerlink" href="#rag-basic" title="Link to this heading">#</a></h2>
+<h3>1. RAG Basic<a class="headerlink" href="#rag-basic" title="Link to this heading">#</a></h3>
 <p>RAG는 검색 증강 생성의 약자로 대규모 언어 모델의 출력을 최적화하여 응답을 생성하기 전 학습 데이터 소스 외부의 신뢰 할 수 있는 지식 베이스를 참조하도록 하는 프로세스이다.</p>
 <p><img alt="RAG구조" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdh_T-gI0N4GDChzqjVl7AsgcWWMttEM7ISg&amp;s" /></p>
 <p>RAG의 구현을 위해서는 Indexing 과정과 Retrieval and Generation의 두 과정을 거친다.</p>
 </section>
 <section id="indexing">
-<h2>2. Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h2>
+<h3>2. Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h3>
 <p>Indexing은 외부데이터 생성으로 원래 LLM 외부에 있는 새 데이터를 외부 데이터라고 한다. 이를 생성형 ai모델이 이해 할 수 있도록 지식 라이브러리를 생성하는 과정이 Indexing이다.</p>
 <ul class="simple">
 <li><p>API나 데이터베이스, 문서와 같은 여러 데이터 소스에서 추출 가능</p></li>
@@ -595,38 +594,36 @@ document.write(`
 <p><img alt="IndexingPipline" src="https://velog.velcdn.com/images/jjlee6496/post/f4443dd4-cdca-4e4c-83e6-8ec515c21db5/image.png" /></p>
 <p>각 과정에서는 다음과 같은 일을 진행한다.</p>
 <section id="load-pdf-html-txt-loader">
-<h3>Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리<a class="headerlink" href="#load-pdf-html-txt-loader" title="Link to this heading">#</a></h3>
+<h4>Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리<a class="headerlink" href="#load-pdf-html-txt-loader" title="Link to this heading">#</a></h4>
 </section>
 <section id="split-splitter">
-<h3>Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할<a class="headerlink" href="#split-splitter" title="Link to this heading">#</a></h3>
+<h4>Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할<a class="headerlink" href="#split-splitter" title="Link to this heading">#</a></h4>
 </section>
 <section id="embed">
-<h3>Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화<a class="headerlink" href="#embed" title="Link to this heading">#</a></h3>
+<h4>Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화<a class="headerlink" href="#embed" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>이는 책의 내용을 요약하여 핵심 키워드로 표현하는 것과 비슷하다.</p></li>
 </ul>
 </section>
 <section id="store">
-<h3>store : 임베딩된 벡터들을 데이터베이스에 저장<a class="headerlink" href="#store" title="Link to this heading">#</a></h3>
+<h4>store : 임베딩된 벡터들을 데이터베이스에 저장<a class="headerlink" href="#store" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>요약된 키워드를 색인화하여 나중에 빠르게 찾을 수 있도록 하는 과정이다.</p></li>
 </ul>
 </section>
 </section>
 <section id="retrieval-and-generation">
-<h2>3. Retrieval and Generation<a class="headerlink" href="#retrieval-and-generation" title="Link to this heading">#</a></h2>
+<h3>3. Retrieval and Generation<a class="headerlink" href="#retrieval-and-generation" title="Link to this heading">#</a></h3>
 <p><img alt="RAG구조" src="https://velog.velcdn.com/images/jjlee6496/post/15b30fe5-1015-47b4-b837-d692f9a101fd/image.png" /></p>
 <section id="retrieval-target-information">
-<h3>Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색<a class="headerlink" href="#retrieval-target-information" title="Link to this heading">#</a></h3>
+<h4>Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색<a class="headerlink" href="#retrieval-target-information" title="Link to this heading">#</a></h4>
 </section>
 <section id="generator-retriever">
-<h3>Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성<a class="headerlink" href="#generator-retriever" title="Link to this heading">#</a></h3>
+<h4>Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성<a class="headerlink" href="#generator-retriever" title="Link to this heading">#</a></h4>
 <p>이를 통해 RAG는 LLM의 기본 모델 자체를 수정하지 않고도 최신 데이터를 기반으로 답변할 수 있게 된다.</p>
 </section>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="llm">
-<h1>구현 - 제주 역사 관광지 가이드 llm<a class="headerlink" href="#llm" title="Link to this heading">#</a></h1>
 <section id="id1">
 <h2>Indexing<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <section id="data">
@@ -647,7 +644,7 @@ document.write(`
 <section id="vectorstore">
 <h3>2. vectorstore 구축<a class="headerlink" href="#vectorstore" title="Link to this heading">#</a></h3>
 <p>chromadb와 langchain을 통해 앞에 나온 파이프라인을 통해 vectorstore 구축했다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
 <span class="kn">from</span> <span class="nn">langchain_community.document_loaders</span> <span class="kn">import</span> <span class="n">PyPDFDirectoryLoader</span>
 <span class="kn">from</span> <span class="nn">langchain_chroma</span> <span class="kn">import</span> <span class="n">Chroma</span>
 <span class="kn">from</span> <span class="nn">langchain_community.embeddings</span> <span class="kn">import</span> <span class="n">OllamaEmbeddings</span>
@@ -668,8 +665,8 @@ document.write(`
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;split complete&quot;</span><span class="p">)</span>
 
     <span class="c1"># 인덱싱 분할된 문서를 검색가능한 형태로 만듬</span>
-    <span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">documents</span><span class="o">=</span> <span class="n">texts</span><span class="p">,</span> 
-                                        <span class="n">embedding</span><span class="o">=</span><span class="n">OllamaEmbeddings</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;llama3ko&quot;</span><span class="p">),</span> <span class="n">persist_directory</span><span class="o">=</span><span class="n">DB_PATH</span><span class="p">)</span>      
+    <span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">documents</span><span class="o">=</span> <span class="n">texts</span><span class="p">,</span>
+                                        <span class="n">embedding</span><span class="o">=</span><span class="n">OllamaEmbeddings</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;llama3ko&quot;</span><span class="p">),</span> <span class="n">persist_directory</span><span class="o">=</span><span class="n">DB_PATH</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">create_vector_db</span><span class="p">()</span>
@@ -686,7 +683,7 @@ document.write(`
 <h2>rag 구축<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p>langchain의 데모를 기반으로 간단하게 구축을 진행했다.
 <a class="reference external" href="https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/">참고페이지</a>에서 prompt를 영어에서 한국어로 바꾸어 진행하였고 추후 챗봇 구축을 위해 수정하여 진행하였다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_community.chat_models</span> <span class="kn">import</span> <span class="n">ChatOllama</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_community.chat_models</span> <span class="kn">import</span> <span class="n">ChatOllama</span>
 <span class="kn">from</span> <span class="nn">langchain_chroma</span> <span class="kn">import</span> <span class="n">Chroma</span>
 <span class="kn">from</span> <span class="nn">langchain_community.embeddings</span> <span class="kn">import</span> <span class="n">OllamaEmbeddings</span>
 <span class="kn">from</span> <span class="nn">langchain.chains</span> <span class="kn">import</span> <span class="n">create_retrieval_chain</span>
@@ -783,7 +780,7 @@ document.write(`
 <section id="rag-chatbot">
 <h2>rag chatbot 구현<a class="headerlink" href="#rag-chatbot" title="Link to this heading">#</a></h2>
 <p>위의 내용을 기반으로 구현하여 앞 부분은 같아서 생략하겠다. 밑의 코드를 통해 위에서 구현한 rag를 gradio를 통해 사용해 볼 수 있다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gradio</span> <span class="k">as</span> <span class="nn">gr</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gradio</span> <span class="k">as</span> <span class="nn">gr</span>
 
 <span class="c1"># app start</span>
 <span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
@@ -835,24 +832,32 @@ document.write(`
 <h2>reference<a class="headerlink" href="#reference" title="Link to this heading">#</a></h2>
 <section id="markdown">
 <h3>Markdown<a class="headerlink" href="#markdown" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://aws.amazon.com/ko/what-is/retrieval-augmented-generation/">https://aws.amazon.com/ko/what-is/retrieval-augmented-generation/</a></p>
-<p><a class="reference external" href="https://velog.io/&#64;jjlee6496/RAG%EB%9E%80">https://velog.io/&#64;jjlee6496/RAG란</a></p>
-<p><a class="reference external" href="https://wikidocs.net/233780">https://wikidocs.net/233780</a></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://aws.amazon.com/ko/what-is/retrieval-augmented-generation/">https://aws.amazon.com/ko/what-is/retrieval-augmented-generation/</a></p></li>
+<li><p><a class="reference external" href="https://velog.io/&#64;jjlee6496/RAG%EB%9E%80">https://velog.io/&#64;jjlee6496/RAG란</a></p></li>
+<li><p><a class="reference external" href="https://wikidocs.net/233780">https://wikidocs.net/233780</a></p></li>
+</ul>
 </section>
 <section id="chatbot">
 <h3>chatbot<a class="headerlink" href="#chatbot" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://velog.io/&#64;t_wave/gradiolangchainchatbot">https://velog.io/&#64;t_wave/gradiolangchainchatbot</a></p>
-<p><a class="reference external" href="https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/">https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/</a></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://velog.io/&#64;t_wave/gradiolangchainchatbot">https://velog.io/&#64;t_wave/gradiolangchainchatbot</a></p></li>
+<li><p><a class="reference external" href="https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/">https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/</a></p></li>
+</ul>
 </section>
 <section id="chromadb">
 <h3>chromadb<a class="headerlink" href="#chromadb" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://api.python.langchain.com/en/latest/vectorstores/langchain_chroma.vectorstores.Chroma.html">https://api.python.langchain.com/en/latest/vectorstores/langchain_chroma.vectorstores.Chroma.html</a></p>
-<p><a class="reference external" href="https://how.wtf/how-to-use-chroma-db-step-by-step-guide.html">https://how.wtf/how-to-use-chroma-db-step-by-step-guide.html</a></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://api.python.langchain.com/en/latest/vectorstores/langchain_chroma.vectorstores.Chroma.html">https://api.python.langchain.com/en/latest/vectorstores/langchain_chroma.vectorstores.Chroma.html</a></p></li>
+<li><p><a class="reference external" href="https://how.wtf/how-to-use-chroma-db-step-by-step-guide.html">https://how.wtf/how-to-use-chroma-db-step-by-step-guide.html</a></p></li>
+</ul>
 </section>
 <section id="css-font">
 <h3>css-font<a class="headerlink" href="#css-font" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://fonts.google.com/selection/embed">https://fonts.google.com/selection/embed</a></p>
-<p><a class="reference external" href="https://www.gradio.app/guides/theming-guide">https://www.gradio.app/guides/theming-guide</a></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://fonts.google.com/selection/embed">https://fonts.google.com/selection/embed</a></p></li>
+<li><p><a class="reference external" href="https://www.gradio.app/guides/theming-guide">https://www.gradio.app/guides/theming-guide</a></p></li>
+</ul>
 </section>
 </section>
 </section>
@@ -887,6 +892,24 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../finetuning/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">파인튜닝(Fine-tuning)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../setup.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">프로젝트 환경설정</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -903,23 +926,22 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RAG 프로그램 구현과정</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-basic">1. RAG Basic</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">2. Indexing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-pdf-html-txt-loader">Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-splitter">Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embed">Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#store">store : 임베딩된 벡터들을 데이터베이스에 저장</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag">RAG 프로그램 구현과정</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-basic">1. RAG Basic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">2. Indexing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#load-pdf-html-txt-loader">Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#split-splitter">Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#embed">Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#store">store : 임베딩된 벡터들을 데이터베이스에 저장</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-and-generation">3. Retrieval and Generation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-target-information">Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generator-retriever">Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-and-generation">3. Retrieval and Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-target-information">Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#generator-retriever">Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">구현 - 제주 역사 관광지 가이드 llm</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Indexing</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1. DATA</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorstore">2. vectorstore 구축</a></li>
@@ -937,9 +959,6 @@ document.write(`
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
