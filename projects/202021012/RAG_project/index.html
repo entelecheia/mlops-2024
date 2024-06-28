@@ -1,0 +1,1008 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>RAG 프로그램 구현과정 &#8212; 머신러닝시스템 2024</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-examples.css?v=e236af4b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-shadow.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-punk.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-noir.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-light.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/tooltipster-sideTip-borderless.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/micromodal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script src="../../../_static/js/hoverxref.js"></script>
+    <script src="../../../_static/js/tooltipster.bundle.min.js"></script>
+    <script src="../../../_static/js/micromodal.min.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BQJE5V9RK2"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-BQJE5V9RK2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-BQJE5V9RK2');
+            </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'projects/202021012/RAG_project/index';</script>
+    <link rel="icon" href="https://assets.entelecheia.ai/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content">기말 프로젝트 제출 마감은 6/22일(토) 23:59입니다.</div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">머신러닝시스템 2024</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Home
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture Notes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week01/index.html">Week 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week01/intro.html">MLOps 소개</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week02/index.html">Week 2</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week02/devops.html">DevOps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week02/gitops.html">GitOps</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week03/index.html">Week 3</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week03/dotfiles.html">Dotfiles</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week04/index.html">Week 4</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week04/containerization.html">컨테이너화</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week04/docker.html">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week04/containerd.html"><code class="docutils literal notranslate"><span class="pre">containerd</span></code></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week05/index.html">Week 5</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week05/hyperfast-docker.html">하이퍼패스트 도커 템플릿</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week06/index.html">Week 6</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week06/kubernetes.html">쿠버네티스</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week07/index.html">Week 7</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../week07/bionic/index.html">Bionic-GPT</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/introduction.html">Bionic-GPT Enterprise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/bare-metal.html">Kubernetes on Bare Metal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/installation.html">Installing Bionic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/gpu-preparation.html">GPU Node Preparation (Nvidia)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/sso.html">Single Sign On</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/tgi.html">TGI Inference Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/roles.html">Role Based Access Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/pgadmin.html">Integrate pgAdmin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/upgrade.html">Upgrading Bionic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/jupyter-notebook.html">Adding a Jupyter Notebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../week07/bionic/visualise-rag.html">Visualising RAG data</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week09/index.html">Week 9</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week09/sec.html">보안 관리</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week09/auth-enc-sign.html">인증, 암호화 및 서명</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week09/age-gpg-ssh.html">SSH, GPG, AGE 소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week09/pass.html">Unix 패스워드 관리자</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week10/index.html">Week 10</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week10/autotrain.html">AutoTrain Advanced</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week10/installation.html">설치</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week10/starting.html">시작하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week10/llm_finetuning.html">LLM 파인튜닝</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week11/index.html">Week 11</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week11/llama-factory.html">LLaMA Factory를 활용한 LLM 파인튜닝</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week12/index.html">Week 12</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week12/langchain.html">LangChain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week12/langchain-io.html">LangChain - Model I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week12/langserve.html">LangServe로 배포하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week12/langsmith.html">LangSmith 소개</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../week13/index.html">Week 13</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../week13/lcel.html">LangChain 표현 언어 (LCEL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week13/langchain-retrieval.html">LangChain 모듈 - 검색</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week13/langchain-chain.html">LangChain 모듈 - 체인 (Chains)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../week13/langchain-memory.html">LangChain 모듈 - 메모리</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Projects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../index.html">MLOps 프로젝트</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../202121010/index.html">202121010</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../202121010/MMHuman3D/index.html">MMhuman3D 프로젝트</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../index.html">202021012</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../DUSt3R/index.html">DUSt3R</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../finetuning/index.html">파인튜닝(Fine-tuning)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">프로젝트 환경설정</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../syllabus/index.html">수업계획서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">만든 사람들</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://halla.ai">인공지능학과</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://os2024.halla.ai">운영체제 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://mlops2024.halla.ai">머신러닝시스템 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://cobots2024.halla.ai">협동로봇활용 2024</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://aibasics.halla.ai">AI 세상 속으로</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024/edit/main/src/mlops2024/book/projects/202021012/RAG_project/index.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chu-aie/mlops-2024/issues/new?title=Issue%20on%20page%20%2Fprojects/202021012/RAG_project/index.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/projects/202021012/RAG_project/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>RAG 프로그램 구현과정</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RAG 프로그램 구현과정</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-basic">1. RAG Basic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">2. Indexing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-pdf-html-txt-loader">Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-splitter">Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embed">Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#store">store : 임베딩된 벡터들을 데이터베이스에 저장</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-and-generation">3. Retrieval and Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-target-information">Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generator-retriever">Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">구현 - 제주 역사 관광지 가이드 llm</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Indexing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1. DATA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorstore">2. vectorstore 구축</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">rag 구축</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-chatbot">rag chatbot 구현</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">실행 결과</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">고찰</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference">reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown">Markdown</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot">chatbot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chromadb">chromadb</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#css-font">css-font</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="rag">
+<h1>RAG 프로그램 구현과정<a class="headerlink" href="#rag" title="Link to this heading">#</a></h1>
+<p>순서 : 기초 설명 - 구현 내용&amp;코드 - 결과 - 고찰</p>
+<section id="rag-basic">
+<h2>1. RAG Basic<a class="headerlink" href="#rag-basic" title="Link to this heading">#</a></h2>
+<p>RAG는 검색 증강 생성의 약자로 대규모 언어 모델의 출력을 최적화하여 응답을 생성하기 전 학습 데이터 소스 외부의 신뢰 할 수 있는 지식 베이스를 참조하도록 하는 프로세스이다.</p>
+<p><img alt="RAG구조" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdh_T-gI0N4GDChzqjVl7AsgcWWMttEM7ISg&amp;s" /></p>
+<p>RAG의 구현을 위해서는 Indexing 과정과 Retrieval and Generation의 두 과정을 거친다.</p>
+</section>
+<section id="indexing">
+<h2>2. Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h2>
+<p>Indexing은 외부데이터 생성으로 원래 LLM 외부에 있는 새 데이터를 외부 데이터라고 한다. 이를 생성형 ai모델이 이해 할 수 있도록 지식 라이브러리를 생성하는 과정이 Indexing이다.</p>
+<ul class="simple">
+<li><p>API나 데이터베이스, 문서와 같은 여러 데이터 소스에서 추출 가능</p></li>
+<li><p>데이터를 수치로 변환하고 벡터 데이터 베이스에 저장 / 벡터 데이터 베이스 = 생성형 ai모델이 이해 할 수 있는 지식 라이브러리</p></li>
+</ul>
+<p>즉, 소스로 부터 데이터를 모아 vectorstore를 구축하는 파이프라인이다.</p>
+<p><img alt="IndexingPipline" src="https://velog.velcdn.com/images/jjlee6496/post/f4443dd4-cdca-4e4c-83e6-8ec515c21db5/image.png" /></p>
+<p>각 과정에서는 다음과 같은 일을 진행한다.</p>
+<section id="load-pdf-html-txt-loader">
+<h3>Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리<a class="headerlink" href="#load-pdf-html-txt-loader" title="Link to this heading">#</a></h3>
+</section>
+<section id="split-splitter">
+<h3>Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할<a class="headerlink" href="#split-splitter" title="Link to this heading">#</a></h3>
+</section>
+<section id="embed">
+<h3>Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화<a class="headerlink" href="#embed" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>이는 책의 내용을 요약하여 핵심 키워드로 표현하는 것과 비슷하다.</p></li>
+</ul>
+</section>
+<section id="store">
+<h3>store : 임베딩된 벡터들을 데이터베이스에 저장<a class="headerlink" href="#store" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>요약된 키워드를 색인화하여 나중에 빠르게 찾을 수 있도록 하는 과정이다.</p></li>
+</ul>
+</section>
+</section>
+<section id="retrieval-and-generation">
+<h2>3. Retrieval and Generation<a class="headerlink" href="#retrieval-and-generation" title="Link to this heading">#</a></h2>
+<p><img alt="RAG구조" src="https://velog.velcdn.com/images/jjlee6496/post/15b30fe5-1015-47b4-b837-d692f9a101fd/image.png" /></p>
+<section id="retrieval-target-information">
+<h3>Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색<a class="headerlink" href="#retrieval-target-information" title="Link to this heading">#</a></h3>
+</section>
+<section id="generator-retriever">
+<h3>Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성<a class="headerlink" href="#generator-retriever" title="Link to this heading">#</a></h3>
+<p>이를 통해 RAG는 LLM의 기본 모델 자체를 수정하지 않고도 최신 데이터를 기반으로 답변할 수 있게 된다.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="llm">
+<h1>구현 - 제주 역사 관광지 가이드 llm<a class="headerlink" href="#llm" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>Indexing<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="data">
+<h3>1. DATA<a class="headerlink" href="#data" title="Link to this heading">#</a></h3>
+<p>주제에 맞는 소스를 찾고 편의를 위해 pdf로 저장했다.
+데이터 목록</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;가슴 아픈 제주 역사를 돌아보는 다크투어 여행지 _ 지식백과.pdf&#39;</span>
+<span class="s1">&#39;역사 문화의 숨결을 찾아서, 제주 원도심 여행 _ 지식백과.pdf&#39;</span>
+<span class="s1">&#39;제주 빌레못 동굴 _ 지식백과.pdf&#39;</span>
+<span class="s1">&#39;제주도 표류의 역사 _ 지식백과.pdf&#39;</span>
+<span class="s1">&#39;제주도의 역사가 시작된 삼성혈 _ 지식백과.pdf&#39;</span>
+<span class="s1">&#39;제주의 아픈 역사 돌아보는 다크투어리즘, 8.15를 통해 보는 제주 항일 역사의 발자취 _ 지식백과.pdf&#39;</span>
+<span class="s1">&#39;제주인 항일운동 역사의 보고(寶庫) _제주항일기념관_ _ 지식백과.pdf&#39;</span>
+<span class="s1">&#39;제주전쟁역사평화박물관 _ 지식백과.pdf&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="vectorstore">
+<h3>2. vectorstore 구축<a class="headerlink" href="#vectorstore" title="Link to this heading">#</a></h3>
+<p>chromadb와 langchain을 통해 앞에 나온 파이프라인을 통해 vectorstore 구축했다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+<span class="kn">from</span> <span class="nn">langchain_community.document_loaders</span> <span class="kn">import</span> <span class="n">PyPDFDirectoryLoader</span>
+<span class="kn">from</span> <span class="nn">langchain_chroma</span> <span class="kn">import</span> <span class="n">Chroma</span>
+<span class="kn">from</span> <span class="nn">langchain_community.embeddings</span> <span class="kn">import</span> <span class="n">OllamaEmbeddings</span>
+
+<span class="n">DATA_PATH</span> <span class="o">=</span> <span class="s2">&quot;/home/eunjikim22/rag_project/data&quot;</span>
+<span class="n">DB_PATH</span> <span class="o">=</span> <span class="s2">&quot;/home/eunjikim22/rag_project/vectorstores/db/&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">create_vector_db</span><span class="p">():</span>
+    <span class="c1"># 부르고 pdf 갯수 반환</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">PyPDFDirectoryLoader</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">)</span>
+    <span class="n">documents</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span><span class="si">}</span><span class="s2"> pdf files&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 텍스트 분할 문서 단위로 자름</span>
+    <span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">texts</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;split complete&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 인덱싱 분할된 문서를 검색가능한 형태로 만듬</span>
+    <span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">documents</span><span class="o">=</span> <span class="n">texts</span><span class="p">,</span> 
+                                        <span class="n">embedding</span><span class="o">=</span><span class="n">OllamaEmbeddings</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;llama3ko&quot;</span><span class="p">),</span> <span class="n">persist_directory</span><span class="o">=</span><span class="n">DB_PATH</span><span class="p">)</span>      
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">create_vector_db</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><em>PyPDFDirectoryLoader</em>와 <em>load</em>함수를 통해 pdf파일을 불러오고 이를 <em>RecursiveCharacterTextSplitter</em>을 사용하여 텍스트를 분할하고 <em>text_splitter.split_documents</em>을 사용하여 문서단위로 자른다.
+이를 <em>Chroma.from_documents</em>함수를 통해 분할된 문서를 검색 가능한 형태로 구축한다.</p>
+<ul class="simple">
+<li><p>embedding으로 OllamaEmbeddings을 사용했으며 모델은 챗봇 구현에 사용할 huggingface모델인 Llama-3-Open-Ko-8B(=llama3ko)를 사용하였다.</p></li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<h2>rag 구축<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>langchain의 데모를 기반으로 간단하게 구축을 진행했다.
+<a class="reference external" href="https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/">참고페이지</a>에서 prompt를 영어에서 한국어로 바꾸어 진행하였고 추후 챗봇 구축을 위해 수정하여 진행하였다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_community.chat_models</span> <span class="kn">import</span> <span class="n">ChatOllama</span>
+<span class="kn">from</span> <span class="nn">langchain_chroma</span> <span class="kn">import</span> <span class="n">Chroma</span>
+<span class="kn">from</span> <span class="nn">langchain_community.embeddings</span> <span class="kn">import</span> <span class="n">OllamaEmbeddings</span>
+<span class="kn">from</span> <span class="nn">langchain.chains</span> <span class="kn">import</span> <span class="n">create_retrieval_chain</span>
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain.chains.combine_documents</span> <span class="kn">import</span> <span class="n">create_stuff_documents_chain</span>
+
+<span class="kn">from</span> <span class="nn">langchain.chains</span> <span class="kn">import</span> <span class="n">create_history_aware_retriever</span>
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">MessagesPlaceholder</span>
+<span class="kn">from</span> <span class="nn">langchain_core.messages</span> <span class="kn">import</span> <span class="n">AIMessage</span><span class="p">,</span> <span class="n">HumanMessage</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">ollama</span> <span class="o">=</span> <span class="n">ChatOllama</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;llama3ko&quot;</span><span class="p">)</span>
+
+<span class="n">DB_PATH</span> <span class="o">=</span> <span class="s2">&quot;/home/eunjikim22/rag_project/vectorstores/db&quot;</span>
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Chroma</span><span class="p">(</span><span class="n">persist_directory</span><span class="o">=</span><span class="n">DB_PATH</span><span class="p">,</span>
+                     <span class="n">embedding_function</span><span class="o">=</span><span class="n">OllamaEmbeddings</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;llama3ko&#39;</span><span class="p">))</span>
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">()</span>
+
+<span class="n">system_prompt</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;당신은 Q&amp;A 작업의 보조자입니다.&quot;</span>
+    <span class="s2">&quot;검색된 컨텍스트의 다음 부분을 사용하여 질문에 대답하십시오. &quot;</span>
+    <span class="s2">&quot;질문. 답을 모르면 이렇게 말하세요 &quot;</span>
+    <span class="s2">&quot;모르겠습니다. 최대 3개의 문장을 사용하세요.&quot;</span>
+    <span class="s2">&quot;간결하게 대답하세요.&quot;</span>
+    <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;</span><span class="si">{context}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+<span class="n">contextualize_q_system_prompt</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;채팅 기록 및 최근 사용자 질문 제공&quot;</span>
+    <span class="s2">&quot;채팅 기록의 맥락을 참조할 수 있습니다.&quot;</span>
+    <span class="s2">&quot;이해할 수 있는 독립형 질문을 공식화하세요.&quot;</span>
+    <span class="s2">&quot;채팅 기록이 없습니다. 질문에 대답하지 마세요.&quot;</span>
+    <span class="s2">&quot;필요하다면 다시 구성하고 그렇지 않으면 그대로 반환하세요.&quot;</span>
+<span class="p">)</span>
+
+<span class="n">contextualize_q_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="n">contextualize_q_system_prompt</span><span class="p">),</span>
+        <span class="n">MessagesPlaceholder</span><span class="p">(</span><span class="s2">&quot;chat_history&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{input}</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">history_aware_retriever</span> <span class="o">=</span> <span class="n">create_history_aware_retriever</span><span class="p">(</span>
+    <span class="n">ollama</span><span class="p">,</span> <span class="n">retriever</span><span class="p">,</span> <span class="n">contextualize_q_prompt</span>
+<span class="p">)</span>
+
+<span class="n">qa_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">),</span>
+        <span class="n">MessagesPlaceholder</span><span class="p">(</span><span class="s2">&quot;chat_history&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{input}</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">question_answer_chain</span> <span class="o">=</span> <span class="n">create_stuff_documents_chain</span><span class="p">(</span><span class="n">ollama</span><span class="p">,</span> <span class="n">qa_prompt</span><span class="p">)</span>
+<span class="n">rag_chain</span> <span class="o">=</span> <span class="n">create_retrieval_chain</span><span class="p">(</span><span class="n">history_aware_retriever</span><span class="p">,</span> <span class="n">question_answer_chain</span><span class="p">)</span>
+
+<span class="n">chat_history</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">question</span> <span class="o">=</span> <span class="s2">&quot;제주 다크 투어리즘 관광지 한가지 추천해줘&quot;</span>
+<span class="n">ai_msg_1</span> <span class="o">=</span> <span class="n">rag_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span> <span class="s2">&quot;chat_history&quot;</span><span class="p">:</span> <span class="n">chat_history</span><span class="p">})</span>
+<span class="n">chat_history</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">question</span><span class="p">),</span>
+        <span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">ai_msg_1</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ai_msg_1</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">])</span>
+
+<span class="n">second_question</span> <span class="o">=</span> <span class="s2">&quot;그에 얽힌 역사적 사실도 알려줘&quot;</span>
+<span class="n">ai_msg_2</span> <span class="o">=</span> <span class="n">rag_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">second_question</span><span class="p">,</span> <span class="s2">&quot;chat_history&quot;</span><span class="p">:</span> <span class="n">chat_history</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ai_msg_2</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">])</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">sec&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>invoke한 결과는 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="s2">&quot;제주 다크 투어리즘 관광지 한가지 추천해줘&quot;</span>
+
+<span class="n">네</span><span class="p">,</span> <span class="n">제주도에</span> <span class="n">있는</span> <span class="n">삼성혈이요</span><span class="o">.</span> <span class="n">이곳은</span> <span class="n">삼을</span> <span class="n">심었다는</span> <span class="n">뜻으로</span><span class="p">,</span> <span class="n">신화</span> <span class="n">속의</span> <span class="n">세</span> <span class="n">을라가</span> <span class="n">태어나고</span> <span class="n">성장한</span> <span class="n">곳입니다</span><span class="o">.</span> <span class="n">그</span> <span class="n">주변에는</span> <span class="n">작은</span> <span class="n">비석들이</span> <span class="n">서</span> <span class="n">있고</span><span class="p">,</span> <span class="n">그</span> <span class="n">옆에는</span> <span class="n">삼성전이</span> <span class="n">있습니다</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">second_question</span> <span class="o">=</span> <span class="s2">&quot;그에 얽힌 역사적 사실도 알려줘&quot;</span>
+
+<span class="n">네</span><span class="p">,</span> <span class="n">이곳은</span> <span class="n">제주도의</span> <span class="n">건국</span> <span class="n">신화가</span> <span class="n">시작된</span> <span class="n">곳입니다</span><span class="o">.</span> <span class="n">고조선의</span> <span class="n">단군</span> <span class="n">신화</span><span class="p">,</span> <span class="n">고구려의</span> <span class="n">주몽</span> <span class="n">신화</span><span class="p">,</span> <span class="n">신라의</span> <span class="n">박혁거세</span> <span class="n">신화</span> <span class="n">등</span> <span class="n">대부분의</span> <span class="n">신화들은</span> <span class="n">나라를</span> <span class="n">세운</span> <span class="n">시조가</span> <span class="n">하늘에서</span> <span class="n">내려오거나</span> <span class="n">알에서</span> <span class="n">태어난</span> <span class="n">것이</span> <span class="n">많아요</span><span class="o">.</span> <span class="n">그런데</span> <span class="n">제주도의</span> <span class="n">신화는</span> <span class="n">땅에서</span> <span class="n">솟아나지요</span><span class="o">.</span> <span class="n">또</span> <span class="n">시조가</span> <span class="n">한</span> <span class="n">명이</span> <span class="n">아니라</span> <span class="n">세</span> <span class="n">명인</span> <span class="n">점도</span> <span class="n">특이해요</span><span class="o">.</span>
+<span class="n">그리고</span> <span class="n">벽랑국의</span> <span class="n">공주들이</span> <span class="n">곡식과</span> <span class="n">가축을</span> <span class="n">가져왔다는</span> <span class="n">이야기는</span> <span class="n">바다를</span> <span class="n">통해서</span> <span class="n">외래</span> <span class="n">문화가</span> <span class="n">들어왔다는</span> <span class="n">것을</span> <span class="n">의미합니다</span>
+</pre></div>
+</div>
+</section>
+<section id="rag-chatbot">
+<h2>rag chatbot 구현<a class="headerlink" href="#rag-chatbot" title="Link to this heading">#</a></h2>
+<p>위의 내용을 기반으로 구현하여 앞 부분은 같아서 생략하겠다. 밑의 코드를 통해 위에서 구현한 rag를 gradio를 통해 사용해 볼 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gradio</span> <span class="k">as</span> <span class="nn">gr</span>
+
+<span class="c1"># app start</span>
+<span class="k">def</span> <span class="nf">response</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
+     <span class="n">chat_history</span> <span class="o">=</span> <span class="p">[]</span>
+     <span class="k">for</span> <span class="n">human</span><span class="p">,</span><span class="n">ai</span> <span class="ow">in</span> <span class="n">history</span><span class="p">:</span>
+         <span class="n">chat_history</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+              <span class="p">[</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">human</span><span class="p">),</span>
+               <span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">ai</span><span class="p">)])</span>
+     <span class="n">ollama_response</span><span class="o">=</span><span class="n">rag_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span> <span class="s2">&quot;chat_history&quot;</span><span class="p">:</span> <span class="n">chat_history</span><span class="p">})</span>
+     <span class="k">return</span> <span class="n">ollama_response</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]</span>
+
+<span class="n">theme</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">themes</span><span class="o">.</span><span class="n">Soft</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="p">[</span><span class="n">gr</span><span class="o">.</span><span class="n">themes</span><span class="o">.</span><span class="n">GoogleFont</span><span class="p">(</span><span class="s2">&quot;Jua&quot;</span><span class="p">),</span><span class="s2">&quot;sans-serif&quot;</span><span class="p">])</span>
+
+<span class="c1"># primary_hue=gr.themes.colors.teal, 테마에서 시선을 끄는 색상</span>
+<span class="c1"># secondary_hue=gr.themes.colors.cyan) 보조요소</span>
+<span class="c1"># nautral_hue 텍스트 및 기타 중립 요소</span>
+
+<span class="n">gr</span><span class="o">.</span><span class="n">ChatInterface</span><span class="p">(</span>
+        <span class="n">fn</span><span class="o">=</span><span class="n">response</span><span class="p">,</span>
+        <span class="n">textbox</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;질문을 입력해주세요&quot;</span><span class="p">,</span> <span class="n">container</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
+        <span class="c1"># 채팅창의 크기를 조절한다.</span>
+        <span class="n">chatbot</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">Chatbot</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">),</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;✨제주 역사 가이드 llm✨&quot;</span><span class="p">,</span>
+        <span class="c1"># description=&quot;제주 역사 가이드 챗봇입니다.&quot;,</span>
+        <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;제주 다크 투어리즘 관광지 하나 알려줘&quot;</span><span class="p">],[</span><span class="s2">&quot;그에 얽힌 역사적 사실도 알려줘&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;제주 역사에 대해 알려줘&quot;</span><span class="p">]],</span>
+        <span class="n">retry_btn</span><span class="o">=</span><span class="s2">&quot;다시보내기 ↩&quot;</span><span class="p">,</span>
+        <span class="n">undo_btn</span><span class="o">=</span><span class="s2">&quot;이전챗 삭제 ❌&quot;</span><span class="p">,</span>
+        <span class="n">clear_btn</span><span class="o">=</span><span class="s2">&quot;전챗 삭제 💫&quot;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>실행 결과<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p><img alt="rag2" src="../../../_images/result2_ollamaembedding.png" /></p>
+</section>
+<section id="id4">
+<h2>고찰<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>프로젝트를 통해 rag를 간단히 구현해보면서 rag에 대해 배웠다. 실제로 gradio를 통해 챗봇으로 사용했을 때 아쉬운 점이 몇가지 있었다. 한 가지는 문서 임베딩이다. chromadb에 대해 미숙해서 몇번 새롭게 구축을 진행했는데 진행할 때 마다 약간씩 달라지는 것을 느꼈다.
+다른 한 가지는 시스템 프롬프트를 아직 적합한 것을 찾지 못한 점이다. 임의로 수정을 하고 진행했을 때 이상한 결과를 얻어 처음으로 돌아가게 되었다. 마지막은 실제로 챗봇을 사용할 때 한정적인 질문에 올바르게 작동한다는 점이다. 위에 결과에서 “제주 다크 투어리즘 하나 말해줘”라고 작성했을 때는 잘 작동하는데 “제주 다트 투어리즘 하나 추천해줘”라고 하면 이상하게 답변하는 경우가 종종있었다. 이 프로젝트를 심화시킨다면 위의 세 가지에 대해서 발전시키고 싶다.</p>
+<ul class="simple">
+<li><p>밑의 사진은 임베딩이 잘못되서 일어난 헤프닝으로 생각해서 새롭게 벡터스토어 구축 후에는 좋아졌다. + 삼성혈은 이도이동에 있다.
+<img alt="rag1" src="../../../_images/result_ollamaembedding.png" /></p></li>
+</ul>
+</section>
+<section id="reference">
+<h2>reference<a class="headerlink" href="#reference" title="Link to this heading">#</a></h2>
+<section id="markdown">
+<h3>Markdown<a class="headerlink" href="#markdown" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://aws.amazon.com/ko/what-is/retrieval-augmented-generation/">https://aws.amazon.com/ko/what-is/retrieval-augmented-generation/</a></p>
+<p><a class="reference external" href="https://velog.io/&#64;jjlee6496/RAG%EB%9E%80">https://velog.io/&#64;jjlee6496/RAG란</a></p>
+<p><a class="reference external" href="https://wikidocs.net/233780">https://wikidocs.net/233780</a></p>
+</section>
+<section id="chatbot">
+<h3>chatbot<a class="headerlink" href="#chatbot" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://velog.io/&#64;t_wave/gradiolangchainchatbot">https://velog.io/&#64;t_wave/gradiolangchainchatbot</a></p>
+<p><a class="reference external" href="https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/">https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/</a></p>
+</section>
+<section id="chromadb">
+<h3>chromadb<a class="headerlink" href="#chromadb" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://api.python.langchain.com/en/latest/vectorstores/langchain_chroma.vectorstores.Chroma.html">https://api.python.langchain.com/en/latest/vectorstores/langchain_chroma.vectorstores.Chroma.html</a></p>
+<p><a class="reference external" href="https://how.wtf/how-to-use-chroma-db-step-by-step-guide.html">https://how.wtf/how-to-use-chroma-db-step-by-step-guide.html</a></p>
+</section>
+<section id="css-font">
+<h3>css-font<a class="headerlink" href="#css-font" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://fonts.google.com/selection/embed">https://fonts.google.com/selection/embed</a></p>
+<p><a class="reference external" href="https://www.gradio.app/guides/theming-guide">https://www.gradio.app/guides/theming-guide</a></p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "chu-aie/mlops-2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./projects/202021012/RAG_project"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">RAG 프로그램 구현과정</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-basic">1. RAG Basic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">2. Indexing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-pdf-html-txt-loader">Load : pdf, Html, txt 여러 형태의 소스들을 loader을 통해 불러오고 처리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-splitter">Split : splitter을 이용해 위에서 불러온 문서를 처리 가능한 작은 단위로 분할</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embed">Embed :각 문서 또는 문서의 일부를 벡터 형태로 변환하여, 문서의 의미를 수치화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#store">store : 임베딩된 벡터들을 데이터베이스에 저장</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-and-generation">3. Retrieval and Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-target-information">Retrieval: 기존 정보 검색 시스템을 사용하여 target information에 대한 문서 또는 정보를 검색</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generator-retriever">Generator: Retriever가 검색한 정보를 바탕으로 의미있는 문장 또는 문단 생성</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">구현 - 제주 역사 관광지 가이드 llm</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Indexing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1. DATA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorstore">2. vectorstore 구축</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">rag 구축</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-chatbot">rag chatbot 구현</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">실행 결과</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">고찰</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference">reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown">Markdown</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot">chatbot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chromadb">chromadb</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#css-font">css-font</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By <a href='https://entelecheia.me/'>Young Joon Lee</a>
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script
+  data-embed-id="ed04ae65-928c-4ab5-912d-ce49f76450b7"
+  data-base-api-url="https://chat.entelecheia.app/api/embed"
+  data-brand-image-url="https://assets.entelecheia.ai/favicon.png"
+  data-chat-icon="magic"
+  data-sponsor-text="MLOps 2024"
+  data-sponsor-link="https://chat.entelecheia.app/workspace/mlops2024"
+  src="https://chat.entelecheia.app/embed/anythingllm-chat-widget.min.js">
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
