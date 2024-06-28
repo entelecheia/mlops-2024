@@ -550,11 +550,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorstore">2. vectorstore 구축</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">rag 구축</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-chatbot">rag chatbot 구현</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">RAG 구축</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-chatbot">RAG Chatbot 구현</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">실행 결과</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">고찰</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference">reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown">Markdown</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot">chatbot</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chromadb">chromadb</a></li>
@@ -680,7 +680,7 @@ document.write(`
 </section>
 </section>
 <section id="id2">
-<h2>rag 구축<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<h2>RAG 구축<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p>langchain의 데모를 기반으로 간단하게 구축을 진행했다.
 <a class="reference external" href="https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/">참고페이지</a>에서 prompt를 영어에서 한국어로 바꾸어 진행하였고 추후 챗봇 구축을 위해 수정하여 진행하였다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_community.chat_models</span> <span class="kn">import</span> <span class="n">ChatOllama</span>
@@ -778,7 +778,7 @@ document.write(`
 </div>
 </section>
 <section id="rag-chatbot">
-<h2>rag chatbot 구현<a class="headerlink" href="#rag-chatbot" title="Link to this heading">#</a></h2>
+<h2>RAG Chatbot 구현<a class="headerlink" href="#rag-chatbot" title="Link to this heading">#</a></h2>
 <p>위의 내용을 기반으로 구현하여 앞 부분은 같아서 생략하겠다. 밑의 코드를 통해 위에서 구현한 rag를 gradio를 통해 사용해 볼 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gradio</span> <span class="k">as</span> <span class="nn">gr</span>
 
@@ -828,8 +828,8 @@ document.write(`
 <img alt="rag1" src="../../../_images/result_ollamaembedding.png" /></p></li>
 </ul>
 </section>
-<section id="reference">
-<h2>reference<a class="headerlink" href="#reference" title="Link to this heading">#</a></h2>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <section id="markdown">
 <h3>Markdown<a class="headerlink" href="#markdown" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -947,11 +947,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorstore">2. vectorstore 구축</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">rag 구축</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-chatbot">rag chatbot 구현</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">RAG 구축</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-chatbot">RAG Chatbot 구현</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">실행 결과</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">고찰</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference">reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown">Markdown</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatbot">chatbot</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chromadb">chromadb</a></li>

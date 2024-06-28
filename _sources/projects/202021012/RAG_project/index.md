@@ -103,7 +103,7 @@ if __name__ == "__main__":
 
 - embedding으로 OllamaEmbeddings을 사용했으며 모델은 챗봇 구현에 사용할 huggingface모델인 Llama-3-Open-Ko-8B(=llama3ko)를 사용하였다.
 
-## rag 구축
+## RAG 구축
 
 langchain의 데모를 기반으로 간단하게 구축을 진행했다.
 [참고페이지](https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/)에서 prompt를 영어에서 한국어로 바꾸어 진행하였고 추후 챗봇 구축을 위해 수정하여 진행하였다.
@@ -205,7 +205,7 @@ second_question = "그에 얽힌 역사적 사실도 알려줘"
 그리고 벽랑국의 공주들이 곡식과 가축을 가져왔다는 이야기는 바다를 통해서 외래 문화가 들어왔다는 것을 의미합니다
 ```
 
-## rag chatbot 구현
+## RAG Chatbot 구현
 
 위의 내용을 기반으로 구현하여 앞 부분은 같아서 생략하겠다. 밑의 코드를 통해 위에서 구현한 rag를 gradio를 통해 사용해 볼 수 있다.
 
@@ -256,7 +256,7 @@ gr.ChatInterface(
 - 밑의 사진은 임베딩이 잘못되서 일어난 헤프닝으로 생각해서 새롭게 벡터스토어 구축 후에는 좋아졌다. + 삼성혈은 이도이동에 있다.
   ![rag1](result_ollamaembedding.png)
 
-## reference
+## References
 
 ### Markdown
 
