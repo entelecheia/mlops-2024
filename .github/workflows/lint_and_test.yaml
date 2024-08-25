@@ -75,6 +75,6 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # required
-          slug: chu-aie/mlops-2024
+          slug: entelecheia/mlops-2024
           fail_ci_if_error: false # optional (default = false)
           verbose: true # optional (default = false)

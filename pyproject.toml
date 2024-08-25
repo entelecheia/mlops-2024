@@ -4,8 +4,8 @@ version = "0.6.0"
 description = "Machine Learning Systems Design"
 authors = ["Young Joon Lee <yj.lee@chu.ac.kr>"]
 license = "CC-BY-4.0"
-homepage = "https://mlops2024.halla.ai"
-repository = "https://github.com/chu-aie/mlops-2024"
+homepage = "https://mlops2024.jeju.ai"
+repository = "https://github.com/entelecheia/mlops-2024"
 readme = "README.md"
 packages = [{ include = "mlops2024", from = "src" }]
 
